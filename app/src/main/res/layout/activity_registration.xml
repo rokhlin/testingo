@@ -1,0 +1,103 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".SignActivity">
+
+
+
+        <ImageView
+            android:layout_width="@dimen/foto_width"
+            android:layout_height="@dimen/foto_height"
+            android:id="@+id/imgFoto"
+            android:src="@drawable/usericon"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="@dimen/marginLeft" />
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/etFName"
+        android:hint="@string/enter_fname"
+        android:layout_below="@+id/imgFoto"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_margin="@dimen/ButtonPaddingLeft" />
+
+    <EditText
+        android:layout_width="@dimen/logoWhidth"
+        android:layout_height="wrap_content"
+        android:id="@+id/etEmail"
+        android:hint="@string/enter_email"
+        android:inputType="textEmailAddress"
+        android:layout_below="@+id/etLName"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="@dimen/ButtonPaddingLeft" />
+
+    <EditText
+        android:layout_width="@dimen/logoWhidth"
+        android:layout_height="wrap_content"
+        android:id="@+id/etPassword"
+        android:hint="@string/enter_password"
+        android:inputType="textPassword"
+        android:layout_below="@+id/etEmail"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="@dimen/ButtonPaddingLeft" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/etLName"
+        android:hint="@string/enter_lname"
+        android:layout_below="@+id/etFName"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_margin="@dimen/ButtonPaddingLeft" />
+
+    <EditText
+        android:layout_width="@dimen/logoWhidth"
+        android:layout_height="wrap_content"
+        android:id="@+id/etConfPassword"
+        android:hint="@string/enter_confPass"
+        android:inputType="textPassword"
+        android:layout_below="@+id/etPassword"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="@dimen/ButtonPaddingLeft"
+        android:layout_alignRight="@+id/etPassword"
+        android:layout_alignEnd="@+id/etPassword"
+        android:layout_margin="@dimen/ButtonPaddingLeft" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Confirm"
+        android:id="@+id/btnConfirm"
+        android:background="@color/confirm"
+        android:padding="@dimen/ButtonPaddingLeft"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/etLName"
+        android:layout_alignEnd="@+id/etLName"
+        android:layout_margin="@dimen/marginLeft" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/editFoto_label"
+        android:id="@+id/tvEditFoto"
+        android:textColor="@color/editText_color"
+        android:textColorHighlight="@color/edit_Foto_highlight"
+        android:layout_alignBottom="@+id/imgFoto"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>

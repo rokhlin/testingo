@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="confirm">#ff3362ff</color>
+    <color name="editText_color">#ffd3b5ff</color>
+    <color name="edit_Foto_highlight">#ff898989</color>
+</resources>

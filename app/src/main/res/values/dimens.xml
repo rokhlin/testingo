@@ -1,0 +1,13 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="logoWhidth">180dp</dimen>
+    <dimen name="marginLeft">16dp</dimen>
+    <dimen name="ButtonPaddingLeft">8dp</dimen>
+    <dimen name="Foto_top_margin">26dp</dimen>
+    <dimen name="edit_label_margin">30dp</dimen>
+    <dimen name="foto_width">120dp</dimen>
+    <dimen name="foto_height">150dp</dimen>
+    <dimen name="question_height">64dp</dimen>
+</resources>
