@@ -1,0 +1,8 @@
+{
+	"_id": "s5as4d5as",
+	"text": "Select foeach operator in JavaScript",
+	"image": "question.png",
+	"type": "radio",
+	"hint": "",
+	"data": ["For", "Foreach", ".each", "JavaScript have no JavaScipt operator"]
+}

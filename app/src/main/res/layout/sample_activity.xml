@@ -1,0 +1,39 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:yelp="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context=".MyActivity">
+
+    <ImageView android:id="@+id/logo"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/testingo"/>
+
+    <TextView android:id="@+id/h1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/app_name"
+        android:fontFamily="Roboto"
+        android:textSize="36dp"
+        android:layout_below="@id/logo"
+        android:layout_centerHorizontal="true"/>
+
+    <com.yelp.android.webimageview.WebImageView
+        android:id="@+id/user_image"
+        android:layout_height="100dp"
+        android:layout_width="100dp"
+        yelp:autoload="false"
+        yelp:loading="@drawable/image_placeholder"
+        yelp:image_priority="3"
+        android:layout_below="@id/h1"
+        />
+
+</RelativeLayout>

@@ -29,11 +29,6 @@ public class TestDetailCard {
 		this.user = user;
 	}
 
-	public TestDetailCard withUser(UserBasic user) {
-	this.user = user;
-		return this;
-	}
-
 	/**
 	* 
 	* @return
@@ -50,11 +45,6 @@ public class TestDetailCard {
 	*/
 	public void setTest(TestDetailInfo test) {
 		this.test = test;
-	}
-
-	public TestDetailCard withTest(TestDetailInfo test) {
-		this.test = test;
-		return this;
 	}
 
     public static TestDetailCard fromJson(String data) {

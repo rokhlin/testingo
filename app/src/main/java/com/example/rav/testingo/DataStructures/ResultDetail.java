@@ -31,11 +31,6 @@ public class ResultDetail {
 	this.user = user;
 	}
 
-	public ResultDetail withUser(UserBasic user) {
-	this.user = user;
-	return this;
-	}
-
 	/**
 	* 
 	* @return
@@ -54,11 +49,6 @@ public class ResultDetail {
 	this.test = test;
 	}
 
-	public ResultDetail withTest(TestInfoTemplate test) {
-	this.test = test;
-	return this;
-	}
-
 	/**
 	* 
 	* @return
@@ -75,11 +65,6 @@ public class ResultDetail {
 	*/
 	public void setResult(ResultInfo result) {
 	this.result = result;
-	}
-
-	public ResultDetail withResult(ResultInfo result) {
-        this.result = result;
-        return this;
 	}
 
     public static ResultDetail fromJson(String data) {

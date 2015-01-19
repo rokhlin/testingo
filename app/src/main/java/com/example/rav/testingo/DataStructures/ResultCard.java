@@ -29,11 +29,6 @@ public class ResultCard {
 		this.test = test;
 	}
 
-	public ResultCard withTest(TestInfoTemplate test) {
-		this.test = test;
-		return this;
-	}
-
 	/**
 	* 
 	* @return
@@ -50,11 +45,6 @@ public class ResultCard {
 	*/
 	public void setResult(ResultInfo result) {
 		this.result = result;
-	}
-
-	public ResultCard withResult(ResultInfo result) {
-		this.result = result;
-		return this;
 	}
 
     public static ResultCard fromJson(String data) {

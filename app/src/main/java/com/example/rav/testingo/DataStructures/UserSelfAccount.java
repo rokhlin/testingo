@@ -38,11 +38,6 @@ public class UserSelfAccount {
 		this.firstName = firstName;
 	}
 
-	public UserSelfAccount withFirstName(String firstName) {
-		this.firstName = firstName;
-		return this;
-	}
-
 	/**
 	* 
 	* @return
@@ -59,11 +54,6 @@ public class UserSelfAccount {
 	*/
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
-	}
-
-	public UserSelfAccount withLastName(String lastName) {
-		this.lastName = lastName;
-		return this;
 	}
 
 	/**
@@ -84,11 +74,6 @@ public class UserSelfAccount {
 		this.email = email;
 	}
 
-	public UserSelfAccount withEmail(String email) {
-		this.email = email;
-		return this;
-	}
-
 	/**
 	* 
 	* @return
@@ -107,11 +92,6 @@ public class UserSelfAccount {
 		this.avatar = avatar;
 	}
 
-	public UserSelfAccount withAvatar(String avatar) {
-		this.avatar = avatar;
-		return this;
-	}
-
 	/**
 	* 
 	* @return
@@ -128,11 +108,6 @@ public class UserSelfAccount {
 	*/
 	public void setSubscriptions(List<UserBasic> subscriptions) {
 		this.subscriptions = subscriptions;
-	}
-
-	public UserSelfAccount withSubscriptions(List<UserBasic> subscriptions) {
-		this.subscriptions = subscriptions;
-		return this;
 	}
 
     public static UserSelfAccount fromJson(String data) {

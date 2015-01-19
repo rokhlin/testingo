@@ -48,11 +48,6 @@ public class ResultInfo {
 		this.img = img;
 	}
 
-	public ResultInfo withImg(String img) {
-		this.img = img;
-		return this;
-	}
-
 	/**
 	* 
 	* @return
@@ -69,11 +64,6 @@ public class ResultInfo {
 	*/
 	public void setText(String text) {
 		this.text = text;
-	}
-
-	public ResultInfo withText(String text) {
-		this.text = text;
-		return this;
 	}
 
 	/**
@@ -94,11 +84,6 @@ public class ResultInfo {
 		this.description = description;
 	}
 
-	public ResultInfo withDescription(String description) {
-		this.description = description;
-		return this;
-	}
-
 	/**
 	* 
 	* @return
@@ -117,10 +102,6 @@ public class ResultInfo {
 		this.done = done;
 	}
 
-	public ResultInfo withDone(Boolean done) {
-		this.done = done;
-		return this;
-	}
 
 	/**
 	* 
@@ -140,10 +121,6 @@ public class ResultInfo {
 	this.time = time;
 	}
 
-	public ResultInfo withTime(Integer time) {
-	this.time = time;
-	return this;
-	}
 
     public static ResultInfo fromJson(String data) {
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation()

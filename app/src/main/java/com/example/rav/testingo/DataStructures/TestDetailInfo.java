@@ -12,6 +12,10 @@ public class TestDetailInfo extends TestInfoTemplate {
 	private Integer time;
 	@Expose
 	private String hint;
+    @Expose
+    private Boolean showResult;
+    @Expose
+    private String date;
 
 	/**
 	* 
@@ -29,11 +33,6 @@ public class TestDetailInfo extends TestInfoTemplate {
 	*/
 	public void setQuestionsCount(Integer questionsCount) {
 		this.questionsCount = questionsCount;
-	}
-
-	public TestDetailInfo withQuestionsCount(Integer questionsCount) {
-		this.questionsCount = questionsCount;
-		return this;
 	}
 
 	/**
@@ -54,11 +53,6 @@ public class TestDetailInfo extends TestInfoTemplate {
 		this.time = time;
 	}
 
-	public TestDetailInfo withTime(Integer time) {
-		this.time = time;
-		return this;
-	}
-
 	/**
 	* 
 	* @return
@@ -68,19 +62,50 @@ public class TestDetailInfo extends TestInfoTemplate {
 		return hint;
 	}
 
-	/**
-	* 
-	* @param hint
-	* The hint
-	*/
-	public void setHint(String hint) {
-		this.hint = hint;
-	}
+    /**
+     *
+     * @param hint
+     * The hint
+     */
+    public void setHint(String hint) {
+        this.hint = hint;
+    }
 
-	public TestDetailInfo withHint(String hint) {
-		this.hint = hint;
-		return this;
-	}
+    /**
+     *
+     * @param date
+     * The hint
+     */
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    /**
+     *
+     * @return
+     * The date
+     */
+    public String getDate() {
+        return date;
+    }
+
+    /**
+     *
+     * @return
+     * The showResult
+     */
+    public Boolean isShowResult() {
+        return showResult;
+    }
+
+    /**
+     *
+     * @param showResult
+     * The hint
+     */
+    public void setShowResult(Boolean showResult) {
+        this.showResult = showResult;
+    }
 
     public static TestDetailCard fromJson(String data) {
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation()

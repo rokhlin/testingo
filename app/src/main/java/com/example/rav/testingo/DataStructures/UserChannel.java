@@ -32,11 +32,6 @@ public class UserChannel {
 		this.user = user;
 	}
 
-	public UserChannel withUser(UserBasic user) {
-		this.user = user;
-		return this;
-	}
-
 	/**
 	* 
 	* @return
@@ -53,11 +48,6 @@ public class UserChannel {
 	*/
 	public void setChannel(List<TestInfoTemplate> channel) {
 		this.channel = channel;
-	}
-
-	public UserChannel withChannel(List<TestInfoTemplate> channel) {
-		this.channel = channel;
-		return this;
 	}
 
     public static UserChannel fromJson(String data) {

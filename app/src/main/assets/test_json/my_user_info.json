@@ -1,0 +1,19 @@
+{
+	"firstName": "Max",
+	"lastName": "max",
+	"email": "poc@site.il",
+	"avatar": "my_avatar.png",
+
+	"subscriptions" : [
+		{
+			"_id": "56a5sd6",
+			"name": "Anton Rohlin",
+			"avatar": "channel1.png"
+		},
+		{
+			"_id": "56a5sd7",
+			"name": "Mykhailo Shtutman",
+			"avatar": "channel2.png"
+		}	
+	]
+}

@@ -16,6 +16,8 @@ public class Question {
     @Expose
     private String text;
     @Expose
+    private String image;
+    @Expose
     private String type;
     @Expose
     private String hint;
@@ -42,16 +44,29 @@ public class Question {
 
     /**
      *
+     * @param image
+     * The text
+     */
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    /**
+     *
+     * @return
+     * The image
+     */
+    public String getImage() {
+        return image;
+    }
+
+    /**
+     *
      * @param text
      * The text
      */
     public void setText(String text) {
         this.text = text;
-    }
-
-    public Question withText(String text) {
-        this.text = text;
-        return this;
     }
 
     /**
@@ -72,10 +87,6 @@ public class Question {
         this.type = type;
     }
 
-    public Question withType(String type) {
-        this.type = type;
-        return this;
-    }
 
     /**
      *
@@ -93,11 +104,6 @@ public class Question {
      */
     public void setHint(String hint) {
         this.hint = hint;
-    }
-
-    public Question withHint(String hint) {
-        this.hint = hint;
-        return this;
     }
 
     /**
@@ -118,10 +124,6 @@ public class Question {
         this.data = data;
     }
 
-    public Question withData(List<String> data) {
-        this.data = data;
-        return this;
-    }
 
     public static Question fromJson(String data) {
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation()

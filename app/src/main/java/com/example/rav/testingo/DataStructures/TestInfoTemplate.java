@@ -49,11 +49,6 @@ public abstract class TestInfoTemplate {
 		this.name = name;
 	}
 
-//	public TestInfo withName(String name) {
-//		this.name = name;
-//		return this;
-//	}
-
 	/**
 	* 
 	* @return
@@ -71,11 +66,6 @@ public abstract class TestInfoTemplate {
 	public void setImage(String image) {
 		this.image = image;
 	}
-
-//	public TestInfo withImage(String image) {
-//		this.image = image;
-//		return this;
-//	}
 
 	/**
 	* 
@@ -95,11 +85,6 @@ public abstract class TestInfoTemplate {
 		this.description = description;
 	}
 
-//	public TestInfo withDescription(String description) {
-//		this.description = description;
-//		return this;
-//	}
-
 	/**
 	* 
 	* @return
@@ -118,11 +103,6 @@ public abstract class TestInfoTemplate {
 		this.count = count;
 	}
 
-//	public TestInfo withCount(Integer count) {
-//		this.count = count;
-//		return this;
-//	}
-
 	/**
 	* 
 	* @return
@@ -139,10 +119,5 @@ public abstract class TestInfoTemplate {
 	*/
 	public void setTags(List<String> tags) {
 		this.tags = tags;
-	}
-
-	public TestInfoTemplate withTags(List<String> tags) {
-		this.tags = tags;
-		return this;
 	}
 }

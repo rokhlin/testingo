@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="base_url">https://still-journey-5073.herokuapp.com/test_json/</string>
+    <string name="base_url">https://still-journey-5073.herokuapp.com/</string>
     <string name="app_name">Testingo</string>
     <string name="hint_Answer">Type Your Answer here</string>
     <string name="hello_world">Hello world!</string>

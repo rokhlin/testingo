@@ -42,11 +42,6 @@ public class UserBasic {
 		this.name = name;
 	}
 
-	public UserBasic withName(String name) {
-		this.name = name;
-		return this;
-	}
-
 	/**
 	* 
 	* @return
@@ -63,11 +58,6 @@ public class UserBasic {
 	*/
 	public void setAvatar(String avatar) {
 		this.avatar = avatar;
-	}
-
-	public UserBasic withAvatar(String avatar) {
-		this.avatar = avatar;
-		return this;
 	}
 
     public static UserBasic fromJson(String data) {

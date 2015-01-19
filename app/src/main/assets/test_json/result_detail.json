@@ -1,0 +1,25 @@
+{
+	"user": {
+		"_id": "56a5sd9",
+		"name": "Nickolas Ivanov",
+		"avatar": "channel3.png"
+	},
+
+	"test": {
+			"_id": "56a5s66",
+			"name": "Your JavaScript level",
+			"image": "",
+			"description": "Are you JavaScript developer or not?",
+			"count": 5,
+			"tags": ["JavaScript", "programming"]
+	},	
+
+	"result": {
+		"_id": "56a5sd6",
+		"img": "result1.png",
+		"text": "Idiot",
+		"description": "You're fucking idiot",
+		"done": true,
+		"time": 0		
+	}
+}
