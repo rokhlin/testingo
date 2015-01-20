@@ -7,9 +7,9 @@ import com.google.gson.GsonBuilder;
  * Created by Shtutman on 16.01.2015.
  */
 public class TestInfo extends TestInfoTemplate {
-    public static TestInfoTemplate fromJson(String data) {
+    public static TestInfo fromJson(String data) {
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation()
                 .create();
-        return gson.fromJson(data, TestInfoTemplate.class);
+        return gson.fromJson(data, TestInfo.class);
     }
 }

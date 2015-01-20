@@ -11,7 +11,7 @@ public class ResultInfo {
 	@Expose
 	private String Id;
 	@Expose
-	private String img;
+	private String image;
 	@Expose
 	private String text;
 	@Expose
@@ -33,19 +33,19 @@ public class ResultInfo {
 	/**
 	* 
 	* @return
-	* The img
+	* The image
 	*/
-	public String getImg() {
-		return img;
+	public String getImage() {
+		return image;
 	}
 
 	/**
 	* 
-	* @param img
-	* The img
+	* @param image
+	* The image
 	*/
-	public void setImg(String img) {
-		this.img = img;
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 	/**

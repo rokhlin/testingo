@@ -33,7 +33,7 @@ public class HttpDataClient extends DataClient {
     }
 
     private Context c;
-    AsyncHttpClient client = new AsyncHttpClient();
+    private AsyncHttpClient client = new AsyncHttpClient();
 
     @Override
     public void get(String url, int id) {

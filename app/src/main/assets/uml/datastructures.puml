@@ -1,0 +1,191 @@
+@startuml
+
+package com.testingo.datastructures {
+    class ErrorResponce {
+        -err : String
+        +getErr() : String
+        +{static}fromJson(String) : ErrorResponce
+    }
+
+    class LoginInfo {
+        -token : String
+        +getToken() : String
+        +{static}fromJson(String) : LoginInfo
+    }
+
+    class NotificationsInfo {
+        -notifications: Integer
+        +getNotifications() : Integer
+        +{static}fromJson(String data) : NotificationsInfo
+    }
+
+    class Question {
+        -Id : String
+        -text : String
+        -image : String
+        -type : String
+        -hint : String
+        -data : [String]
+
+        +getId() : String
+        +getText() : String
+        +getImage() : String
+        +getType() : String
+        +getHint() : String
+        +getData() : String
+        +setText(String) : void
+        +setImage(String) : void
+        +setType(String) : void
+        +setHint(String) : void
+        +setData(String) : void
+        +{static}fromJson(String data) : Question
+    }
+
+    class ResultCard {
+        -test : TestInfo
+        -result : ResultInfo
+
+        +getTest() : TestInfo
+        +getResult() : TestInfo
+        +setResult(ResultInfo) : void
+        +setTest(TestInfo) : void
+        +{static}fromJson(String data) : ResultCard
+        +{static}arrayFromJson(String data) : [ResultCard]
+    }
+
+    class ResultDetail {
+        -user : UserBasic
+        -test : TestInfo
+        -result : ResultInfo
+
+        +getUser() : UserBasic
+        +getTest() : TestInfo
+        +getResult() : ResultInfo
+        +setUser(UserBasic) : void
+        +setTest(TestInfo) : void
+        +setResult(ResultInfo): void
+        +{static}fromJson(String data) : ResultDetail
+    }
+
+    class ResultInfo {
+        -Id : String
+        -image : String
+        -text : String
+        -description : String
+        -done : Boolean
+        -time : Integer
+
+        +getId() : String
+        +getImage() : String
+        +getText() : String
+        +getDescription() : String
+        +getDone() : Boolean
+        +getTime() : Integer
+        +setImage(String) : void
+        +setText(String) : void
+        +setDescription(String) : void
+        +setDone(Boolean) : void
+        +setTime(Integer) : void
+        +{static}fromJson(String data) : ResultInfo
+    }
+
+    class TestCard {
+        -user : UserBasic
+        -test : TestInfo
+
+        +getTest() : TestInfo
+        +getUser() : UserBasic
+        +setUser(UserBasic) : void
+        +setTest(TestInfo) : void
+        +{static}fromJson(String data) : TestCard
+        +{static}arrayFromJson(String data) : [TestCard]
+    }
+
+    class TestDetailCard {
+        -user : User
+        -test : TestDetailInfo
+
+        +getTest() : TestDetailInfo
+        +getUser() : UserBasic
+        +setUser(UserBasic) : void
+        +setTest(TestDetailInfo) : void
+        +{static}fromJson(String data) : TestCard
+        +{static}arrayFromJson(String data) : [TestCard]
+    }
+
+    class TestDetailInfo {
+        -questionsCount : Integer
+        -time : Integer
+        -hint : String
+        -showResult : Boolean
+        -date : String
+
+        +getQuestionsCount() : Integer
+        +setQuestionsCount(Integer) : void
+        +getTime() : Integer
+        +setTime(Integer) : void
+        +getHint : String
+        +setHint(String) : void
+        +isShowResult() : Boolean
+        +setShowResult(Boolean) : void
+        +getDate() : String
+        +setDate(String) : void
+        +{static}fromJson(String data) : TestDetailInfo
+    }
+
+    class TestInfo {
+        +{static}fromJson(String data) : TestDetailInfo
+    }
+
+    abstract class TestInfoTemplate  {
+        -Id : String
+        -name : String
+        -image : String
+        -description : String
+        -count : Integer
+        -tags : [String]
+
+        +getId() : String
+        +getName() : String
+        +getImage() : String
+        +getDescription() : String
+        +getCount() : Integer
+        +getTags() : [String]
+        +setName(String)
+        +setImage(String)
+        +setDescription(String)
+        +setCount(Integer)
+        +setTags([String])
+    }
+
+    class UserBasic {
+        -Id : String
+        -name : String
+        -avatar : String
+
+        +getId() : String
+        +getName() : String
+        +getAvatar() : String
+        +setName(String) : void
+        +setAvatar(String) : void
+        +{static}fromJson(String data) : UserBasic
+    }
+
+    class UserChannel {
+        -user : UserBasic
+        -channel : [TestInfo]
+
+        +getUser() : UserBasic
+        +getChannel() : [TestInfo]
+        +setUser(UserBasic) : void
+        +setChannel([TestInfo]) : void
+        +{static}fromJson(String data) : UserChannel
+    }
+
+    class UserSelfAccount() {
+        'uses'
+        +{static}fromJson(String data) : UserSelfAccount
+    }
+}
+
+@enduml

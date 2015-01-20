@@ -9,7 +9,7 @@ public class TestCard {
 	@Expose
 	private UserBasic user;
 	@Expose
-	private TestInfoTemplate test;
+	private TestInfo test;
 
 	/**
 	* 
@@ -34,7 +34,7 @@ public class TestCard {
 	* @return
 	* The test
 	*/
-	public TestInfoTemplate getTest() {
+	public TestInfo getTest() {
 		return test;
 	}
 
@@ -43,7 +43,7 @@ public class TestCard {
 	* @param test
 	* The test
 	*/
-	public void setTest(TestInfoTemplate test) {
+	public void setTest(TestInfo test) {
 		this.test = test;
 	}
 

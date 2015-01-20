@@ -2,13 +2,13 @@
 	"user": {
 			"_id": "56a5sd6",
 			"name": "Anton Rohlin",
-			"avatar": "https://still-journey-5073.herokuapp.com/img/avatar/channel1.png"
+			"avatar": "https://still-journey-5073.herokuapp.com/image/avatar/channel1.png"
 	},
 	"channel" : [
 		{
 			"_id": "56a5sd6",
 			"name": "English intermediate test",
-			"image": "https://still-journey-5073.herokuapp.com/img/test/test1.png",
+			"image": "https://still-journey-5073.herokuapp.com/image/test/test1.png",
 			"description": "Check youself in your English skills",
 			"count": 16,
 			"tags": ["language", "english"],

@@ -7,7 +7,7 @@ import com.google.gson.annotations.Expose;
 public class ResultCard {
 
 	@Expose
-	private TestInfoTemplate test;
+	private TestInfo test;
 	@Expose
 	private ResultInfo result;
 
@@ -16,7 +16,7 @@ public class ResultCard {
 	* @return
 	* The test
 	*/
-	public TestInfoTemplate getTest() {
+	public TestInfo getTest() {
 		return test;
 	}
 
@@ -25,7 +25,7 @@ public class ResultCard {
 	* @param test
 	* The test
 	*/
-	public void setTest(TestInfoTemplate test) {
+	public void setTest(TestInfo test) {
 		this.test = test;
 	}
 

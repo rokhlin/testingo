@@ -1,0 +1,109 @@
+@startuml
+
+Question "1" --o "1" QuestionResult : _question
+
+Result "1" *-- "*" QuestionResult : qustions
+Result "1" o-- "1" Test : _test
+Result "1" o-- "1" User : user
+
+Scale "*" o-- "1" User : user
+Scale "1" *-- "*" Grade : grades
+
+Subscription "1" o-- "1" User : userFrom
+Subscription "1" o-- "1" User : userTo
+
+User "1" o-- "*" Test : notifications
+User "1" o-- "1" User : _company
+
+Test "1" o-- "1" Scale : _scale
+Test "1" o-- "1" User : user
+
+class Test {
+    _user: ObjectId
+    _scale: ObjectId
+	name: String,
+	description: String
+	creationDate: Date
+	status: String
+	count: Number
+	visibility: String
+	time: Number
+	minScore: Number
+	image: String
+	tags : [1..*] String
+	questionsCount: Number
+	showHint: Boolean
+	showAnswer: Boolean
+	randomOrder: Boolean
+	mixAnswers: Boolean
+}
+
+class Question {
+	text: String
+	image: String
+	hint: String
+	order: Number
+	qType: String
+	group: Number
+	data: [String]
+	answer: [String]
+	action: String
+	score: Number
+}
+
+class QuestionResult {
+	_question : ObjectId
+	qAnswer : String
+	qRight : String
+	qResult : Boolean
+}
+
+
+class Result {
+    _user: ObjectId
+    _test: ObjectId
+    questions: [QuestionResult]
+	date: Date
+	message: String
+	done: Boolean
+	time: Numbers
+}
+
+class Subscription {
+    _userFrom: ObjectId
+    _userTo: ObjectId
+}
+
+class Grade {
+	score: Number
+	message: String
+	description: String
+}
+
+class Scale {
+    grades: [Grade]
+    _user: ObjectId
+	script: String
+}
+
+class User {
+    _company: ObjectId
+    _notifications: [ObjectId]
+	registrationDate:  Date
+	firstName: String
+	lastName: String
+	middleName: String
+	channelName: String
+	email: String
+	passwordHash: String
+	passwordSalt: String
+	avatar: String
+	country: String
+	companyName: String
+	position: String
+	companyName: String
+	balance: Number
+}
+
+@enduml
+

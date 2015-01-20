@@ -12,10 +12,10 @@ public class UserChannel {
 	@Expose
 	private UserBasic user;
 	@Expose
-	private List<TestInfoTemplate> channel = new ArrayList<TestInfoTemplate>();
+	private List<TestInfo> channel = new ArrayList<TestInfo>();
 
 	/**
-	* 
+	*
 	* @return
 	* The user
 	*/
@@ -37,7 +37,7 @@ public class UserChannel {
 	* @return
 	* The channel
 	*/
-	public List<TestInfoTemplate> getChannel() {
+	public List<TestInfo> getChannel() {
 		return channel;
 	}
 
@@ -46,7 +46,7 @@ public class UserChannel {
 	* @param channel
 	* The channel
 	*/
-	public void setChannel(List<TestInfoTemplate> channel) {
+	public void setChannel(List<TestInfo> channel) {
 		this.channel = channel;
 	}
 

@@ -1,0 +1,58 @@
+@startuml
+
+package com.testingo.dataflow {
+    abstract class DataClient {
+        #baseUrl: String
+        +DataClient(String)
+        +{abstract}get(String, int): void
+        +{abstract}post(String, String, int): void
+    }
+
+    class CustomJsonHttpResponse {
+        #CustomJsonHttpResponse(int): void
+        +onSuccess(int Header, String): void
+        +onFailure(int Header, String, Throwable): void
+    }
+    CustomJsonHttpResponse --* HttpDataClient
+    CustomJsonHttpResponse --|> com.loopj.android.http.TextResponceHandler
+    CustomJsonHttpResponse --> de.greenrobot.event.EventBus
+
+     class HttpDataClient {
+        -c: Context
+        -client : AsyncHttpClient
+        #baseUrl: String
+        -absuluteURL(String): String
+        +DataClient(String, Context)
+        +{abstract}get(String, int): void
+        +{abstract}post(String, String, int): void
+     }
+     HttpDataClient --|> DataClient
+     HttpDataClient *-- com.loopj.android.http.HttpAsyncClient
+     HttpDataClient --> ErrorResponseEvent
+     HttpDataClient --> JsonResponseEvent
+
+     class ErrorResponseEvent {
+        -message: String
+        -id: int
+        +getMessage(): String
+        +getId(): int
+     }
+
+     class JsonResponseEvent {
+        -data: String
+        -id: int
+        +getData(): String
+        +getId(): int
+     }
+}
+
+package de.greenrobot.event {
+     class EventBus
+}
+
+package com.loopj.android.http {
+    class HttpAsyncClient
+    class TextResponceHandler
+}
+
+@enduml

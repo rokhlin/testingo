@@ -1,0 +1,21 @@
+@startuml
+
+package com.testingo {
+    package bl
+    package datastructures
+    package dataflow
+}
+package com.yelp
+package com.google.gson
+package de.greenrobot.event
+package com.loopj.android.http
+
+bl --> dataflow
+bl --> datastructures
+bl --> com.yelp
+bl --> de.greenrobot.event
+dataflow --> de.greenrobot.event
+dataflow --> com.loopj.android.http
+datastructures --> com.google.gson
+
+@enduml
