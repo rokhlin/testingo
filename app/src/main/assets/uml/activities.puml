@@ -1,0 +1,37 @@
+@startuml
+
+package com.testingo.controllers {
+    SignActivity --> FeedActivity
+    SignActivity --> RegistrationActivity
+    FeedActivity --> ChanelActivity
+    FeedActivity --> TestDetailActivity
+    ChannelActivity --> TestDetailActivity
+    TestDetailActivity --> QuestionActivity
+    QuestionActivity --> QuestionActivity
+    QuestionActivity --> ResultDetailActivity
+    ResultsActivity --> ResultDetailActivity
+    RegistrationActivity --> FeedActivity
+
+    class SignActivity {
+    }
+    class FeedActivity {
+    }
+    class RegistrationActivity {
+    }
+    class QuestionActivity {
+    }
+    class ResultsActivity {
+    }
+    class ResultDetailActivity {
+    }
+    class TestDetailActivity {
+    }
+    class ChannelActivity {
+    }
+    class SubscriptionsActivity {
+    }
+    class SettingsActivity {
+    }
+}
+
+@enduml

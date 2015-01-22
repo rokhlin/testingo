@@ -94,7 +94,7 @@ private static final Logger logger
 	  = Logger.getLogger(FinalizableReferenceQueue.class.getName());
 
 private static final String FINALIZER_CLASS_NAME
-	  = "com.com.yelp.common.base.internal.Finalizer";
+	  = "com.yelp.common.base.internal.Finalizer";
 
 /** Reference to Finalizer.startFinalizer(). */
 private static final Method startFinalizer;

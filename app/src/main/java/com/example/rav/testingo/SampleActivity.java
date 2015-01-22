@@ -57,8 +57,8 @@ public class SampleActivity extends Activity {
 
             String base_url = getResources().getString(R.string.base_url);
             WebImageView wiv = (WebImageView)findViewById(R.id.user_image);
-            wiv.setImageUrl(base_url + "img/avatar/" + t.getUser().getAvatar());
             Log.d("TAG", base_url + "img/avatar/" + t.getUser().getAvatar());
+            wiv.setImageUrl("https://still-journey-5073.herokuapp.com/img/test.png");
         }
     }
 

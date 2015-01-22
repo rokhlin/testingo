@@ -1,0 +1,63 @@
+@startuml
+
+package com.testingo.datastructures {
+    class ErrorResponce {
+    }
+
+    class LoginInfo {
+    }
+
+    class NotificationsInfo {
+    }
+
+    class Question {
+    }
+
+    ResultCard "1" o-- "1" TestInfo
+    ResultCard "1" o-- "1" ResultInfo
+    class ResultCard {
+    }
+
+    ResultDetail "1" o-- "1" UserBasic
+    ResultDetail "1" o-- "1" TestInfo
+    ResultDetail "1" o-- "1" ResultInfo
+    class ResultDetail {
+    }
+
+    class ResultInfo {
+    }
+
+    TestCard "1" o-- "1" UserBasic
+    TestCard "1" o-- "1" TestInfo
+    class TestCard {
+    }
+
+    TestDetailCard "1" o-- "1" UserBasic
+    TestDetailCard "1" o-- "1" TestDetailInfo
+    class TestDetailCard {
+    }
+
+    TestDetailInfo --|> TestInfoTemplate
+    class TestDetailInfo {
+    }
+
+    TestInfo --|> TestInfoTemplate
+    class TestInfo {
+    }
+
+    abstract class TestInfoTemplate  {
+    }
+
+    class UserBasic {
+    }
+
+    UserChannel "1" o-- "1" UserBasic
+    UserChannel "1" o-- "*" TestInfo
+    class UserChannel {
+    }
+
+    class UserSelfAccount() {
+    }
+}
+
+@enduml

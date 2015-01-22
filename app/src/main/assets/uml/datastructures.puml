@@ -41,6 +41,8 @@ package com.testingo.datastructures {
         +{static}fromJson(String data) : Question
     }
 
+    ResultCard "1" o-- "1" TestInfo
+    ResultCard "1" o-- "1" ResultInfo
     class ResultCard {
         -test : TestInfo
         -result : ResultInfo
@@ -53,6 +55,9 @@ package com.testingo.datastructures {
         +{static}arrayFromJson(String data) : [ResultCard]
     }
 
+    ResultDetail "1" o-- "1" UserBasic
+    ResultDetail "1" o-- "1" TestInfo
+    ResultDetail "1" o-- "1" ResultInfo
     class ResultDetail {
         -user : UserBasic
         -test : TestInfo
@@ -89,6 +94,8 @@ package com.testingo.datastructures {
         +{static}fromJson(String data) : ResultInfo
     }
 
+    TestCard "1" o-- "1" UserBasic
+    TestCard "1" o-- "1" TestInfo
     class TestCard {
         -user : UserBasic
         -test : TestInfo
@@ -101,8 +108,10 @@ package com.testingo.datastructures {
         +{static}arrayFromJson(String data) : [TestCard]
     }
 
+    TestDetailCard "1" o-- "1" UserBasic
+    TestDetailCard "1" o-- "1" TestDetailInfo
     class TestDetailCard {
-        -user : User
+        -user : UserBasic
         -test : TestDetailInfo
 
         +getTest() : TestDetailInfo
@@ -113,6 +122,7 @@ package com.testingo.datastructures {
         +{static}arrayFromJson(String data) : [TestCard]
     }
 
+    TestDetailInfo --|> TestInfoTemplate
     class TestDetailInfo {
         -questionsCount : Integer
         -time : Integer
@@ -133,6 +143,7 @@ package com.testingo.datastructures {
         +{static}fromJson(String data) : TestDetailInfo
     }
 
+    TestInfo --|> TestInfoTemplate
     class TestInfo {
         +{static}fromJson(String data) : TestDetailInfo
     }
@@ -171,6 +182,8 @@ package com.testingo.datastructures {
         +{static}fromJson(String data) : UserBasic
     }
 
+    UserChannel "1" o-- "1" UserBasic
+    UserChannel "1" o-- "*" TestInfo
     class UserChannel {
         -user : UserBasic
         -channel : [TestInfo]
@@ -183,7 +196,21 @@ package com.testingo.datastructures {
     }
 
     class UserSelfAccount() {
-        'uses'
+        -firstName : String
+        -lastName : String
+        -email : String
+        -avatar : String
+        -tags : [String]
+        +getFirstName() : String
+        +getLastName() : String
+        +getEmail() : String
+        +getAvatar() : String
+        +getTags() : [String]
+        +setFirstName(String) : void
+        +setLastName(String) : void
+        +setEmail(String) : void
+        +setAvatar(String) : void
+        +setTags([String]) : void
         +{static}fromJson(String data) : UserSelfAccount
     }
 }
