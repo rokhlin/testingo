@@ -37,5 +37,4 @@
     <string name="LOG_TAG_REGISTRATION">Registration</string>
     <string name="LOG_TAG_PREFERENCES">Preferences</string>
     <string name="title_activity_test">TestActivity</string>
-
 </resources>

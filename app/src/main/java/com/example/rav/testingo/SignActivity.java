@@ -55,34 +55,34 @@ public class SignActivity extends ActionBarActivity implements View.OnClickListe
     }
 
 
-    public void loadData() {
-        DataClient client = new HttpDataClient(getResources().getString(R.string.base_url), this);
-        client.get("test_details.json", TEXT_DETAIL_CARD_JSON);
-    }
+//    public void loadData() {
+//        DataClient client = new HttpDataClient(getResources().getString(R.string.base_url), this);
+//        client.get("test_details.json", TEXT_DETAIL_CARD_JSON);
+//    }
 
-    public void onEvent(JsonResponseEvent event) {
-        if(event.getId() == TEXT_DETAIL_CARD_JSON) {
-            TestDetailCard t = TestDetailCard.fromJson(event.getData());
-            Log.d("NET_TEST", t.getUser().getName());
-            Log.d("NET_TEST", t.getTest().getName());
-        }
-    }
+//    public void onEvent(JsonResponseEvent event) {
+//        if(event.getId() == TEXT_DETAIL_CARD_JSON) {
+//            TestDetailCard t = TestDetailCard.fromJson(event.getData());
+//            Log.d("NET_TEST", t.getUser().getName());
+//            Log.d("NET_TEST", t.getTest().getName());
+//        }
+//    }
+//
+//    public void onEvent(ErrorResponseEvent event) {
+//        Toast.makeText(this, event.getMessage(), Toast.LENGTH_SHORT).show();
+//    }
 
-    public void onEvent(ErrorResponseEvent event) {
-        Toast.makeText(this, event.getMessage(), Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        EventBus.getDefault().register(this);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        EventBus.getDefault().unregister(this);
-    }
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        EventBus.getDefault().register(this);
+//    }
+//
+//    @Override
+//    protected void onStop() {
+//        super.onStop();
+//        EventBus.getDefault().unregister(this);
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

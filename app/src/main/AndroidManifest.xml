@@ -12,7 +12,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.example.rav.testingo.SignActivity"
+            android:name=".SignActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,17 +21,21 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.rav.testingo.FeedActivity"
+            android:name=".FeedActivity"
             android:label="@string/title_activity_feed" >
         </activity>
         <activity
-            android:name="com.example.rav.testingo.RegistrationActivity"
+            android:name=".RegistrationActivity"
             android:label="@string/title_activity_registration" >
             <action android:name="android.intent.action.GET_CONTENT" />
         </activity>
         <activity
-            android:name="com.example.rav.testingo.TestActivity"
+            android:name=".TestActivity"
             android:label="@string/title_activity_test" >
+        </activity>
+        <activity
+            android:name=".TestInfoActivity"
+            android:label="@string/title_activity_test_info" >
         </activity>
     </application>
 
