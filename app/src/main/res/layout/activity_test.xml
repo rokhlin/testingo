@@ -10,27 +10,11 @@
         android:layout_height="wrap_content"
         android:id="@+id/tvQuestionNumber" />
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/linearLayout">
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/foto_height"
-            android:id="@+id/imageView"
-            android:src="@drawable/questionlogo" />
-    </LinearLayout>
-
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Button"
-        android:id="@+id/button3"
+        android:text="@string/BUTTON_TEST_EVENT"
+        android:id="@+id/btnSend"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -41,23 +25,54 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/question_height"
         android:id="@+id/svQuestion"
-        android:layout_below="@+id/linearLayout"
-        android:layout_centerHorizontal="true" >
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/btnSend"
+        android:layout_alignTop="@+id/tvQuestionNumber">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New Text"
-            android:id="@+id/twQuestion" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            xmlns:yelp="http://schemas.android.com/apk/res-auto">
+
+            <com.yelp.android.webimageview.WebImageView
+                android:id="@+id/ivQuestion"
+                android:layout_height="@dimen/foto_height"
+                android:layout_width="match_parent"
+                yelp:autoload="false"
+                yelp:loading="@drawable/questionlogo"
+                yelp:image_priority="3"
+
+                />
+
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="loading...."
+                android:id="@+id/twQuestion"
+                android:minLines="2" />
+
+            <GridView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:columnCount="2"
+                android:id="@+id/gvItemcontanier"></GridView>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:id="@+id/llItemcontanier">
+
+                <RadioGroup
+                    android:id="@+id/rGroup"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"></RadioGroup>
+            </LinearLayout>
+
+        </LinearLayout>
     </ScrollView>
-
-    <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/listView"
-        android:layout_below="@+id/svQuestion"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_above="@+id/button3" />
 
 </RelativeLayout>

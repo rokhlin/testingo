@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:yelp="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="@dimen/foto_height"
+    android:layout_height="@dimen/foto_width">
+
+
+    <com.yelp.android.webimageview.WebImageView
+        android:id="@+id/ivAnswer"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        yelp:autoload="false"
+        yelp:loading="@drawable/image_placeholder"
+        yelp:image_priority="4" />
+    <!--android:background="@drawable/abc_ic_clear_mtrl_alpha"-->
+</LinearLayout>

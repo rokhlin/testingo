@@ -188,11 +188,11 @@
 //question_radio.json
 //question_image.json
 
-{//Quetion q = Question.fromJson(data);
+{//Question q = Question.fromJson(data);
 	"_id": "s5as4d5as",
  	"text": "Кто ты?",
  	"image": "question.png"
-	"type": "image", //check, image, radio
+	"type": "image", //check, image, radio, text
 	"hint": "",
 	"data": ["Олень", "Бобр", "Лось", "Баран"]
 }

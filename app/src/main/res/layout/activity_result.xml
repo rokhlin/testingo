@@ -1,0 +1,62 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.example.rav.testingo.ResultActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView"
+        android:layout_above="@+id/btnResult">
+
+        <LinearLayout
+            android:orientation="vertical"
+            xmlns:yelp="http://schemas.android.com/apk/res-auto"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Test Result"
+                android:id="@+id/tvResult"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/Foto_top_margin"
+                android:layout_marginBottom="@dimen/marginLeft" />
+
+            <com.yelp.android.webimageview.WebImageView
+                android:id="@+id/ivResult"
+                android:layout_height="@dimen/foto_height"
+                android:layout_width="match_parent"
+                yelp:autoload="false"
+                yelp:loading="@drawable/questionlogo"
+                yelp:image_priority="3"
+
+                android:layout_marginTop="@dimen/marginLeft"
+                android:layout_marginBottom="@dimen/marginLeft" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Test Result details"
+                android:id="@+id/tvResultDetail"
+                android:textAlignment="center"
+                android:layout_margin="@dimen/ButtonPaddingLeft" />
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/BTN_RESULT"
+        android:id="@+id/btnResult"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="@dimen/ButtonPaddingLeft" />
+
+</RelativeLayout>
