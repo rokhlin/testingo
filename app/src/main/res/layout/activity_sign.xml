@@ -7,19 +7,29 @@
     android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".SignActivity">
 
     <ImageView
+        android:layout_width="@dimen/logoWhidth"
+        android:layout_height="@dimen/logoWhidth"
+        android:id="@+id/imgFoto"
+        android:src="@drawable/testingo"
+        android:layout_above="@+id/textView2"
+        android:layout_alignLeft="@+id/etEmail"
+        android:layout_alignStart="@+id/etEmail" />
+
+    <TextView
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imgFoto"
-        android:layout_marginTop="90dp"
-        android:src="@drawable/usericon"
-        android:layout_alignParentTop="true"
+        android:text="@string/app_name"
+        android:fontFamily="Roboto"
+        android:textSize="36dp"
+        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 
     <EditText
         android:layout_width="@dimen/logoWhidth"
         android:layout_height="wrap_content"
         android:id="@+id/etEmail"
-        android:layout_below="@+id/imgFoto"
+        android:layout_below="@+id/textView2"
         android:layout_centerHorizontal="true"
         android:hint="@string/enter_login"
         android:inputType="textEmailAddress" />
