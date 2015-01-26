@@ -37,6 +37,10 @@
             android:name=".ResultActivity"
             android:label="@string/title_activity_result" >
         </activity>
+        <activity
+            android:name=".TestInfoActivity"
+            android:label="@string/title_activity_test_info" >
+        </activity>
     </application>
 
 </manifest>
