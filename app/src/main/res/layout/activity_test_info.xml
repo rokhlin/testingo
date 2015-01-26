@@ -10,6 +10,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
+        xmlns:yelp="http://schemas.android.com/apk/res-auto"
         android:background="@drawable/card_background"
         android:descendantFocusability="afterDescendants"
         android:id="@+id/ll">
@@ -21,11 +22,14 @@
             android:paddingBottom="7dp"
             android:gravity="top">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/imageView"
-                android:src="@drawable/ic_action_help"/>
+            <com.yelp.android.webimageview.WebImageView
+                android:id="@+id/avatar"
+                android:layout_height="@dimen/avatarHeightWidth"
+                android:layout_width="@dimen/avatarHeightWidth"
+                yelp:autoload="false"
+                yelp:loading="@drawable/image_placeholder"
+                yelp:image_priority="3"
+                />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -54,12 +58,12 @@
                 android:textColor="#ff303030"/>
         </LinearLayout>
 
-        <ImageView
-            android:layout_width="wrap_content"
+        <com.yelp.android.webimageview.WebImageView
+            android:id="@+id/test_image"
             android:layout_height="wrap_content"
-            android:id="@+id/imageView2"
-            android:src="@drawable/ic_action_warning"
-            android:layout_gravity="top|center_horizontal"/>
+            android:layout_width="match_parent"
+            yelp:autoload="false"
+            yelp:image_priority="3"/>
 
         <LinearLayout
             android:orientation="horizontal"

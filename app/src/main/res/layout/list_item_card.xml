@@ -55,13 +55,11 @@
         </LinearLayout>
 
         <com.yelp.android.webimageview.WebImageView
-            android:id="@+id/test_image"
-            android:layout_height="@dimen/logoWhidth"
-            android:layout_width="@dimen/logoWhidth"
-            yelp:autoload="false"
-            yelp:loading="@drawable/image_placeholder"
-            yelp:image_priority="3"
-            android:layout_gravity="center_horizontal"/>
+        android:id="@+id/test_image"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        yelp:autoload="false"
+        yelp:image_priority="3"/>
 
         <LinearLayout
             android:orientation="horizontal"

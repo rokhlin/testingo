@@ -102,6 +102,9 @@ public class FeedActivity extends ActionBarActivity {
         if(event.getId() == TEXT_CARD_JSON) {
             TestCard[] rawCards = TestCard.arrayFromJson(event.getData());
             testCards = new ArrayList<TestCard>(Arrays.asList(rawCards));
+            testCards.add(testCards.get(0));
+            testCards.add(testCards.get(0));
+            testCards.add(testCards.get(0));
             String baseUrl=getResources().getString(R.string.base_url);
 
 

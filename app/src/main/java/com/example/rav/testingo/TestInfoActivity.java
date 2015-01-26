@@ -13,6 +13,7 @@ import com.example.rav.testingo.DataFlow.JsonResponseEvent;
 import com.example.rav.testingo.DataStructures.TestCard;
 import com.example.rav.testingo.DataStructures.TestDetailCard;
 import com.example.rav.testingo.R;
+import com.yelp.android.webimageview.WebImageView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -72,6 +73,13 @@ public class TestInfoActivity extends ActionBarActivity {
             testDescription.setText(t.getTest().getDescription());
             tags.setText(t.getTest().getTags().toString());
             tested.setText(t.getTest().getCount().toString());
+
+            String baseUrl = getResources().getString(R.string.base_url);
+            WebImageView avatar = (WebImageView)findViewById(R.id.avatar);
+            WebImageView test_image = (WebImageView)findViewById(R.id.test_image);
+            avatar.setImageUrl(baseUrl + "img/avatar/" + t.getUser().getAvatar());
+            test_image.setImageUrl(baseUrl + "img/test/" + t.getTest().getImage(), R.drawable.image_placeholder);
+            Log.d("TAG", baseUrl + "img/avatar/" + t.getUser().getAvatar());
         }
     }
 

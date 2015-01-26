@@ -86,8 +86,8 @@ public class CardArrayAdapter extends ArrayAdapter<TestCard> {
         viewHolder.tags.setText(card.getTest().getTags().toString());
         viewHolder.tested.setText("Tested "+card.getTest().getCount()+" times.");
 
-//        viewHolder.img1.setImageUrl(baseUrl + "img/avatar/" + card.getUser().getAvatar());
-//        viewHolder.img2.setImageUrl(baseUrl + "img/test/" + card.getTest().getImage());
+        viewHolder.img1.setImageUrl(baseUrl + "img/avatar/" + card.getUser().getAvatar());
+        viewHolder.img2.setImageUrl(baseUrl + "img/test/" + card.getTest().getImage(), R.drawable.image_placeholder);
         Log.d("TAG", baseUrl + "img/avatar/" + card.getUser().getAvatar());
 
         return row;
