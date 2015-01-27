@@ -14,7 +14,7 @@ import com.example.rav.testingo.DataFlow.ErrorResponseEvent;
 import com.example.rav.testingo.DataFlow.HttpDataClient;
 import com.example.rav.testingo.DataFlow.JsonResponseEvent;
 import com.example.rav.testingo.DataStructures.ResultCard;
-import com.example.rav.testingo.DataStructures.ResultInfo;
+import com.example.rav.testingo.DataStructures.ResultDetail;
 import com.yelp.android.webimageview.WebImageView;
 
 import de.greenrobot.event.EventBus;
@@ -37,7 +37,7 @@ public class ResultActivity extends ActionBarActivity {
         btnClose=(Button)findViewById(R.id.btnResult);
 
         DataClient client = new HttpDataClient(getResources().getString(R.string.base_url), this);
-        client.get("result_list.json", TEXT_DETAIL_CARD_JSON);
+        client.get("test_json/result_detail.json", TEXT_DETAIL_CARD_JSON);
     }
 
 
@@ -66,12 +66,11 @@ public class ResultActivity extends ActionBarActivity {
     public void onEvent(JsonResponseEvent event) {
         if(event.getId() == TEXT_DETAIL_CARD_JSON) {
 
-            ResultCard[] res = ResultCard.arrayFromJson(event.getData());
-            ResultInfo resultInfos=res[0].getResult();
-            result = resultInfos.getText();
-            textDetail=resultInfos.getDescription();
-            image=resultInfos.getDescription();
-            done=resultInfos.getDone().toString();
+            ResultDetail res = ResultDetail.fromJson(event.getData());
+            result = res.getResult().getText();
+            textDetail=res.getResult().getDescription();
+            image=res.getResult().getDescription();
+            done=res.getResult().getDone().toString();
 
             Log.d("RESULT", "Load Result");
             Log.d("RESULT", "text " + result);

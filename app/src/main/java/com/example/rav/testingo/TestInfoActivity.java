@@ -1,22 +1,20 @@
 package com.example.rav.testingo;
 
-import android.support.v7.app.ActionBarActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.rav.testingo.DataFlow.DataClient;
 import com.example.rav.testingo.DataFlow.HttpDataClient;
 import com.example.rav.testingo.DataFlow.JsonResponseEvent;
-import com.example.rav.testingo.DataStructures.TestCard;
 import com.example.rav.testingo.DataStructures.TestDetailCard;
-import com.example.rav.testingo.R;
 import com.yelp.android.webimageview.WebImageView;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 
 import de.greenrobot.event.EventBus;
 
@@ -34,6 +32,15 @@ public class TestInfoActivity extends ActionBarActivity {
         testDescription = (TextView) findViewById(R.id.textView3);
         tags = (TextView) findViewById(R.id.textView4);
         tested = (TextView) findViewById(R.id.textView5);
+
+        //Обрабосчик нажатия на начало теста
+        Button startTest = (Button) findViewById(R.id.btnStartTest);
+        startTest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showTest();
+            }
+        });
 
         DataClient client = new HttpDataClient(getResources().getString(R.string.base_url), this);
         client.get("test_json/test_details.json", TEXT_INFO_CARD_JSON);
@@ -93,5 +100,11 @@ public class TestInfoActivity extends ActionBarActivity {
     protected void onStop() {
         super.onStop();
         EventBus.getDefault().unregister(this);
+    }
+
+    //Добавление обработчика нажатич кнопки на пункт.
+    public void showTest(){
+        Intent intent = new Intent(this, TestActivity.class);
+        startActivity(intent);
     }
 }

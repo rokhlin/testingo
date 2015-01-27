@@ -1,35 +1,35 @@
  package com.example.rav.testingo;
 
  import android.content.Context;
- import android.content.Intent;
- import android.os.Bundle;
- import android.support.v7.app.ActionBarActivity;
- import android.util.Log;
- import android.view.LayoutInflater;
- import android.view.Menu;
- import android.view.MenuItem;
- import android.view.View;
- import android.widget.Button;
- import android.widget.CheckBox;
- import android.widget.EditText;
- import android.widget.GridView;
- import android.widget.LinearLayout;
- import android.widget.RadioButton;
- import android.widget.RadioGroup;
- import android.widget.TextView;
- import android.widget.Toast;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.GridLayout;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
- import com.example.rav.testingo.DataFlow.DataClient;
- import com.example.rav.testingo.DataFlow.ErrorResponseEvent;
- import com.example.rav.testingo.DataFlow.HttpDataClient;
- import com.example.rav.testingo.DataFlow.JsonResponseEvent;
- import com.example.rav.testingo.DataStructures.Question;
- import com.yelp.android.webimageview.ImageLoader;
- import com.yelp.android.webimageview.WebImageView;
+import com.example.rav.testingo.DataFlow.DataClient;
+import com.example.rav.testingo.DataFlow.ErrorResponseEvent;
+import com.example.rav.testingo.DataFlow.HttpDataClient;
+import com.example.rav.testingo.DataFlow.JsonResponseEvent;
+import com.example.rav.testingo.DataStructures.Question;
+import com.yelp.android.webimageview.ImageLoader;
+import com.yelp.android.webimageview.WebImageView;
 
- import java.util.List;
+import java.util.List;
 
- import de.greenrobot.event.EventBus;
+import de.greenrobot.event.EventBus;
 
 
  public class TestActivity extends ActionBarActivity {
@@ -44,10 +44,7 @@
      private int count=0;
      private Button send;
      private LinearLayout llContainer;
-     private GridView gwContainer;
-     private WebImageView wiv;
      private TextView tvQuestion, tvQuestionNumber;
-     private EditText etAnswer;
      private DataClient client;
      private Context context;
 
@@ -66,8 +63,8 @@
         setContentView(R.layout.activity_test);
         context = this;
         llContainer=(LinearLayout)findViewById(R.id.llItemcontanier);
-        gwContainer=(GridView)findViewById(R.id.gvItemcontanier);
-        wiv=(WebImageView)findViewById(R.id.ivQuestion);
+
+        WebImageView wiv = (WebImageView) findViewById(R.id.ivQuestion);
         tvQuestion=(TextView)findViewById(R.id.twQuestion);
         tvQuestionNumber=(TextView)findViewById(R.id.tvQuestionNumber);
 
@@ -80,11 +77,11 @@
             @Override
             public void onClick(View v) {
                 count++;
-                if(count!=testType.length-1){
+                if(count < testType.length){
                     send.setText(R.string.BUTTON_TEST_EVENT);
-                    client.get("test_json/"+testType[count], QUESTION_VIEW);
+                    client.get("test_json/" + testType[count], QUESTION_VIEW);
                 }
-                else {
+                if(count == testType.length - 1) {
                     send.setText(R.string.BUTTON_TEST_EVENT_FINISH);
                     send.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -200,26 +197,40 @@
      }
 
      private void  loadImageAnswer(){
-         GridView gridView=(GridView)findViewById(R.id.gvItemcontanier);
+         GridLayout gridLayout=(GridLayout)findViewById(R.id.gvItemcontanier);
          llContainer.removeAllViews();
          LayoutInflater ltInflater = getLayoutInflater();
-         for (int i = 0; i <q.getData().size();i++) {
+
+         for (int i = 0; i < q.getData().size();i++) {
              View item;
-             item = ltInflater.inflate(R.layout.question_item_text, gridView, false);
+             item = ltInflater.inflate(R.layout.question_item_image, gridLayout, false);
 
-             WebImageView image=(WebImageView)item.findViewById(R.id.ivAnswer);
+             final WebImageView image=(WebImageView)item.findViewById(R.id.ivAnswer);
              String base_url = getResources().getString(R.string.base_url);
-             image.setImageUrl(base_url + "img//question/" + answers.get(i));
-
+             image.setImageUrl(base_url + "img/question/" + q.getData().get(i));
+             image.setTag(0);
              image.setOnClickListener(new View.OnClickListener() {
                  @Override
                  public void onClick(View v) {
-
+                     int parameter=(Integer)image.getTag();
+                     Log.d("IMAGGGGGGGGE", "parameter:"+parameter);
+                     if(parameter==0) {
+                         image.setBackgroundResource(R.color.editText_color);
+                         image.setPadding(2, 6, 2, 6);
+                         image.setTag(1);
+                         Log.d("IMAGGGGGGGGE", "parameter2:"+image.getTag().toString());
+                     }
+                     else {
+                         image.setBackgroundResource(0);
+                         image.setPadding(0, 0, 0, 0);
+                         image.setTag(0);
+                         Log.d("IMAGGGGGGGGE", "parameter3:"+image.getTag().toString());
+                     }
                  }
              });
 
             item.setTag(i);
-            gridView.addView(item);
+            gridLayout.addView(item);
          }
      }
      private void loadTextAnswer(){
@@ -229,7 +240,7 @@
          View item;
 
          item = ltInflater.inflate(R.layout.question_item_text, llContainer, false);
-         etAnswer=(EditText)item.findViewById(R.id.et_Answer);
+         EditText etAnswer = (EditText) item.findViewById(R.id.et_Answer);
 
          item.getLayoutParams().width = LinearLayout.LayoutParams.MATCH_PARENT;
          llContainer.addView(item);
@@ -247,7 +258,7 @@
                  RadioButton rbtn = new RadioButton(this);
                  rbtn.setText(q.getData().get(i));
 
-              //   rbtn.setPadding(R.dimen.ButtonPaddingLeft,R.dimen.ButtonPaddingLeft,R.dimen.ButtonPaddingLeft,R.dimen.ButtonPaddingLeft);
+   rbtn.setPadding(40,40,40,40);//R.dimen.ButtonPaddingLeft,R.dimen.ButtonPaddingLeft,R.dimen.ButtonPaddingLeft,R.dimen.ButtonPaddingLeft);
 //                 RadioGroup.LayoutParams params
 //                         = new RadioGroup.LayoutParams(context, null);
 //                 params.setMargins(0, R.dimen.ButtonPaddingLeft, 0, R.dimen.ButtonPaddingLeft);
