@@ -9,6 +9,7 @@ public class JsonResponseEvent {
 
     public JsonResponseEvent(String data, int id) {
         this.data = data;
+        this.id = id;
     }
 
     public String getData() {
