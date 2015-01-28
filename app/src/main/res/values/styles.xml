@@ -7,7 +7,7 @@
     </style>
 
     <style name="CustomListView" parent="@android:style/Widget.ListView">
-        <item name="android:background">@drawable/ba</item>
+        <item name="android:background">@color/background_material_light</item>
         <!--<item name="android:fastScrollEnabled">true</item>-->
     </style>
 
@@ -15,5 +15,11 @@
         <item name="android:textColor">#ffffff</item>
         <item name="android:background">@drawable/background_button</item>
         <item name="android:listViewStyle">@style/CustomListView</item>
+    </style>
+
+    <style name="Divider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">?android:attr/listDivider</item>
     </style>
 </resources>

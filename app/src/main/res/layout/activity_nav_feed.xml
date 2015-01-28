@@ -15,11 +15,13 @@
             android:paddingTop="0dp"
             android:paddingBottom="0dp">
 
+            <!--<view style="@style/Divider"/>-->
             <ListView
                 android:id="@+id/card_listView"
                 android:layout_width="match_parent"
                 android:layout_height="fill_parent"
                 android:layout_margin="0dp" />
+
     </FrameLayout>
 
     <!-- android:layout_gravity="start" tells DrawerLayout to treat

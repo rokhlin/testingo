@@ -13,7 +13,8 @@
         xmlns:yelp="http://schemas.android.com/apk/res-auto"
         android:background="@drawable/card_background"
         android:descendantFocusability="afterDescendants"
-        android:id="@+id/ll">
+        android:id="@+id/ll"
+        android:layout_gravity="center_horizontal">
 
         <LinearLayout
             android:orientation="horizontal"
@@ -124,15 +125,10 @@
             android:layout_height="wrap_content"
             android:text="@string/start_testing"
             android:id="@+id/btnStartTest"
-            android:layout_gravity="bottom|center_horizontal"
-            android:gravity="bottom"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Back"
-            android:id="@+id/button2"
-            android:layout_gravity="center_horizontal"/>
+            android:layout_gravity="center_horizontal"
+            android:gravity="bottom"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp" />
 
     </LinearLayout>
 

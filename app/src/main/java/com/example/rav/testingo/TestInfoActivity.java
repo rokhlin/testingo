@@ -2,6 +2,7 @@ package com.example.rav.testingo;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -28,19 +29,14 @@ public class TestInfoActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_info);
 
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
         channelName = (TextView) findViewById(R.id.textView);
         testName = (TextView) findViewById(R.id.textView2);
         testDescription = (TextView) findViewById(R.id.textView3);
         tags = (TextView) findViewById(R.id.textView4);
         tested = (TextView) findViewById(R.id.textView5);
-
-        btnBack = (Button) findViewById(R.id.button2);
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                TestInfoActivity.this.finish();
-            }
-        });
 
         String id = getIntent().getStringExtra("id");
 
@@ -72,6 +68,7 @@ public class TestInfoActivity extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+        if(id == android.R.id.home) this.finish();
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
