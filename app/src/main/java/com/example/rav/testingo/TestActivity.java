@@ -213,18 +213,18 @@ import de.greenrobot.event.EventBus;
                  @Override
                  public void onClick(View v) {
                      int parameter=(Integer)image.getTag();
-                     Log.d("IMAGGGGGGGGE", "parameter:"+parameter);
+
                      if(parameter==0) {
                          image.setBackgroundResource(R.color.editText_color);
                          image.setPadding(2, 6, 2, 6);
                          image.setTag(1);
-                         Log.d("IMAGGGGGGGGE", "parameter2:"+image.getTag().toString());
+
                      }
                      else {
                          image.setBackgroundResource(0);
                          image.setPadding(0, 0, 0, 0);
                          image.setTag(0);
-                         Log.d("IMAGGGGGGGGE", "parameter3:"+image.getTag().toString());
+
                      }
                  }
              });
