@@ -54,11 +54,11 @@
                 android:id="@+id/twQuestion"
                 android:minLines="2" />
 
-            <GridView
+            <GridLayout
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:columnCount="2"
-                android:id="@+id/gvItemcontanier"></GridView>
+                android:id="@+id/gvItemcontanier"></GridLayout>
 
             <LinearLayout
                 android:orientation="vertical"

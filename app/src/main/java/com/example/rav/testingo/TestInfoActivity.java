@@ -1,8 +1,8 @@
 package com.example.rav.testingo;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,14 +13,8 @@ import android.widget.TextView;
 import com.example.rav.testingo.DataFlow.DataClient;
 import com.example.rav.testingo.DataFlow.HttpDataClient;
 import com.example.rav.testingo.DataFlow.JsonResponseEvent;
-import com.example.rav.testingo.DataStructures.TestCard;
 import com.example.rav.testingo.DataStructures.TestDetailCard;
-import com.example.rav.testingo.DataStructures.TestInfo;
-import com.example.rav.testingo.R;
 import com.yelp.android.webimageview.WebImageView;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 
 import de.greenrobot.event.EventBus;
 
@@ -40,14 +34,6 @@ public class TestInfoActivity extends ActionBarActivity {
         tags = (TextView) findViewById(R.id.textView4);
         tested = (TextView) findViewById(R.id.textView5);
 
-        btnStartTest = (Button) findViewById(R.id.button);
-        btnStartTest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(TestInfoActivity.this, TestActivity.class);
-                startActivity(intent);
-            }
-        });
         btnBack = (Button) findViewById(R.id.button2);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,10 +43,18 @@ public class TestInfoActivity extends ActionBarActivity {
         });
 
         String id = getIntent().getStringExtra("id");
+
+        //Обрабосчик нажатия на начало теста
+        Button startTest = (Button) findViewById(R.id.btnStartTest);
+        startTest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showTest();
+            }
+        });
+
         DataClient client = new HttpDataClient(getResources().getString(R.string.base_url), this);
         client.get("mobile/tests/"+id, TEXT_INFO_CARD_JSON);
-
-
     }
 
 
@@ -115,5 +109,11 @@ public class TestInfoActivity extends ActionBarActivity {
     protected void onStop() {
         super.onStop();
         EventBus.getDefault().unregister(this);
+    }
+
+    //Добавление обработчика нажатич кнопки на пункт.
+    public void showTest(){
+        Intent intent = new Intent(this, TestActivity.class);
+        startActivity(intent);
     }
 }

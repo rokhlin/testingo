@@ -123,7 +123,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/start_testing"
-            android:id="@+id/button"
+            android:id="@+id/btnStartTest"
             android:layout_gravity="bottom|center_horizontal"
             android:gravity="bottom"/>
 
