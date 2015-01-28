@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.example.rav.testingo.DataFlow.DataClient;
 import com.example.rav.testingo.DataFlow.HttpDataClient;
 import com.example.rav.testingo.DataFlow.JsonResponseEvent;
+import com.example.rav.testingo.DataStructures.SimpleJsonResponse;
 import com.example.rav.testingo.DataStructures.TestDetailCard;
 import com.yelp.android.webimageview.WebImageView;
 
@@ -22,7 +23,12 @@ import de.greenrobot.event.EventBus;
 public class TestInfoActivity extends ActionBarActivity {
     TextView testDescription, testName, channelName, tags, tested;
     Button btnStartTest, btnBack;
-    private static final int TEXT_INFO_CARD_JSON = 0;
+
+    DataClient dataClient;
+    TestDetailCard testCard;
+    SimpleJsonResponse startToken;
+    private static final int TEST_INFO_CARD_JSON = 0;
+    private static final int TEST_START_TOKEN = 13;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,12 +51,12 @@ public class TestInfoActivity extends ActionBarActivity {
         startTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showTest();
+                dataClient.get("mobile/tests/start/" + testCard.getTest().getId(), TEST_START_TOKEN);
             }
         });
 
-        DataClient client = new HttpDataClient(getResources().getString(R.string.base_url), this);
-        client.get("mobile/tests/"+id, TEXT_INFO_CARD_JSON);
+        dataClient = new HttpDataClient(getResources().getString(R.string.base_url), this);
+        dataClient.get("mobile/tests/" + id, TEST_INFO_CARD_JSON);
     }
 
 
@@ -78,8 +84,9 @@ public class TestInfoActivity extends ActionBarActivity {
     }
     public void onEvent(JsonResponseEvent event) {
 //        Log.d("tag", "test1");
-        if(event.getId() == TEXT_INFO_CARD_JSON) {
+        if(event.getId() == TEST_INFO_CARD_JSON) {
             TestDetailCard t = TestDetailCard.fromJson(event.getData());
+            testCard = t;
 
             channelName.setText(t.getUser().getName());
             testName.setText(t.getTest().getName());
@@ -93,6 +100,12 @@ public class TestInfoActivity extends ActionBarActivity {
             avatar.setImageUrl(baseUrl + "img/avatar/" + t.getUser().getAvatar());
             test_image.setImageUrl(baseUrl + "img/test/" + t.getTest().getImage(), R.drawable.image_placeholder);
             Log.d("TAG", baseUrl + "img/avatar/" + t.getUser().getAvatar());
+        }
+
+        if(event.getId() == TEST_START_TOKEN) {
+            SimpleJsonResponse resp = SimpleJsonResponse.fromJson(event.getData());
+            String token = resp.getData();
+            showTest(token);
         }
     }
 
@@ -109,8 +122,10 @@ public class TestInfoActivity extends ActionBarActivity {
     }
 
     //Добавление обработчика нажатич кнопки на пункт.
-    public void showTest(){
+    public void showTest(String token){
         Intent intent = new Intent(this, TestActivity.class);
+        intent.putExtra("startToken", token);
+        intent.putExtra("questionsCount", testCard.getTest().getQuestionsCount());
         startActivity(intent);
     }
 }
