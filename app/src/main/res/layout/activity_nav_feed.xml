@@ -15,12 +15,12 @@
             android:paddingTop="0dp"
             android:paddingBottom="0dp">
 
-            <!--<view style="@style/Divider"/>-->
             <ListView
                 android:id="@+id/card_listView"
                 android:layout_width="match_parent"
                 android:layout_height="fill_parent"
-                android:layout_margin="0dp" />
+                android:layout_margin="0dp"
+                android:divider="@color/transparent"/>
 
     </FrameLayout>
 
@@ -35,6 +35,19 @@
         android:layout_width="@dimen/navigation_drawer_width" android:layout_height="match_parent"
         android:layout_gravity="start"
         android:name="com.example.rav.testingo.NavigationDrawerFragment"
-        tools:layout="@layout/fragment_navigation_drawer" />
+        tools:layout="@layout/fragment_navigation_drawer" >
+
+        <!--<view style="@style/Divider"-->
+            <!--android:paddingTop="160dp"/>-->
+
+
+        <ImageView
+            android:layout_gravity="center_horizontal"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:id="@+id/imageView"
+            android:src="@drawable/ic_launcher_web"/>
+
+    </fragment>
 
 </android.support.v4.widget.DrawerLayout>

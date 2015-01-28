@@ -40,10 +40,6 @@
             android:name=".TestInfoActivity"
             android:label="@string/title_activity_test_info" >
         </activity>
-        <activity
-            android:name=".NavFeed"
-            android:label="@string/title_activity_nav_feed" >
-        </activity>
     </application>
 
 </manifest>

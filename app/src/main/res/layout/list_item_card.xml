@@ -11,7 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/card_background_selector"
-        android:descendantFocusability="afterDescendants">
+        android:descendantFocusability="afterDescendants"
+        android:padding="10dp"
+        android:layout_margin="6dp">
 
         <LinearLayout
             android:orientation="horizontal"
@@ -25,8 +27,7 @@
                 android:layout_width="@dimen/avatarHeightWidth"
                 yelp:autoload="false"
                 yelp:loading="@drawable/image_placeholder"
-                yelp:image_priority="3"
-                />
+                yelp:image_priority="3" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -35,14 +36,16 @@
                 android:text="Large Text"
                 android:id="@+id/textView"
                 android:layout_gravity="center_vertical"
-                android:textColor="#ff000000"/>
+                android:textColor="#ff000000"
+                android:paddingLeft="9dp" />
 
         </LinearLayout>
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_height="fill_parent"
+            android:gravity="center_horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -50,8 +53,8 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Medium Text"
                 android:id="@+id/textView2"
-                android:paddingLeft="15dp"
-                android:textColor="#ff303030"/>
+                android:textColor="#ff303030"
+                android:textSize="@dimen/abc_text_size_headline_material" />
         </LinearLayout>
 
         <com.yelp.android.webimageview.WebImageView
@@ -71,7 +74,11 @@
                 android:layout_height="wrap_content"
                 android:text="New Text"
                 android:id="@+id/textView3"
-                android:layout_marginLeft="3dp"/>
+                android:textColor="@color/background_floating_material_dark"
+                android:textSize="@dimen/description_text_size"
+                android:paddingTop="7dp"
+                android:paddingBottom="7dp"
+                android:singleLine="false" />
         </LinearLayout>
 
         <LinearLayout
@@ -85,7 +92,8 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:id="@+id/textView4"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:textColor="@color/background_floating_material_dark" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -94,7 +102,8 @@
                 android:text="Small Text"
                 android:id="@+id/textView5"
                 android:layout_weight="1"
-                android:gravity="right"/>
+                android:gravity="right"
+                android:textColor="@color/background_floating_material_dark" />
 
         </LinearLayout>
 

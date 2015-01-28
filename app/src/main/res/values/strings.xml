@@ -10,8 +10,8 @@
     <string name="enter_password">Enter Password</string>
     <string name="Confirm">CONFIRM</string>
     <string name="Registration">Registration</string>
-    <string name="title_activity_feed">FeedActivity</string>
-    <string name="title_activity_registration">RegistrationActivity</string>
+    <string name="title_activity_feed">Feed</string>
+    <string name="title_activity_registration">Registration</string>
     <string name="enter_fname">First Name</string>
     <string name="enter_lname">Last Name</string>
     <string name="enter_email">Enter Email</string>
