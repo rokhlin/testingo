@@ -40,7 +40,6 @@
                 android:layout_height="@dimen/foto_height"
                 android:layout_width="match_parent"
                 yelp:autoload="false"
-                yelp:loading="@drawable/questionlogo"
                 yelp:image_priority="3"
 
                 />
@@ -52,7 +51,8 @@
                 android:layout_height="wrap_content"
                 android:text="loading...."
                 android:id="@+id/twQuestion"
-                android:minLines="2" />
+                android:minLines="2"
+                android:textStyle="bold" />
 
             <GridLayout
                 android:layout_width="fill_parent"
