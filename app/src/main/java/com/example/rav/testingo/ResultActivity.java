@@ -1,10 +1,12 @@
 package com.example.rav.testingo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,8 +38,20 @@ public class ResultActivity extends ActionBarActivity {
         tvResDetail=(TextView)findViewById(R.id.tvResultDetail);
         btnClose=(Button)findViewById(R.id.btnResult);
 
+        Intent intent = getIntent();
+        String id = intent.getStringExtra("id");
+
         DataClient client = new HttpDataClient(getResources().getString(R.string.base_url), this);
         client.get("test_json/result_detail.json", TEXT_DETAIL_CARD_JSON);
+
+        Button feedButton = (Button)findViewById(R.id.toFeedButton);
+        feedButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ResultActivity.this, FeedActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 

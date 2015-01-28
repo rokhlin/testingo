@@ -24,7 +24,8 @@ import com.example.rav.testingo.DataFlow.ErrorResponseEvent;
 import com.example.rav.testingo.DataFlow.HttpDataClient;
 import com.example.rav.testingo.DataFlow.JsonResponseEvent;
 import com.example.rav.testingo.DataStructures.Question;
-import com.yelp.android.webimageview.ImageLoader;
+ import com.example.rav.testingo.DataStructures.SimpleJsonResponse;
+ import com.yelp.android.webimageview.ImageLoader;
 import com.yelp.android.webimageview.WebImageView;
 
 import java.util.List;
@@ -34,14 +35,19 @@ import de.greenrobot.event.EventBus;
 
  public class TestActivity extends ActionBarActivity {
      private int QUESTION_VIEW=0;
+     private int SHOW_RESULT=13;
      //public String base_url = getResources().getString(R.string.base_url);
      private Question q;
      private List<String> answers;
-     private String[] testType=new String[]{"question_text.json",
-                                            "question_check.json",
-                                            "question_radio.json",
-                                            "question_image.json"};
+//     private String[] testType=new String[]{"question_text.json",
+//                                            "question_check.json",
+//                                            "question_radio.json",
+//                                            "question_image.json"};
      private int count=0;
+
+     private int questionsCount;
+     private String startToken;
+     private GridLayout gridLayout;
      private Button send;
      private LinearLayout llContainer;
      private TextView tvQuestion, tvQuestionNumber;
@@ -62,40 +68,40 @@ import de.greenrobot.event.EventBus;
 
         setContentView(R.layout.activity_test);
         context = this;
+
+        Intent intent = getIntent();
+        questionsCount = intent.getIntExtra("questionsCount", 0);
+        startToken = intent.getStringExtra("startToken");
+
+        gridLayout = (GridLayout)findViewById(R.id.gvItemcontanier);
         llContainer=(LinearLayout)findViewById(R.id.llItemcontanier);
 
-        WebImageView wiv = (WebImageView) findViewById(R.id.ivQuestion);
+//        WebImageView wiv = (WebImageView) findViewById(R.id.ivQuestion);
         tvQuestion=(TextView)findViewById(R.id.twQuestion);
         tvQuestionNumber=(TextView)findViewById(R.id.tvQuestionNumber);
 
 
         client = new HttpDataClient(getResources().getString(R.string.base_url), this);
-        client.get("test_json/"+testType[count], QUESTION_VIEW);
-
         send=(Button)findViewById(R.id.btnSend);
+
+        nextQuestion();
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                count++;
-                if(count < testType.length){
-                    send.setText(R.string.BUTTON_TEST_EVENT);
-                    client.get("test_json/" + testType[count], QUESTION_VIEW);
-                }
-                if(count == testType.length - 1) {
-                    send.setText(R.string.BUTTON_TEST_EVENT_FINISH);
-                    send.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent intent = new Intent(context, ResultActivity.class);
-                            startActivity(intent);
-                        }
-                    });
-                }
+                nextQuestion();
             }
         });
 
     }
 
+    public void nextQuestion() {
+        int responce_id = QUESTION_VIEW;
+        if(count > questionsCount - 1) {
+            responce_id = SHOW_RESULT;
+            send.setText(R.string.BUTTON_TEST_EVENT_FINISH);
+        }
+        client.get("mobile/next-question/"+startToken, responce_id);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -120,8 +126,9 @@ import de.greenrobot.event.EventBus;
     }
 
      public void onEvent(JsonResponseEvent event) {
-
 //        Log.d("NET_TEST", event.getId());
+//         Log.d("json",event.getData());
+//         Log.d("json", String.valueOf(event.getId()));
 
          if(event.getId() == QUESTION_VIEW ) {
              q = Question.fromJson(event.getData());
@@ -141,19 +148,25 @@ import de.greenrobot.event.EventBus;
                  Log.i("TAG", "Answers loaded.");
              }
              catch (NullPointerException e){
-                 Log.i("TAG", "NOT find list");
+                 Log.i("TAG", "NOT found list");
              }
 
+             gridLayout.removeAllViews();
+             llContainer.removeAllViews();
+
              String image = q.getImage();
+             WebImageView wiv = (WebImageView) findViewById(R.id.ivQuestion);
              if(!image.isEmpty()) {
                  String base_url = getResources().getString(R.string.base_url);
-                 Log.i("TAG", base_url + "img/question/" + image);
-                 WebImageView wiv = (WebImageView) findViewById(R.id.ivQuestion);
-                 wiv.setImageUrl(base_url + "img/question/" + image);
+                 Log.i("TAG", base_url + "img/test/" + image);
+                 wiv.setImageUrl(base_url + "img/test/" + image, R.drawable.image_placeholder);
+             }
+             else {
+                 wiv.setImageDrawable(null);
              }
 
              tvQuestion.setText(question);
-             tvQuestionNumber.setText((count + 1) + "/" + testType.length);
+             tvQuestionNumber.setText((count + 1) + "/" + questionsCount);
 
              switch (type) {
                  case "text":
@@ -176,11 +189,19 @@ import de.greenrobot.event.EventBus;
                      Log.e("EROROROR", "Question type is not correct.");
                      break;
              }
-
+             count++;
          }
+
+        if(event.getId() == SHOW_RESULT) {
+            SimpleJsonResponse resp = SimpleJsonResponse.fromJson(event.getData());
+            Intent intent = new Intent(context, ResultActivity.class);
+            intent.putExtra("id", resp.getData());
+            startActivity(intent);
+        }
      }
 
      public void onEvent(ErrorResponseEvent event) {
+         Log.d("json",event.getMessage());
          Toast.makeText(this, event.getMessage(), Toast.LENGTH_SHORT).show();
      }
 
@@ -197,8 +218,6 @@ import de.greenrobot.event.EventBus;
      }
 
      private void  loadImageAnswer(){
-         GridLayout gridLayout=(GridLayout)findViewById(R.id.gvItemcontanier);
-         llContainer.removeAllViews();
          LayoutInflater ltInflater = getLayoutInflater();
 
          for (int i = 0; i < q.getData().size();i++) {
@@ -234,8 +253,6 @@ import de.greenrobot.event.EventBus;
          }
      }
      private void loadTextAnswer(){
-
-         llContainer.removeAllViews();
          LayoutInflater ltInflater = getLayoutInflater();
          View item;
 
@@ -248,8 +265,6 @@ import de.greenrobot.event.EventBus;
 
 
      private void loadRadioAnswer(){
-
-             llContainer.removeAllViews();
              RadioGroup group = new RadioGroup(this);
              group.setOrientation(RadioGroup.VERTICAL);
 
