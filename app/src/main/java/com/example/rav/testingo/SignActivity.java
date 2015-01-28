@@ -13,14 +13,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.rav.testingo.DataFlow.DataClient;
-import com.example.rav.testingo.DataFlow.ErrorResponseEvent;
-import com.example.rav.testingo.DataFlow.HttpDataClient;
-import com.example.rav.testingo.DataFlow.JsonResponseEvent;
-import com.example.rav.testingo.DataStructures.TestDetailCard;
-
-import de.greenrobot.event.EventBus;
-
 
 public class SignActivity extends ActionBarActivity implements View.OnClickListener {
     private String password, login;

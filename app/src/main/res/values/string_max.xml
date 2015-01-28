@@ -6,4 +6,14 @@
     <string name="comments">Comments:</string>
     <string name="start_testing">Start testing!</string>
     <string name="title_activity_test_info">TestInfoActivity</string>
+
+    <string name="title_activity_nav_feed">NavFeed</string>
+    <string name="title_section1">Feed</string>
+    <string name="title_section2">Subscribes</string>
+    <string name="title_section3">Profile</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_example">Example action</string>
+    <string name="title_activity_subscribes">Subscribes</string>
+    <string name="title_activity_delete_me">Delete_me</string>
 </resources>

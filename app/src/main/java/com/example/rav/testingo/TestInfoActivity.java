@@ -1,10 +1,13 @@
 package com.example.rav.testingo;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.rav.testingo.DataFlow.DataClient;
@@ -12,6 +15,7 @@ import com.example.rav.testingo.DataFlow.HttpDataClient;
 import com.example.rav.testingo.DataFlow.JsonResponseEvent;
 import com.example.rav.testingo.DataStructures.TestCard;
 import com.example.rav.testingo.DataStructures.TestDetailCard;
+import com.example.rav.testingo.DataStructures.TestInfo;
 import com.example.rav.testingo.R;
 import com.yelp.android.webimageview.WebImageView;
 
@@ -22,6 +26,7 @@ import de.greenrobot.event.EventBus;
 
 public class TestInfoActivity extends ActionBarActivity {
     TextView testDescription, testName, channelName, tags, tested;
+    Button btnStartTest, btnBack;
     private static final int TEXT_INFO_CARD_JSON = 0;
 
     @Override
@@ -35,8 +40,26 @@ public class TestInfoActivity extends ActionBarActivity {
         tags = (TextView) findViewById(R.id.textView4);
         tested = (TextView) findViewById(R.id.textView5);
 
+        btnStartTest = (Button) findViewById(R.id.button);
+        btnStartTest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(TestInfoActivity.this, TestActivity.class);
+                startActivity(intent);
+            }
+        });
+        btnBack = (Button) findViewById(R.id.button2);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TestInfoActivity.this.finish();
+            }
+        });
+
+        String id = getIntent().getStringExtra("id");
         DataClient client = new HttpDataClient(getResources().getString(R.string.base_url), this);
-        client.get("test_json/test_details.json", TEXT_INFO_CARD_JSON);
+        client.get("mobile/tests/"+id, TEXT_INFO_CARD_JSON);
+
 
     }
 
@@ -68,7 +91,6 @@ public class TestInfoActivity extends ActionBarActivity {
             TestDetailCard t = TestDetailCard.fromJson(event.getData());
 
             channelName.setText(t.getUser().getName());
-            Log.d("LAST AAAA", t.getUser().getName());
             testName.setText(t.getTest().getName());
             testDescription.setText(t.getTest().getDescription());
             tags.setText(t.getTest().getTags().toString());
