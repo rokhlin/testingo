@@ -25,10 +25,12 @@ import com.example.rav.testingo.DataFlow.HttpDataClient;
 import com.example.rav.testingo.DataFlow.JsonResponseEvent;
 import com.example.rav.testingo.DataStructures.Question;
  import com.example.rav.testingo.DataStructures.SimpleJsonResponse;
+ import com.loopj.android.http.RequestParams;
  import com.yelp.android.webimageview.ImageLoader;
 import com.yelp.android.webimageview.WebImageView;
 
-import java.util.List;
+ import java.util.ArrayList;
+ import java.util.List;
 
 import de.greenrobot.event.EventBus;
 
@@ -38,11 +40,9 @@ import de.greenrobot.event.EventBus;
      private int SHOW_RESULT=13;
      //public String base_url = getResources().getString(R.string.base_url);
      private Question q;
-     private List<String> answers;
-//     private String[] testType=new String[]{"question_text.json",
-//                                            "question_check.json",
-//                                            "question_radio.json",
-//                                            "question_image.json"};
+     private List<String> answers = new ArrayList<>();
+     private List<String> options;
+     private View[] controls;
      private int count=0;
 
      private int questionsCount;
@@ -51,7 +51,7 @@ import de.greenrobot.event.EventBus;
      private Button send;
      private LinearLayout llContainer;
      private TextView tvQuestion, tvQuestionNumber;
-     private DataClient client;
+     private HttpDataClient client;
      private Context context;
 
 
@@ -100,8 +100,38 @@ import de.greenrobot.event.EventBus;
             responce_id = SHOW_RESULT;
             send.setText(R.string.BUTTON_TEST_EVENT_FINISH);
         }
-        client.get("mobile/next-question/"+startToken, responce_id);
+        if(count > 0) getAnswers();
+        client.post("mobile/next-question/"+startToken, answers, responce_id);
     }
+
+     public void getAnswers() {
+        answers.clear();
+
+        String qType = q.getType();
+
+         if(qType.equals("text")) {
+             answers.add(((EditText)controls[0]).getText().toString());
+         }
+
+         if(qType.equals("check")) {
+             for(int i = 0; i < controls.length; i++) {
+                 if(((CheckBox)controls[i]).isChecked()) answers.add(options.get(i));
+             }
+         }
+
+         if(qType.equals("radio")) {
+             for(int i = 0; i < controls.length; i++) {
+                 if(((RadioButton)controls[i]).isChecked()) answers.add(options.get(i));
+             }
+         }
+
+         if(qType.equals("image")) {
+             for(int i = 0; i < controls.length; i++) {
+                 int tag = (Integer)controls[i].getTag();
+                 if(tag > 0) answers.add(options.get(i));
+             }
+         }
+     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -144,8 +174,8 @@ import de.greenrobot.event.EventBus;
              Log.i("TAG", "TestType: "+type);
 
              try {
-                 answers = q.getData();
-                 Log.i("TAG", "Answers loaded.");
+                 options = q.getData();
+                 Log.i("TAG", "options loaded.");
              }
              catch (NullPointerException e){
                  Log.i("TAG", "NOT found list");
@@ -220,11 +250,15 @@ import de.greenrobot.event.EventBus;
      private void  loadImageAnswer(){
          LayoutInflater ltInflater = getLayoutInflater();
 
+         controls = new View[q.getData().size()];
+
          for (int i = 0; i < q.getData().size();i++) {
              View item;
              item = ltInflater.inflate(R.layout.question_item_image, gridLayout, false);
 
              final WebImageView image=(WebImageView)item.findViewById(R.id.ivAnswer);
+             controls[i] = image;
+
              String base_url = getResources().getString(R.string.base_url);
              image.setImageUrl(base_url + "img/question/" + q.getData().get(i));
              image.setTag(0);
@@ -258,6 +292,7 @@ import de.greenrobot.event.EventBus;
 
          item = ltInflater.inflate(R.layout.question_item_text, llContainer, false);
          EditText etAnswer = (EditText) item.findViewById(R.id.et_Answer);
+         controls = new View[] { etAnswer };
 
          item.getLayoutParams().width = LinearLayout.LayoutParams.MATCH_PARENT;
          llContainer.addView(item);
@@ -268,9 +303,12 @@ import de.greenrobot.event.EventBus;
              RadioGroup group = new RadioGroup(this);
              group.setOrientation(RadioGroup.VERTICAL);
 
+             controls = new View[q.getData().size()];
 
-             for (int i = 0; i <q.getData().size() ; i++) {
+            for (int i = 0; i <q.getData().size() ; i++) {
                  RadioButton rbtn = new RadioButton(this);
+                 controls[i] = rbtn;
+
                  rbtn.setText(q.getData().get(i));
 
    rbtn.setPadding(40,40,40,40);//R.dimen.ButtonPaddingLeft,R.dimen.ButtonPaddingLeft,R.dimen.ButtonPaddingLeft,R.dimen.ButtonPaddingLeft);
@@ -292,16 +330,20 @@ import de.greenrobot.event.EventBus;
          LayoutInflater ltInflater = getLayoutInflater();
          View item;
 
+         controls = new View[q.getData().size()];
 
          for (int i = 0; i < q.getData().size();i++) {
 
                  item = ltInflater.inflate(R.layout.question_item_check, linLayout, false);
                  final CheckBox checkBox=(CheckBox)item.findViewById(R.id.cb_Answer);
-                 checkBox.setText(answers.get(i));
+
+                 controls[i] = checkBox;
+
+                 checkBox.setText(options.get(i));
                  checkBox.setOnClickListener(new View.OnClickListener() {
                      @Override
                      public void onClick(View v) {
-
+//                             answers
                              Toast.makeText(context, "Item checked", Toast.LENGTH_SHORT).show();
 
                      }

@@ -3,10 +3,16 @@ package com.example.rav.testingo.DataFlow;
 import android.content.Context;
 import android.util.Log;
 
+import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.TextHttpResponseHandler;
 
 import org.apache.http.Header;
+import org.apache.http.entity.StringEntity;
+
+import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 import de.greenrobot.event.EventBus;
 
@@ -42,8 +48,22 @@ public class HttpDataClient extends DataClient {
     }
 
     @Override
-    public void post(String url, String data, int id) {
-        //nothing
+    public void post(String url, RequestParams rp, int id) {
+        client.post(absuluteURL(url), rp, new CustomJsonHttpResponse(id) {});
+    }
+
+    public void post(String url, List<String> arr, int id) {
+        Gson gson = new Gson();
+        String params = gson.toJson(arr);
+        Log.d("answers", params);
+        StringEntity entity = null;
+        try {
+            entity = new StringEntity ("{ \"answers\":" + params + " } ");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+//        Log.d(entity.setContentEncoding("application/json");)
+        client.post(c, absuluteURL(url), entity, "application/json", new CustomJsonHttpResponse(id) {});
     }
 
     public HttpDataClient(String baseUrl, Context c) {

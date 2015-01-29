@@ -3,6 +3,8 @@ package com.example.rav.testingo.DataFlow;
 import android.content.Context;
 import android.os.AsyncTask;
 
+import com.loopj.android.http.RequestParams;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -68,10 +70,12 @@ public class AssetDataClient extends DataClient {
     }
 
     @Override
-    public void post(String url, String data, int id) {
+    public void post(String url, RequestParams rp, int id) {
         BackgroundTask bt = new BackgroundTask(c, id);
         bt.execute(baseUrl+url);
     }
+
+
 
     public AssetDataClient(String baseUrl, Context c) {
         super(baseUrl);
