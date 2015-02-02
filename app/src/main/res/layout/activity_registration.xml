@@ -83,7 +83,6 @@
         android:layout_height="wrap_content"
         android:text="@string/Confirm"
         android:id="@+id/btnConfirm"
-        android:background="@color/confirm"
         android:padding="@dimen/ButtonPaddingLeft"
         android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/etLName"
@@ -95,7 +94,7 @@
         android:layout_height="wrap_content"
         android:text="@string/editFoto_label"
         android:id="@+id/tvEditFoto"
-        android:textColor="@color/editText_color"
+        android:textColor="@color/edit_Foto_highlight"
         android:textColorHighlight="@color/edit_Foto_highlight"
         android:layout_alignBottom="@+id/imgFoto"
         android:layout_centerHorizontal="true" />

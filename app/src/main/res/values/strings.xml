@@ -16,7 +16,7 @@
     <string name="enter_lname">Last Name</string>
     <string name="enter_email">Enter Email</string>
     <string name="enter_confPass">Confirm Password</string>
-    <string name="editFoto_label">Change foto</string>
+    <string name="editFoto_label">Click to change foto</string>
     <string name="Yes">Yes</string>
     <string name="Cancel">Cancel</string>
     <string name="ERR_NULL_EDITTEXT">Error!!!Field Email or Password incorrect!</string>
