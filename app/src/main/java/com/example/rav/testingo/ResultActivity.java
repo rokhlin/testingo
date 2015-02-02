@@ -36,7 +36,7 @@ public class ResultActivity extends ActionBarActivity {
         setContentView(R.layout.activity_result);
         tvRes=(TextView)findViewById(R.id.tvResult);
         tvResDetail=(TextView)findViewById(R.id.tvResultDetail);
-        btnClose=(Button)findViewById(R.id.btnResult);
+        btnClose=(Button)findViewById(R.id.toFeedButton);
 
         wiv = (WebImageView)findViewById(R.id.ivResult);
         wivAuthorLogo = (WebImageView)findViewById(R.id.wivAvatar);
