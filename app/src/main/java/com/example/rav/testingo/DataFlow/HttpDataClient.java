@@ -10,6 +10,7 @@ import com.loopj.android.http.TextHttpResponseHandler;
 
 import org.apache.http.Header;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.message.BasicHeader;
 
 import java.io.UnsupportedEncodingException;
 import java.util.List;
@@ -59,11 +60,11 @@ public class HttpDataClient extends DataClient {
         StringEntity entity = null;
         try {
             entity = new StringEntity ("{ \"answers\":" + params + " } ");
+            entity.setContentType(new BasicHeader("Content-Type", "application/json"));
+            client.post(c, absuluteURL(url), entity, "application/json", new CustomJsonHttpResponse(id) {});
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-//        Log.d(entity.setContentEncoding("application/json");)
-        client.post(c, absuluteURL(url), entity, "application/json", new CustomJsonHttpResponse(id) {});
     }
 
     public HttpDataClient(String baseUrl, Context c) {
