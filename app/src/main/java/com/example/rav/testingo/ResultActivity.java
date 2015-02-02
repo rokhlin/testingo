@@ -26,9 +26,9 @@ public class ResultActivity extends ActionBarActivity {
     private int TEXT_DETAIL_CARD_JSON=0;
     private ResultCard[] res;
     private Button btnClose;
-    private TextView tvRes, tvResDetail;
-    private String result, textDetail,image,done;
-
+    private TextView tvRes, tvResDetail, tvAuthor;
+    private String result, textDetail,image,avatar,author,done;
+    private WebImageView wiv, wivAuthorLogo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +37,11 @@ public class ResultActivity extends ActionBarActivity {
         tvRes=(TextView)findViewById(R.id.tvResult);
         tvResDetail=(TextView)findViewById(R.id.tvResultDetail);
         btnClose=(Button)findViewById(R.id.btnResult);
+
+        wiv = (WebImageView)findViewById(R.id.ivResult);
+        wivAuthorLogo = (WebImageView)findViewById(R.id.wivAvatar);
+
+
 
         Intent intent = getIntent();
         String id = intent.getStringExtra("id");
@@ -85,6 +90,8 @@ public class ResultActivity extends ActionBarActivity {
             textDetail=res.getResult().getDescription();
             image=res.getResult().getDescription();
             done=res.getResult().getDone().toString();
+            author=res.getTest().getName();
+            avatar=res.getTest().getImage();
 
             Log.d("RESULT", "Load Result");
             Log.d("RESULT", "text " + result);
@@ -95,10 +102,13 @@ public class ResultActivity extends ActionBarActivity {
 
             tvRes.setText(result);
             tvResDetail.setText(textDetail);
+            tvAuthor.setText(author);
+
+            String base_url = getResources().getString(R.string.base_url);
+
+            wivAuthorLogo.setImageUrl(base_url + "img/avatar/" + avatar);
 
             if(!image.isEmpty()) {
-                String base_url = getResources().getString(R.string.base_url);
-                WebImageView wiv = (WebImageView)findViewById(R.id.ivResult);
                 wiv.setImageUrl(base_url + "img/result/" + image);
             }
 

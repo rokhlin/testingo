@@ -10,44 +10,79 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/scrollView"
-        android:layout_above="@+id/btnResult">
-
+        >
         <LinearLayout
             android:orientation="vertical"
-            xmlns:yelp="http://schemas.android.com/apk/res-auto"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_height="fill_parent"
+            xmlns:yelp="http://schemas.android.com/apk/res-auto">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Test Result"
-                android:id="@+id/tvResult"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/Foto_top_margin"
-                android:layout_marginBottom="@dimen/marginLeft" />
-
-            <com.yelp.android.webimageview.WebImageView
-                android:id="@+id/ivResult"
-                android:layout_height="@dimen/foto_height"
-                android:layout_width="match_parent"
-                yelp:autoload="false"
-                yelp:loading="@drawable/questionlogo"
-                yelp:image_priority="3"
-
-                android:layout_marginTop="@dimen/marginLeft"
-                android:layout_marginBottom="@dimen/marginLeft" />
-
-            <TextView
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Test Result details"
-                android:id="@+id/tvResultDetail"
-                android:textAlignment="center"
-                android:layout_margin="@dimen/ButtonPaddingLeft" />
+                android:layout_height="fill_parent"
+                android:paddingBottom="7dp">
+
+                <com.yelp.android.webimageview.WebImageView
+                    android:id="@+id/wivAvatar"
+                    android:layout_height="@dimen/avatarHeightWidth"
+                    android:layout_width="@dimen/avatarHeightWidth"
+                    yelp:autoload="false"
+                    yelp:loading="@drawable/image_placeholder"
+                    yelp:image_priority="3" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Author"
+                    android:id="@+id/tvAuthor"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="#ff000000"
+                    android:paddingLeft="9dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Test Result"
+                    android:id="@+id/tvResult"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/Foto_top_margin"
+                    android:layout_marginBottom="@dimen/marginLeft" />
+
+                <com.yelp.android.webimageview.WebImageView
+                    android:id="@+id/ivResult"
+                    android:layout_height="@dimen/foto_height"
+                    android:layout_width="match_parent"
+                    yelp:autoload="false"
+                    yelp:loading="@drawable/image_placeholder"
+                    yelp:image_priority="3"
+
+                    android:layout_marginTop="@dimen/marginLeft"
+                    android:layout_marginBottom="@dimen/marginLeft" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Loading results..."
+                    android:id="@+id/tvResultDetail"
+                    android:textAlignment="center"
+                    android:layout_margin="@dimen/ButtonPaddingLeft" />
+            </LinearLayout>
+
         </LinearLayout>
+
+
     </ScrollView>
 
     <Button
