@@ -41,6 +41,7 @@
     <string name="BUTTON_TEST_EVENT_FINISH">FINISH</string>
     <string name="title_activity_result">ResultActivity</string>
     <string name="BTN_RESULT">Back to Feed</string>
-
+    <string name="title_activity_main">MainActivity</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
