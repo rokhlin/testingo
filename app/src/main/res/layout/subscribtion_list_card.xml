@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:yelp="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    android:orientation="horizontal"
+    android:background="@drawable/card_background_selector"
+    android:descendantFocusability="afterDescendants"
+    android:padding="10dp"
+    android:layout_margin="6dp">
+
+    <com.yelp.android.webimageview.WebImageView android:id="@+id/image1"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        yelp:autoload="false"
+        yelp:loading="@drawable/image_placeholder"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:gravity="center_vertical"
+        android:id="@+id/text1"
+        android:layout_gravity="center_vertical"
+        android:textColor="#ff000000"
+        android:paddingLeft="16dp" />
+</LinearLayout>
