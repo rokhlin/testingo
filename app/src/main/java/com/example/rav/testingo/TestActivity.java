@@ -19,18 +19,16 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.rav.testingo.DataFlow.DataClient;
 import com.example.rav.testingo.DataFlow.ErrorResponseEvent;
 import com.example.rav.testingo.DataFlow.HttpDataClient;
 import com.example.rav.testingo.DataFlow.JsonResponseEvent;
 import com.example.rav.testingo.DataStructures.Question;
- import com.example.rav.testingo.DataStructures.SimpleJsonResponse;
- import com.loopj.android.http.RequestParams;
- import com.yelp.android.webimageview.ImageLoader;
+import com.example.rav.testingo.DataStructures.SimpleJsonResponse;
+import com.yelp.android.webimageview.ImageLoader;
 import com.yelp.android.webimageview.WebImageView;
 
- import java.util.ArrayList;
- import java.util.List;
+import java.util.ArrayList;
+import java.util.List;
 
 import de.greenrobot.event.EventBus;
 
@@ -38,7 +36,7 @@ import de.greenrobot.event.EventBus;
  public class TestActivity extends ActionBarActivity {
      private int QUESTION_VIEW=0;
      private int SHOW_RESULT=13;
-     //public String base_url = getResources().getString(R.string.base_url);
+//     public String base_url = getResources().getString(R.string.base_url);
      private Question q;
      private List<String> answers = new ArrayList<>();
      private List<String> options;
@@ -259,9 +257,10 @@ import de.greenrobot.event.EventBus;
              final WebImageView image=(WebImageView)item.findViewById(R.id.ivAnswer);
              controls[i] = image;
 
-             String base_url = getResources().getString(R.string.base_url);
+            String base_url = getResources().getString(R.string.base_url);
              image.setImageUrl(base_url + "img/question/" + q.getData().get(i));
              image.setTag(0);
+             //Прописываем действие при выборе элемента
              image.setOnClickListener(new View.OnClickListener() {
                  @Override
                  public void onClick(View v) {
@@ -269,6 +268,7 @@ import de.greenrobot.event.EventBus;
 
                      if(parameter==0) {
                          image.setBackgroundResource(R.color.editText_color);
+                         image.setHovered(true);
                          image.setPadding(2, 6, 2, 6);
                          image.setTag(1);
 
@@ -277,6 +277,7 @@ import de.greenrobot.event.EventBus;
                          image.setBackgroundResource(0);
                          image.setPadding(0, 0, 0, 0);
                          image.setTag(0);
+                         image.setHovered(false);
 
                      }
                  }
