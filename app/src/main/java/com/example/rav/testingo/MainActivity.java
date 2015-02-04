@@ -1,7 +1,5 @@
 package com.example.rav.testingo;
 
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -37,7 +35,7 @@ public class MainActivity extends ActionBarActivity implements
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-             .add(R.id.fragment_target, ResultListFragment.newInstance())
+             .add(R.id.fragment_target, FeedActivityFragment.newInstance())
              .commit();
         }
     }
@@ -47,13 +45,20 @@ public class MainActivity extends ActionBarActivity implements
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .addToBackStack(null)
-                .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right,
-                        android.R.anim.slide_in_left, android.R.anim.slide_out_right)
-//              .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
-                .commit();
+//        FragmentManager fragmentManager = getSupportFragmentManager();
+//        fragmentManager.beginTransaction()
+//                .addToBackStack(null)
+//                .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right,
+//                        android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+////              .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
+//                .commit();
+        switch (position) {
+            case 0: showFeed(); break;
+            case 1: showResultList(); break;
+            case 2: showSubscriptions(); break;
+            case 3: showNotifications(); break;
+            case 4: showSettings(); break;
+        }
     }
 
     public void restoreActionBar() {
@@ -107,7 +112,12 @@ public class MainActivity extends ActionBarActivity implements
 
     @Override
     public void showFeed() {
-
+        getSupportFragmentManager().beginTransaction()
+                .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right,
+                        android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+                .replace(R.id.fragment_target, FeedActivityFragment.newInstance())
+                .addToBackStack(null)
+                .commit();
     }
 
     @Override
@@ -117,7 +127,12 @@ public class MainActivity extends ActionBarActivity implements
 
     @Override
     public void showTestDetails(String id) {
-
+        getSupportFragmentManager().beginTransaction()
+                .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right,
+                        android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+                .replace(R.id.fragment_target, TestDetailsFragment.newInstance(id))
+                .addToBackStack(null)
+                .commit();
     }
 
     @Override
@@ -137,11 +152,26 @@ public class MainActivity extends ActionBarActivity implements
 
     @Override
     public void showResultList() {
-
+        getSupportFragmentManager().beginTransaction()
+                .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right,
+                        android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+                .replace(R.id.fragment_target, ResultListFragment.newInstance())
+                .addToBackStack(null)
+                .commit();
     }
 
     @Override
     public void showResultDetails(String id) {
+
+    }
+
+    @Override
+    public void showSettings (){
+
+    }
+
+    @Override
+    public void showNotifications(){
 
     }
 }

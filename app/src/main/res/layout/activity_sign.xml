@@ -57,8 +57,8 @@
             android:text="@string/Confirm"
             android:id="@+id/btnConfirm"
             android:layout_weight="1"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp" />
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp" />
 
         <Button
             android:layout_width="wrap_content"
@@ -66,8 +66,8 @@
             android:text="@string/Registration"
             android:id="@+id/btnRegistr"
             android:layout_weight="1"
-            android:layout_marginRight="15dp"
-            android:layout_marginLeft="15dp" />
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp" />
     </LinearLayout>
 
 </RelativeLayout>

@@ -13,4 +13,6 @@ public interface MainActivityInteractions {
     void showSubscriptions();
     void showResultList();
     void showResultDetails(String id);
+    void showSettings();
+    void showNotifications();
 }

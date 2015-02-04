@@ -223,7 +223,7 @@ public class RegistrationActivity extends ActionBarActivity implements View.OnCl
                 else {
                     if (registration()) {
                         Log.i(LOG_TAG, String.valueOf(R.string.INFO_REGISTRATION_SUCCESS));
-                        intent = new Intent(this, FeedActivity.class);
+                        intent = new Intent(this, MainActivity.class);
                         startActivity(intent);
                         toast = Toast.makeText(getApplicationContext(),
                                 R.string.INFO_REGISTRATION_SUCCESS, Toast.LENGTH_LONG);

@@ -6,16 +6,13 @@
     <string name="comments">Comments:</string>
     <string name="start_testing">Start testing!</string>
     <string name="title_activity_test_info">Test Information</string>
-
     <string name="title_activity_nav_feed">NavFeed</string>
     <string name="title_section1">Feed</string>
     <string name="title_section2">Subscribes</string>
-    <string name="title_section3">Profile</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_example">Example action</string>
-    <string name="title_activity_subscribes">Subscribes</string>
-    <string name="title_activity_preference">Preference</string>
-    <string name="title_activity_test_results">Test Results</string>
+    <string name="title_activity_test_results">Results</string>
     <string name="title_activity_notifications">Notifications</string>
+    <string name="settings">Settings</string>
 </resources>

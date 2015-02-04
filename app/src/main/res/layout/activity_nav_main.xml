@@ -23,9 +23,6 @@
         android:name="com.example.rav.testingo.NavigationDrawerFragment"
         tools:layout="@layout/fragment_navigation_drawer" >
 
-        <!--<view style="@style/Divider"-->
-            <!--android:paddingTop="160dp"/>-->
-
 
         <ImageView
             android:layout_gravity="center_horizontal"

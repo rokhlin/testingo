@@ -190,7 +190,7 @@ public class SignActivity extends ActionBarActivity implements View.OnClickListe
     }
 
     public void showFeed(){
-        intent = new Intent(this, FeedActivity.class);
+        intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 }
