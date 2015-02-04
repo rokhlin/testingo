@@ -39,6 +39,19 @@ public abstract class LoadingFragment extends Fragment {
         contentContainer.setVisibility(View.VISIBLE);
     }
 
+    protected void loadingStart(View rootView) {
+        View loadingContainer = rootView.findViewById(R.id.loading_container);
+        View contentContainer = rootView.findViewById(R.id.content_container);
+
+        loadingContainer.startAnimation(
+                AnimationUtils.loadAnimation(rootView.getContext(), android.R.anim.fade_in));
+        contentContainer.startAnimation(
+                AnimationUtils.loadAnimation(rootView.getContext(), android.R.anim.fade_out));
+
+        loadingContainer.setVisibility(View.VISIBLE);
+        contentContainer.setVisibility(View.INVISIBLE);
+    }
+
     @Override
     public void onStart() {
         super.onStart();

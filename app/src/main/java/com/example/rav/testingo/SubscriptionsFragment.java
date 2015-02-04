@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -17,23 +16,31 @@ import com.example.rav.testingo.DataFlow.ErrorResponseEvent;
 import com.example.rav.testingo.DataFlow.HttpDataClient;
 import com.example.rav.testingo.DataFlow.JsonResponseEvent;
 import com.example.rav.testingo.DataStructures.ResultCard;
+import com.example.rav.testingo.DataStructures.TestCard;
+import com.example.rav.testingo.DataStructures.UserBasic;
+import com.yelp.android.webimageview.WebImageView;
 
-public class ResultListFragment extends LoadingFragment {
+/**
+ * Created by Shtutman on 04.02.2015.
+ */
+
+public class SubscriptionsFragment extends LoadingFragment {
     private DataClient client;
     private View rootView;
     private Context context;
     private ListAdapter adapter;
     private ListView list;
-    ResultCard[] cards;
+    private String baseUrl;
+    UserBasic[] cards;
 
-    public static final int RESULT_LIST_REQUEST = 98;
+    public static final int USERS_LIST_REQUEST = 97;
 
-    public static ResultListFragment newInstance() {
-        ResultListFragment fragment = new ResultListFragment();
+    public static SubscriptionsFragment newInstance() {
+        SubscriptionsFragment fragment = new SubscriptionsFragment();
         return fragment;
     }
 
-    public ResultListFragment() {
+    public SubscriptionsFragment() {
         // Required empty public constructor
     }
 
@@ -49,19 +56,10 @@ public class ResultListFragment extends LoadingFragment {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_list, container, false);
         list = (ListView)rootView.findViewById(R.id.list);
-
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                MainActivityInteractions act = (MainActivityInteractions)getActivity();
-                String rId = ((ResultCard)parent.getItemAtPosition(position)).getResult().getId();
-//                act.showResultDetails(rId);
-                act.showSubscriptions();
-            }
-        });
+        baseUrl = getResources().getString(R.string.base_url);
 
         client = new HttpDataClient(getResources().getString(R.string.base_url), rootView.getContext());
-        client.get("mobile/results", RESULT_LIST_REQUEST);
+        client.get("mobile/tests/subscribtions", USERS_LIST_REQUEST);
 
         return rootView;
     }
@@ -69,9 +67,9 @@ public class ResultListFragment extends LoadingFragment {
 
     @Override
     public void onEvent(JsonResponseEvent response) {
-        if(response.getId() == RESULT_LIST_REQUEST) {
-            cards = ResultCard.arrayFromJson(response.getData());
-            adapter = new ResultListAdapter(context, cards);
+        if(response.getId() == USERS_LIST_REQUEST) {
+            cards = UserBasic.arrayFromJson(response.getData());
+            adapter = new SubsListAdapter(context, cards);
             list.setAdapter(adapter);
 
             loadingComplete(rootView);
@@ -85,10 +83,10 @@ public class ResultListFragment extends LoadingFragment {
 
 
     //ADAPTER CLASS
-    class ResultListAdapter extends ArrayAdapter<ResultCard> {
+    class SubsListAdapter extends ArrayAdapter<UserBasic> {
         LayoutInflater inflater;
 
-        ResultListAdapter(Context context, ResultCard[] objects) {
+        SubsListAdapter(Context context, UserBasic[] objects) {
             super(context, 0, objects);
             inflater = LayoutInflater.from(this.getContext());
         }
@@ -96,13 +94,14 @@ public class ResultListFragment extends LoadingFragment {
         @Override
         public View getView(int position, View view, ViewGroup parent) {
             if(view == null) {
-                view = inflater.inflate(R.layout.result_list_card, parent, false);
+                view = inflater.inflate(R.layout.subscribtion_list_card, parent, false);
 
             }
 
-            ResultCard card = getItem(position);
-            ((TextView)view.findViewById(R.id.text1)).setText(card.getTest().getName());
-            ((TextView)view.findViewById(R.id.text2)).setText(card.getResult().getText());
+            UserBasic card = getItem(position);
+
+            ((WebImageView)view.findViewById(R.id.image1)).setImageUrl(baseUrl + "img/avatar/" + card.getAvatar());
+            ((TextView)view.findViewById(R.id.text1)).setText(card.getName());
             return view;
         }
     }

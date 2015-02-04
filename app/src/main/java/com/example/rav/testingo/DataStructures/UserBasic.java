@@ -65,4 +65,10 @@ public class UserBasic {
                 .create();
         return gson.fromJson(data, UserBasic.class);
     }
+
+    public static UserBasic[] arrayFromJson(String data) {
+        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation()
+                .create();
+        return gson.fromJson(data, UserBasic[].class);
+    }
 }

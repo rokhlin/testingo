@@ -1,6 +1,7 @@
 package com.example.rav.testingo;
 
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -8,11 +9,13 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.rav.testingo.DataStructures.TestDetailInfo;
 import com.yelp.android.webimageview.ImageLoader;
 
 
 public class MainActivity extends ActionBarActivity implements
-        NavigationDrawerFragment.NavigationDrawerCallbacks
+        NavigationDrawerFragment.NavigationDrawerCallbacks,
+        MainActivityInteractions
 {
     private NavigationDrawerFragment mNavigationDrawerFragment;
     private CharSequence mTitle;
@@ -49,7 +52,7 @@ public class MainActivity extends ActionBarActivity implements
                 .addToBackStack(null)
                 .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right,
                         android.R.anim.slide_in_left, android.R.anim.slide_out_right)
-//                .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
+//              .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
                 .commit();
     }
 
@@ -100,5 +103,45 @@ public class MainActivity extends ActionBarActivity implements
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void showFeed() {
+
+    }
+
+    @Override
+    public void showChannel(String id) {
+
+    }
+
+    @Override
+    public void showTestDetails(String id) {
+
+    }
+
+    @Override
+    public void startTest(TestDetailInfo test) {
+
+    }
+
+    @Override
+    public void showSubscriptions() {
+        getSupportFragmentManager().beginTransaction()
+        .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right,
+                android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+        .replace(R.id.fragment_target, SubscriptionsFragment.newInstance())
+        .addToBackStack(null)
+        .commit();
+    }
+
+    @Override
+    public void showResultList() {
+
+    }
+
+    @Override
+    public void showResultDetails(String id) {
+
     }
 }
