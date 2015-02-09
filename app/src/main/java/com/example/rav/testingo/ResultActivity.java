@@ -26,8 +26,8 @@ public class ResultActivity extends ActionBarActivity {
     private int TEXT_DETAIL_CARD_JSON=0;
     private ResultCard[] res;
     private Button btnClose;
-    private TextView tvRes, tvResDetail, tvAuthor;
-    private String result, textDetail,image,avatar,author,done;
+    private TextView tvRes, tvResDetail, tvAuthor,tvTest;
+    private String result, textDetail,image,avatar,done;
     private WebImageView wiv, wivAuthorLogo;
 
     @Override
@@ -35,6 +35,8 @@ public class ResultActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
         tvRes=(TextView)findViewById(R.id.tvResult);
+        tvAuthor=(TextView)findViewById(R.id.tvAuthor);
+        tvTest=(TextView)findViewById(R.id.tvTestName);
         tvResDetail=(TextView)findViewById(R.id.tvResultDetail);
         btnClose=(Button)findViewById(R.id.toFeedButton);
 
@@ -47,7 +49,7 @@ public class ResultActivity extends ActionBarActivity {
         String id = intent.getStringExtra("id");
 
         DataClient client = new HttpDataClient(getResources().getString(R.string.base_url), this);
-        client.get("test_json/result_detail.json", TEXT_DETAIL_CARD_JSON);
+        client.get("mobile/results/"+id, TEXT_DETAIL_CARD_JSON);
 
         Button feedButton = (Button)findViewById(R.id.toFeedButton);
         feedButton.setOnClickListener(new View.OnClickListener() {
@@ -90,19 +92,18 @@ public class ResultActivity extends ActionBarActivity {
             textDetail=res.getResult().getDescription();
             image=res.getResult().getDescription();
             done=res.getResult().getDone().toString();
-            author=res.getTest().getName();
-            avatar=res.getTest().getImage();
+            avatar=res.getUser().getAvatar();
 
             Log.d("RESULT", "Load Result");
             Log.d("RESULT", "text " + result);
-
             Log.d("RESULT", "textDetail) "+textDetail);
             Log.d("RESULT", "image "+image);
             Log.d("RESULT", "done "+done);
 
             tvRes.setText(result);
             tvResDetail.setText(textDetail);
-            tvAuthor.setText(author);
+            tvAuthor.setText(res.getUser().getName());
+            tvTest.setText(res.getTest().getName());
 
             String base_url = getResources().getString(R.string.base_url);
 
@@ -110,8 +111,11 @@ public class ResultActivity extends ActionBarActivity {
 
             if(!image.isEmpty()) {
                 wiv.setImageUrl(base_url + "img/result/" + image);
+                wiv.setVisibility(View.VISIBLE);
             }
-
+            else {
+                wiv.setVisibility(View.GONE);
+            }
 
         }
     }

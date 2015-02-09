@@ -11,6 +11,7 @@
         android:hint="@string/hint_Answer"
         android:visibility="visible"
         android:lines="4"
-        android:padding="@dimen/marginLeft" />
-
+        android:padding="@dimen/marginLeft" >
+    <requestFocus/>
+    </EditText>
 </LinearLayout>

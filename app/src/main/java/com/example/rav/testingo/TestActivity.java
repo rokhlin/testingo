@@ -1,36 +1,37 @@
  package com.example.rav.testingo;
 
  import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.GridLayout;
-import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.TextView;
-import android.widget.Toast;
+ import android.content.Intent;
+ import android.os.Bundle;
+ import android.support.v7.app.ActionBarActivity;
+ import android.util.Log;
+ import android.view.LayoutInflater;
+ import android.view.Menu;
+ import android.view.MenuItem;
+ import android.view.View;
+ import android.view.inputmethod.InputMethodManager;
+ import android.widget.Button;
+ import android.widget.CheckBox;
+ import android.widget.EditText;
+ import android.widget.GridLayout;
+ import android.widget.LinearLayout;
+ import android.widget.RadioButton;
+ import android.widget.RadioGroup;
+ import android.widget.TextView;
+ import android.widget.Toast;
 
-import com.example.rav.testingo.DataFlow.ErrorResponseEvent;
-import com.example.rav.testingo.DataFlow.HttpDataClient;
-import com.example.rav.testingo.DataFlow.JsonResponseEvent;
-import com.example.rav.testingo.DataStructures.Question;
-import com.example.rav.testingo.DataStructures.SimpleJsonResponse;
-import com.yelp.android.webimageview.ImageLoader;
-import com.yelp.android.webimageview.WebImageView;
+ import com.example.rav.testingo.DataFlow.ErrorResponseEvent;
+ import com.example.rav.testingo.DataFlow.HttpDataClient;
+ import com.example.rav.testingo.DataFlow.JsonResponseEvent;
+ import com.example.rav.testingo.DataStructures.Question;
+ import com.example.rav.testingo.DataStructures.SimpleJsonResponse;
+ import com.yelp.android.webimageview.ImageLoader;
+ import com.yelp.android.webimageview.WebImageView;
 
-import java.util.ArrayList;
-import java.util.List;
+ import java.util.ArrayList;
+ import java.util.List;
 
-import de.greenrobot.event.EventBus;
+ import de.greenrobot.event.EventBus;
 
 
  public class TestActivity extends ActionBarActivity {
@@ -51,7 +52,7 @@ import de.greenrobot.event.EventBus;
      private TextView tvQuestion, tvQuestionNumber;
      private HttpDataClient client;
      private Context context;
-
+     private  InputMethodManager imm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +82,7 @@ import de.greenrobot.event.EventBus;
 
         client = new HttpDataClient(getResources().getString(R.string.base_url), this);
         send=(Button)findViewById(R.id.btnSend);
-
+        imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
         nextQuestion();
         send.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,8 +99,15 @@ import de.greenrobot.event.EventBus;
             responce_id = SHOW_RESULT;
             send.setText(R.string.BUTTON_TEST_EVENT_FINISH);
         }
-        if(count > 0) getAnswers();
-        client.post("mobile/next-question/"+startToken, answers, responce_id);
+        if(count > 0) {
+            getAnswers();
+            if(answers.size() > 0)
+                client.post("mobile/next-question/"+startToken, answers, responce_id);
+            else
+                Toast.makeText(this, "ffff", Toast.LENGTH_SHORT).show();
+        }
+        else
+            client.post("mobile/next-question/"+startToken, answers, responce_id);
     }
 
      public void getAnswers() {
@@ -109,6 +117,7 @@ import de.greenrobot.event.EventBus;
 
          if(qType.equals("text")) {
              answers.add(((EditText)controls[0]).getText().toString());
+             imm.hideSoftInputFromWindow(controls[0].getWindowToken(), 0);
          }
 
          if(qType.equals("check")) {
@@ -188,9 +197,11 @@ import de.greenrobot.event.EventBus;
                  String base_url = getResources().getString(R.string.base_url);
                  Log.i("TAG", base_url + "img/test/" + image);
                  wiv.setImageUrl(base_url + "img/test/" + image, R.drawable.image_placeholder);
+                 wiv.setVisibility(View.VISIBLE);
              }
              else {
                  wiv.setImageDrawable(null);
+                 wiv.setVisibility(View.GONE);
              }
 
              tvQuestion.setText(question);
@@ -206,6 +217,8 @@ import de.greenrobot.event.EventBus;
                      Log.d("TAG", "Load a RadioButton type question");
                      break;
                  case "check":
+
+
                      loadSelectAnswer();
                  Log.d("TAG", "Load a CheckBox type question");
                      break;
@@ -260,26 +273,58 @@ import de.greenrobot.event.EventBus;
             String base_url = getResources().getString(R.string.base_url);
              image.setImageUrl(base_url + "img/question/" + q.getData().get(i));
              image.setTag(0);
+
              //Прописываем действие при выборе элемента
              image.setOnClickListener(new View.OnClickListener() {
                  @Override
                  public void onClick(View v) {
-                     int parameter=(Integer)image.getTag();
 
-                     if(parameter==0) {
-                         image.setBackgroundResource(R.color.editText_color);
-                         image.setHovered(true);
-                         image.setPadding(2, 6, 2, 6);
-                         image.setTag(1);
-
+                     for (int j = 0; j < gridLayout.getChildCount(); j++) {
+                         View img = gridLayout.getChildAt(j);
+                         img.setBackgroundResource(0);
+                         img.setPadding(0, 0, 0, 0);
+                         img.setTag(0);
                      }
-                     else {
-                         image.setBackgroundResource(0);
-                         image.setPadding(0, 0, 0, 0);
-                         image.setTag(0);
-                         image.setHovered(false);
-
+                     v.setTag(1);
+                     int selected = (Integer)v.getTag();
+                     if(selected == 1) {
+                         v.setBackgroundResource(R.drawable.border2);
+                         v.setPadding(6, 6, 6, 6);
                      }
+
+
+//                     int id=(Integer)image.getTag();
+//                     Log.d("TAG", "______________IMAGE SELECT_________________");
+//                     Log.d("TAG", "ID:"+id);
+//                     for (int j = 0; j < gridLayout.getChildCount(); j++) {
+//                         if (j == (id)) {
+//                             Log.d("TAG", "ID:"+id+" , 1j="+j);
+//                             image.setBackgroundResource(R.drawable.border2);
+//                             image.setPadding(6, 6, 6, 6);
+//
+//                         }
+//                         else {
+//
+//                             Log.d("TAG", "ID:"+id+" , j="+j);
+//                             View img = gridLayout.getChildAt(j);
+//                             img.setBackgroundResource(0);
+//                             img.setPadding(0, 0, 0, 0);
+//
+//                         }
+//                     }
+
+//                     int parameter=(Integer)image.getTag();
+//                     if(parameter==0) {
+//                         image.setBackgroundResource(R.drawable.border2);
+//                         image.setPadding(6, 6, 6, 6);
+//                         image.setTag(1);
+//
+//                     }
+//                     else {
+//                         image.setBackgroundResource(0);
+//                         image.setPadding(0, 0, 0, 0);
+//                         image.setTag(0);
+//                     }
                  }
              });
 
@@ -294,29 +339,54 @@ import de.greenrobot.event.EventBus;
          item = ltInflater.inflate(R.layout.question_item_text, llContainer, false);
          EditText etAnswer = (EditText) item.findViewById(R.id.et_Answer);
          controls = new View[] { etAnswer };
-
+         imm.showSoftInput(etAnswer, 0);
          item.getLayoutParams().width = LinearLayout.LayoutParams.MATCH_PARENT;
          llContainer.addView(item);
      }
 
 
      private void loadRadioAnswer(){
-             RadioGroup group = new RadioGroup(this);
+             final RadioGroup group = new RadioGroup(this);
              group.setOrientation(RadioGroup.VERTICAL);
 
              controls = new View[q.getData().size()];
 
             for (int i = 0; i <q.getData().size() ; i++) {
-                 RadioButton rbtn = new RadioButton(this);
+                 final RadioButton rbtn = new RadioButton(this);
+
                  controls[i] = rbtn;
-
+                LinearLayout.LayoutParams  rbParam = new RadioGroup.LayoutParams(
+                        RadioGroup.LayoutParams.MATCH_PARENT, RadioGroup.LayoutParams.WRAP_CONTENT);
+                 rbtn.setLayoutParams(rbParam);
                  rbtn.setText(q.getData().get(i));
+                 rbtn.setPadding(40, 40, 40, 40);
+                 rbtn.setTag(i);
+                 rbtn.setOnClickListener(new View.OnClickListener() {
+                     @Override
+                     public void onClick(View v) {
 
-   rbtn.setPadding(40,40,40,40);//R.dimen.ButtonPaddingLeft,R.dimen.ButtonPaddingLeft,R.dimen.ButtonPaddingLeft,R.dimen.ButtonPaddingLeft);
-//                 RadioGroup.LayoutParams params
-//                         = new RadioGroup.LayoutParams(context, null);
-//                 params.setMargins(0, R.dimen.ButtonPaddingLeft, 0, R.dimen.ButtonPaddingLeft);
-//                 rbtn.setLayoutParams(params);
+                         if(rbtn.isChecked()){
+                             //rbtn.setBackgroundResource(R.drawable.border2);
+
+                             int id = group.getCheckedRadioButtonId();
+
+                             Log.d("TAG", "______________RG SELECT_________________");
+                             Log.d("TAG", "ID:"+id);
+                             for (int j = 0; j < group.getChildCount(); j++) {
+                                 if (j == (id-1)) {
+                                     Log.d("TAG", "ID:"+id+" , 1j="+j);
+                                     rbtn.setBackgroundResource(R.drawable.border2);
+                                 }
+                                 else {
+                                     Log.d("TAG", "ID:"+id+" , j="+j);
+                                     View radio = group.getChildAt(j);
+                                     radio.setBackgroundResource(0);
+                                 }
+                             }
+                         }
+
+                     }
+                 });
                  group.addView(rbtn);
 
              }
@@ -326,6 +396,8 @@ import de.greenrobot.event.EventBus;
      }
 
      private void loadSelectAnswer(){
+
+
          LinearLayout linLayout = (LinearLayout) findViewById(R.id.llItemcontanier);
          linLayout.removeAllViews();
          LayoutInflater ltInflater = getLayoutInflater();
@@ -344,8 +416,10 @@ import de.greenrobot.event.EventBus;
                  checkBox.setOnClickListener(new View.OnClickListener() {
                      @Override
                      public void onClick(View v) {
-//                             answers
-                             Toast.makeText(context, "Item checked", Toast.LENGTH_SHORT).show();
+                         if(checkBox.isChecked()){
+                             checkBox.setBackgroundResource(R.drawable.border2);}
+                         else {
+                             checkBox.setBackgroundResource(0);}
 
                      }
                  });

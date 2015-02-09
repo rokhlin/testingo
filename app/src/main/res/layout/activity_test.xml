@@ -27,7 +27,7 @@
         android:id="@+id/svQuestion"
         android:layout_centerHorizontal="true"
         android:layout_above="@+id/btnSend"
-        android:layout_alignTop="@+id/tvQuestionNumber">
+        android:layout_below="@+id/tvQuestionNumber">
 
         <LinearLayout
             android:orientation="vertical"
@@ -52,7 +52,10 @@
                 android:text="loading...."
                 android:id="@+id/twQuestion"
                 android:minLines="2"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_marginTop="@dimen/ButtonPaddingLeft"
+                android:layout_marginBottom="@dimen/marginLeft" />
 
             <GridLayout
                 android:layout_width="fill_parent"
