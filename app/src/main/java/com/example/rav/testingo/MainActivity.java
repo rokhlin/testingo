@@ -1,5 +1,8 @@
 package com.example.rav.testingo;
 
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -45,13 +48,7 @@ public class MainActivity extends ActionBarActivity implements
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        fragmentManager.beginTransaction()
-//                .addToBackStack(null)
-//                .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right,
-//                        android.R.anim.slide_in_left, android.R.anim.slide_out_right)
-////              .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
-//                .commit();
+        getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         switch (position) {
             case 0: showFeed(); break;
             case 1: showResultList(); break;
@@ -81,19 +78,16 @@ public class MainActivity extends ActionBarActivity implements
         return super.onCreateOptionsMenu(menu);
     }
 
-//    public void onSectionAttached(int number) {
-//        switch (number) {
-//            case 1:
-//                mTitle = getString(R.string.title_section1);
-//                break;
-//            case 2:
-//                mTitle = getString(R.string.title_section2);
-//                break;
-//            case 3:
-//                mTitle = getString(R.string.title_section3);
-//                break;
-//        }
-//    }
+    public void switchFragment(Fragment fragment, boolean animate, boolean addToBackStack) {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        if(addToBackStack)
+            ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right,
+                android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+
+        ft.replace(R.id.fragment_target, FeedActivityFragment.newInstance());
+        if(addToBackStack) ft.addToBackStack(null);
+        ft.commit();
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -112,27 +106,17 @@ public class MainActivity extends ActionBarActivity implements
 
     @Override
     public void showFeed() {
-        getSupportFragmentManager().beginTransaction()
-                .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right,
-                        android.R.anim.slide_in_left, android.R.anim.slide_out_right)
-                .replace(R.id.fragment_target, FeedActivityFragment.newInstance())
-                .addToBackStack(null)
-                .commit();
+        switchFragment(FeedActivityFragment.newInstance(), true, false);
     }
 
     @Override
     public void showChannel(String id) {
-
+        switchFragment(ChannelFragment.newInstance(id), true, true);
     }
 
     @Override
     public void showTestDetails(String id) {
-        getSupportFragmentManager().beginTransaction()
-                .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right,
-                        android.R.anim.slide_in_left, android.R.anim.slide_out_right)
-                .replace(R.id.fragment_target, TestDetailsFragment.newInstance(id))
-                .addToBackStack(null)
-                .commit();
+        switchFragment(TestDetailsFragment.newInstance(id), true, true);
     }
 
     @Override
@@ -142,22 +126,18 @@ public class MainActivity extends ActionBarActivity implements
 
     @Override
     public void showSubscriptions() {
-        getSupportFragmentManager().beginTransaction()
-        .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right,
-                android.R.anim.slide_in_left, android.R.anim.slide_out_right)
-        .replace(R.id.fragment_target, SubscriptionsFragment.newInstance())
-        .addToBackStack(null)
-        .commit();
+        switchFragment(SubscriptionsFragment.newInstance(), true, false);
     }
 
     @Override
     public void showResultList() {
-        getSupportFragmentManager().beginTransaction()
-                .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right,
-                        android.R.anim.slide_in_left, android.R.anim.slide_out_right)
-                .replace(R.id.fragment_target, ResultListFragment.newInstance())
-                .addToBackStack(null)
-                .commit();
+        switchFragment(ResultListFragment.newInstance(), true, false);
+    }
+
+    @Override
+    public void setTitle(String title) {
+        mTitle = title;
+        getActionBar().setTitle(title);
     }
 
     @Override

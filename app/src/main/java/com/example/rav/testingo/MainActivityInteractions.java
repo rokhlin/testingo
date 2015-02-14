@@ -15,4 +15,5 @@ public interface MainActivityInteractions {
     void showResultDetails(String id);
     void showSettings();
     void showNotifications();
+    void setTitle(String title);
 }
