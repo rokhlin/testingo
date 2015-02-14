@@ -1,9 +1,8 @@
 package com.example.rav.testingo;
 
 import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +26,6 @@ import java.util.Arrays;
  * Created by Max on 04.02.2015.
  */
 public class FeedActivityFragment extends LoadingFragment {
-
     public static final int FEED_LIST_REQUEST = 49;
     private TestListAdapter cardArrayAdapter;
     private ListView listView;
@@ -35,6 +33,7 @@ public class FeedActivityFragment extends LoadingFragment {
     private View rootView;
     private DataClient client;
     private String baseUrl;
+    private LayoutInflater inflater;
     ArrayList<TestCard> testCards;
 
     public static FeedActivityFragment newInstance() {
@@ -57,6 +56,7 @@ public class FeedActivityFragment extends LoadingFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_list, container, false);
+        this.inflater = inflater;
         listView = (ListView)rootView.findViewById(R.id.list);
         baseUrl = getResources().getString(R.string.base_url);
 
@@ -101,11 +101,8 @@ public class FeedActivityFragment extends LoadingFragment {
 
 //    ADAPTER CLASS
     class TestListAdapter extends ArrayAdapter<TestCard> {
-        LayoutInflater inflater;
-
         TestListAdapter(Context context, ArrayList<TestCard> objects) {
             super(context, 0, objects);
-            inflater = LayoutInflater.from(this.getContext());
         }
 
         @Override

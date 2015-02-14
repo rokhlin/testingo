@@ -7,19 +7,31 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+import com.example.rav.testingo.DataFlow.DataClient;
+import com.example.rav.testingo.DataFlow.ErrorResponseEvent;
+import com.example.rav.testingo.DataFlow.HttpDataClient;
+import com.example.rav.testingo.DataFlow.JsonResponseEvent;
 import com.example.rav.testingo.DataStructures.TestDetailInfo;
+import com.example.rav.testingo.DataStructures.UserSelfAccount;
 import com.yelp.android.webimageview.ImageLoader;
+
+import de.greenrobot.event.EventBus;
 
 
 public class MainActivity extends ActionBarActivity implements
         NavigationDrawerFragment.NavigationDrawerCallbacks,
         MainActivityInteractions
 {
+    private static final int USER_PROFILE_RESPONSE = 116;
     private NavigationDrawerFragment mNavigationDrawerFragment;
     private CharSequence mTitle;
+    private UserSelfAccount profile;
+    boolean firstTime = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,15 +48,15 @@ public class MainActivity extends ActionBarActivity implements
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
+        DataClient client = new HttpDataClient(getResources().getString(R.string.base_url), this);
+        client.get("mobile/profile", USER_PROFILE_RESPONSE);
+
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
              .add(R.id.fragment_target, FeedActivityFragment.newInstance())
              .commit();
         }
     }
-
-
-
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
@@ -80,11 +92,15 @@ public class MainActivity extends ActionBarActivity implements
 
     public void switchFragment(Fragment fragment, boolean animate, boolean addToBackStack) {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        if(addToBackStack)
+        if(animate)
             ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right,
                 android.R.anim.slide_in_left, android.R.anim.slide_out_right);
 
-        ft.replace(R.id.fragment_target, FeedActivityFragment.newInstance());
+        if(!firstTime) ft.replace(R.id.fragment_target, fragment);
+        else {
+            ft.add(R.id.fragment_target, fragment);
+            firstTime = false;
+        }
         if(addToBackStack) ft.addToBackStack(null);
         ft.commit();
     }
@@ -105,6 +121,11 @@ public class MainActivity extends ActionBarActivity implements
     }
 
     @Override
+    public UserSelfAccount getSelfAccount() {
+        return profile;
+    }
+
+    @Override
     public void showFeed() {
         switchFragment(FeedActivityFragment.newInstance(), true, false);
     }
@@ -120,8 +141,8 @@ public class MainActivity extends ActionBarActivity implements
     }
 
     @Override
-    public void startTest(TestDetailInfo test) {
-
+    public void startTest(String token, String testName, int qCount) {
+        switchFragment(TestFragment.newInstance(token, testName, qCount), true, true);
     }
 
     @Override
@@ -137,7 +158,7 @@ public class MainActivity extends ActionBarActivity implements
     @Override
     public void setTitle(String title) {
         mTitle = title;
-        getActionBar().setTitle(title);
+        getSupportActionBar().setTitle(title);
     }
 
     @Override
@@ -153,5 +174,27 @@ public class MainActivity extends ActionBarActivity implements
     @Override
     public void showNotifications(){
 
+    }
+
+    public void onEvent(JsonResponseEvent response) {
+        if(response.getId() == USER_PROFILE_RESPONSE) {
+            profile = UserSelfAccount.fromJson(response.getData());
+        }
+    }
+
+    public void onEvent(ErrorResponseEvent response) {
+        Toast.makeText(this, response.getMessage(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
     }
 }

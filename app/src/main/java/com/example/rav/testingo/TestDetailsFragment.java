@@ -1,5 +1,6 @@
 package com.example.rav.testingo;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ import com.yelp.android.webimageview.WebImageView;
  * Created by Max on 04.02.2015.
  */
 public class TestDetailsFragment extends LoadingFragment {
+    private MainActivityInteractions interactions;
     TextView testDescription, testName, channelName, tags, tested;
     Button btnStartTest;
     private DataClient client;
@@ -107,10 +109,24 @@ public class TestDetailsFragment extends LoadingFragment {
         Toast.makeText(context, response.getMessage(), Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        interactions = (MainActivityInteractions)getActivity();
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        interactions = null;
+    }
+
     public void showTest(String token){
-        Intent intent = new Intent(rootView.getContext(), TestActivity.class);
-        intent.putExtra("startToken", token);
-        intent.putExtra("questionsCount", testCard.getTest().getQuestionsCount());
-        startActivity(intent);
+//        Intent intent = new Intent(rootView.getContext(), TestActivity.class);
+//        intent.putExtra("startToken", token);
+//        intent.putExtra("questionsCount", testCard.getTest().getQuestionsCount());
+//        startActivity(intent);
+        interactions.startTest(token, testCard.getTest().getName(),
+                testCard.getTest().getQuestionsCount());
     }
 }
