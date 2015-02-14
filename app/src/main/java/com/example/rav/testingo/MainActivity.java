@@ -31,7 +31,7 @@ public class MainActivity extends ActionBarActivity implements
     private NavigationDrawerFragment mNavigationDrawerFragment;
     private CharSequence mTitle;
     private UserSelfAccount profile;
-    boolean firstTime = true;
+//    private Fragment currentFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,11 +51,11 @@ public class MainActivity extends ActionBarActivity implements
         DataClient client = new HttpDataClient(getResources().getString(R.string.base_url), this);
         client.get("mobile/profile", USER_PROFILE_RESPONSE);
 
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-             .add(R.id.fragment_target, FeedActivityFragment.newInstance())
-             .commit();
-        }
+//        if (savedInstanceState == null) {
+//            getSupportFragmentManager().beginTransaction()
+//             .add(R.id.fragment_target, FeedActivityFragment.newInstance())
+//             .commit();
+//        }
     }
 
     @Override
@@ -95,12 +95,8 @@ public class MainActivity extends ActionBarActivity implements
         if(animate)
             ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right,
                 android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-
-        if(!firstTime) ft.replace(R.id.fragment_target, fragment);
-        else {
-            ft.add(R.id.fragment_target, fragment);
-            firstTime = false;
-        }
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+        ft.replace(R.id.fragment_target, fragment);
         if(addToBackStack) ft.addToBackStack(null);
         ft.commit();
     }
