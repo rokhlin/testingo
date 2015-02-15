@@ -1,22 +1,28 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container_test_info"
+    xmlns:yelp="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".TestInfoFragment"
-    android:background="@drawable/ba">
 
-    <!-- TODO: Update blank fragment layout -->
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin">
+
+    <include layout="@layout/loading_container"/>
+
     <LinearLayout
-        android:orientation="vertical"
+        android:id="@+id/content_container"
         android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        xmlns:yelp="http://schemas.android.com/apk/res-auto"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:orientation="vertical"
+
         android:background="@drawable/card_background"
         android:descendantFocusability="afterDescendants"
-        android:id="@+id/ll"
         android:layout_gravity="center_horizontal"
-        android:padding="6dp">
+        android:padding="8dp">
 
         <LinearLayout
             android:orientation="horizontal"
@@ -46,6 +52,8 @@
 
         </LinearLayout>
 
+        <View style="@style/Divider"/>
+
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="fill_parent"
@@ -59,8 +67,11 @@
                 android:text="Medium Text"
                 android:id="@+id/textView2"
                 android:textColor="#ff303030"
+                android:layout_margin="8dp"
                 android:textSize="@dimen/abc_text_size_headline_material"/>
         </LinearLayout>
+
+        <View style="@style/Divider"/>
 
         <com.yelp.android.webimageview.WebImageView
             android:id="@+id/test_image"
@@ -68,6 +79,8 @@
             android:layout_width="match_parent"
             yelp:autoload="false"
             yelp:image_priority="3"/>
+
+        <View style="@style/Divider"/>
 
         <LinearLayout
             android:orientation="horizontal"
@@ -86,6 +99,16 @@
                 android:paddingBottom="7dp"
                 android:singleLine="false"/>
         </LinearLayout>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/start_testing"
+            android:id="@+id/btnStartTest"
+            android:layout_gravity="center_horizontal"
+            android:gravity="bottom"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"/>
 
         <LinearLayout
             android:orientation="horizontal"
@@ -114,31 +137,19 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+        <!--<LinearLayout-->
+        <!--android:orientation="horizontal"-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="wrap_content">-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="@string/comments"
-                android:id="@+id/textView6"
-                android:layout_marginLeft="22dp"
-                android:layout_marginTop="15dp"/>
-        </LinearLayout>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/start_testing"
-            android:id="@+id/btnStartTest"
-            android:layout_gravity="center_horizontal"
-            android:gravity="bottom"
-            android:paddingLeft="4dp"
-            android:paddingRight="4dp" />
-
+        <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:textAppearance="?android:attr/textAppearanceSmall"-->
+        <!--android:text="@string/comments"-->
+        <!--android:id="@+id/textView6"-->
+        <!--android:layout_marginLeft="22dp"-->
+        <!--android:layout_marginTop="15dp"/>-->
+        <!--</LinearLayout>-->
     </LinearLayout>
-
 </FrameLayout>

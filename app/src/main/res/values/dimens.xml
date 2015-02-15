@@ -12,7 +12,7 @@
     <dimen name="foto_width">110dp</dimen>
     <dimen name="foto_height">140dp</dimen>
     <dimen name="question_height">64dp</dimen>
-    <dimen name="avatarHeightWidth">60dp</dimen>
+    <dimen name="avatarHeightWidth">42dp</dimen>
     <dimen name="navigation_drawer_width">300dp</dimen>
     <dimen name="description_text_size">15dp</dimen>
 

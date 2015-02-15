@@ -158,7 +158,6 @@ public class TestFragment extends Fragment {
             responce_id = SHOW_RESULT;
         }
 
-        boolean valid = true;
         if(count > 0) {
             getAnswers();
             if(answers.size() == 0) {
@@ -251,9 +250,7 @@ public class TestFragment extends Fragment {
 
         if(event.getId() == SHOW_RESULT) {
             SimpleJsonResponse resp = SimpleJsonResponse.fromJson(event.getData());
-            Intent intent = new Intent(context, ResultActivity.class);
-            intent.putExtra("id", resp.getData());
-            startActivity(intent);
+            interactions.showResultDetails(resp.getData());
         }
     }
 

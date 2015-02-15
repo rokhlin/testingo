@@ -123,7 +123,7 @@ public class MainActivity extends ActionBarActivity implements
 
     @Override
     public void showFeed() {
-        switchFragment(FeedActivityFragment.newInstance(), true, false);
+        switchFragment(FeedActivityFragment.newInstance(), true, true);
     }
 
     @Override
@@ -148,7 +148,7 @@ public class MainActivity extends ActionBarActivity implements
 
     @Override
     public void showResultList() {
-        switchFragment(ResultListFragment.newInstance(), true, false);
+        switchFragment(ResultListFragment.newInstance(), true, true);
     }
 
     @Override
@@ -159,7 +159,7 @@ public class MainActivity extends ActionBarActivity implements
 
     @Override
     public void showResultDetails(String id) {
-
+        switchFragment(ResultFragment.newInstance(id), true, true);
     }
 
     @Override

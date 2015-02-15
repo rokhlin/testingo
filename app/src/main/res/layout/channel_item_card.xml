@@ -19,6 +19,32 @@
             android:orientation="horizontal"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
+            android:paddingBottom="7dp">
+
+            <com.yelp.android.webimageview.WebImageView
+                android:id="@+id/avatar"
+                android:layout_height="@dimen/avatarHeightWidth"
+                android:layout_width="@dimen/avatarHeightWidth"
+                yelp:autoload="false"
+                yelp:loading="@drawable/image_placeholder"
+                yelp:image_priority="3" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Large Text"
+                android:id="@+id/textView"
+                android:layout_gravity="center_vertical"
+                android:textColor="#ff000000"
+                android:paddingLeft="9dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
             android:gravity="center_horizontal">
 
             <TextView

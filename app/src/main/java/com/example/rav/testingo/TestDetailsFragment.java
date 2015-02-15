@@ -30,6 +30,7 @@ public class TestDetailsFragment extends LoadingFragment {
     private DataClient client;
     private View rootView;
     private Context context;
+//    private LayoutInflater inflater;
     TestDetailCard testCard;
     SimpleJsonResponse startToken;
     private static final int TEST_INFO_CARD_JSON = 48;
@@ -56,6 +57,7 @@ public class TestDetailsFragment extends LoadingFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+//        this.inflater = inflater;
         rootView = inflater.inflate(R.layout.activity_test_info,container,false);
         channelName = (TextView)rootView.findViewById(R.id.textView);
         testName = (TextView) rootView.findViewById(R.id.textView2);
@@ -93,7 +95,7 @@ public class TestDetailsFragment extends LoadingFragment {
             test_image.setImageUrl(baseUrl + "img/test/" + t.getTest().getImage(), R.drawable.image_placeholder);
             Log.d("TAG", baseUrl + "img/avatar/" + t.getUser().getAvatar());
 
-//            loadingComplete(rootView);
+            loadingComplete(rootView);
         }
 
         if(response.getId() == TEST_START_TOKEN) {
