@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -129,25 +130,44 @@ public class TestFragment extends Fragment {
         interactions = null;
     }
 
+    public void showLoading() {
+        View loading = rootView.findViewById(R.id.loading_container);
+        View container = rootView.findViewById(R.id.container);
+
+        loading.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_in));
+        container.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_out));
+
+        loading.setVisibility(View.VISIBLE);
+        container.setVisibility(View.INVISIBLE);
+    }
+
+    public void hideLoading() {
+        View loading = rootView.findViewById(R.id.loading_container);
+        View container = rootView.findViewById(R.id.container);
+
+        loading.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_out));
+        container.startAnimation(AnimationUtils.loadAnimation(context, android.R.anim.fade_in));
+
+        loading.setVisibility(View.INVISIBLE);
+        container.setVisibility(View.VISIBLE);
+    }
+
     public void nextQuestion() {
         int responce_id = QUESTION_VIEW;
         if(count > questionsCount - 1) {
             responce_id = SHOW_RESULT;
-            send.setText(R.string.BUTTON_TEST_EVENT_FINISH);
         }
 
         boolean valid = true;
-        if(count > 0) getAnswers();
+        if(count > 0) {
+            getAnswers();
+            if(answers.size() == 0) {
+                Toast.makeText(context, "you're trying to pass empty answer!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            showLoading();
+        }
         client.post("mobile/next-question/"+startToken, answers, responce_id);
-//        if(count > 0) {
-//            getAnswers();
-//            if(answers.size() > 0)
-//                client.post("mobile/next-question/"+startToken, answers, responce_id);
-//            else
-//                Toast.makeText(context, "ffff", Toast.LENGTH_SHORT).show();
-//        }
-//        else
-//            client.post("mobile/next-question/"+startToken, answers, responce_id);
     }
 
     public void getAnswers() {
@@ -156,8 +176,11 @@ public class TestFragment extends Fragment {
         String qType = q.getType();
 
         if(qType.equals("text")) {
-            answers.add(((EditText)controls[0]).getText().toString());
-            imm.hideSoftInputFromWindow(controls[0].getWindowToken(), 0);
+            String txt = ((EditText)controls[0]).getText().toString();
+            if(txt.length() > 0) {
+                answers.add(txt);
+                imm.hideSoftInputFromWindow(controls[0].getWindowToken(), 0);
+            }
         }
 
         if(qType.equals("check")) {
@@ -201,7 +224,7 @@ public class TestFragment extends Fragment {
             }
             else {
                 wiv.setImageDrawable(null);
-                wiv.setVisibility(View.GONE);
+                wiv.setVisibility(View.INVISIBLE);
             }
 
             tvQuestion.setText(question);
@@ -222,6 +245,8 @@ public class TestFragment extends Fragment {
                     break;
             }
             count++;
+
+            hideLoading();
         }
 
         if(event.getId() == SHOW_RESULT) {
@@ -238,15 +263,12 @@ public class TestFragment extends Fragment {
     }
 
     private void  loadImageAnswer(){
-        LayoutInflater ltInflater = inflater;
-
         controls = new View[q.getData().size()];
 
         for (int i = 0; i < q.getData().size();i++) {
-            View item;
-            item = ltInflater.inflate(R.layout.question_item_image, gridLayout, false);
+            WebImageView image = (WebImageView)inflater.inflate(
+                    R.layout.question_item_image, gridLayout, false);
 
-            final WebImageView image=(WebImageView)item.findViewById(R.id.ivAnswer);
             controls[i] = image;
 
             String base_url = getResources().getString(R.string.base_url);
@@ -257,122 +279,54 @@ public class TestFragment extends Fragment {
             image.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
                     for (int j = 0; j < gridLayout.getChildCount(); j++) {
                         View img = gridLayout.getChildAt(j);
-                        img.setBackgroundResource(0);
-                        img.setPadding(0, 0, 0, 0);
+                        if(v == img) continue;
+                        img.setBackgroundResource(R.drawable.bachground_image);
                         img.setTag(0);
                     }
                     v.setTag(1);
-                    int selected = (Integer)v.getTag();
-                    if(selected == 1) {
-                        v.setBackgroundResource(R.drawable.border2);
-                        v.setPadding(6, 6, 6, 6);
-                    }
+                    v.setBackgroundResource(R.drawable.background_image_active);
                 }
             });
 
-            item.setTag(i);
-            gridLayout.addView(item);
+            gridLayout.addView(image);
         }
     }
     private void loadTextAnswer(){
-        LayoutInflater ltInflater = inflater;
-        View item;
-
-        item = ltInflater.inflate(R.layout.question_item_text, llContainer, false);
-        EditText etAnswer = (EditText) item.findViewById(R.id.et_Answer);
+        EditText etAnswer = (EditText)inflater.inflate(R.layout.question_item_text, llContainer, false);
         controls = new View[] { etAnswer };
         imm.showSoftInput(etAnswer, 0);
-        item.getLayoutParams().width = LinearLayout.LayoutParams.MATCH_PARENT;
-        llContainer.addView(item);
+        llContainer.addView(etAnswer);
     }
 
 
-    private void loadRadioAnswer(){
+    private void loadRadioAnswer() {
         final RadioGroup group = new RadioGroup(context);
         group.setOrientation(RadioGroup.VERTICAL);
 
         controls = new View[q.getData().size()];
 
-        for (int i = 0; i <q.getData().size() ; i++) {
-            final RadioButton rbtn = new RadioButton(context);
-
-            controls[i] = rbtn;
-            LinearLayout.LayoutParams  rbParam = new RadioGroup.LayoutParams(
-                    RadioGroup.LayoutParams.MATCH_PARENT, RadioGroup.LayoutParams.WRAP_CONTENT);
-            rbtn.setLayoutParams(rbParam);
-            rbtn.setText(q.getData().get(i));
-            rbtn.setPadding(40, 40, 40, 40);
-            rbtn.setTag(i);
-            rbtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    if(rbtn.isChecked()){
-                        int id = group.getCheckedRadioButtonId();
-
-                        Log.d("TAG", "______________RG SELECT_________________");
-                        Log.d("TAG", "ID:"+id);
-                        for (int j = 0; j < group.getChildCount(); j++) {
-                            if (j == (id-1)) {
-                                Log.d("TAG", "ID:"+id+" , 1j="+j);
-                                rbtn.setBackgroundResource(R.drawable.border2);
-                            }
-                            else {
-                                Log.d("TAG", "ID:"+id+" , j="+j);
-                                View radio = group.getChildAt(j);
-                                radio.setBackgroundResource(0);
-                            }
-                        }
-                    }
-
-                }
-            });
-            group.addView(rbtn);
-
+        for (int i = 0; i < q.getData().size() ; i++) {
+            RadioButton rb = (RadioButton)inflater.inflate(R.layout.question_item_radio, group, false);
+            controls[i] = rb;
+            rb.setText(q.getData().get(i));
+            group.addView(rb);
         }
         llContainer.addView(group);
-
-        //        }
     }
 
     private void loadSelectAnswer(){
-        LinearLayout linLayout = (LinearLayout)rootView.findViewById(R.id.llItemcontanier);
-        linLayout.removeAllViews();
-        LayoutInflater ltInflater = inflater;
-        View item;
-
         controls = new View[q.getData().size()];
 
         for (int i = 0; i < q.getData().size();i++) {
-
-            item = ltInflater.inflate(R.layout.question_item_check, linLayout, false);
-            final CheckBox checkBox=(CheckBox)item.findViewById(R.id.cb_Answer);
-
+            CheckBox checkBox = (CheckBox)inflater.inflate(R.layout.question_item_check,
+                    llContainer, false);
             controls[i] = checkBox;
-
             checkBox.setText(options.get(i));
-            checkBox.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(checkBox.isChecked()){
-                        checkBox.setBackgroundResource(R.drawable.border2);}
-                    else {
-                        checkBox.setBackgroundResource(0);}
-
-                }
-            });
-
-            item.setTag(i);
-            item.getLayoutParams().width = LinearLayout.LayoutParams.MATCH_PARENT;
-            linLayout.addView(item);
+            llContainer.addView(checkBox);
         }
     }
-
-
-
 
     @Override
     public void onStart() {
