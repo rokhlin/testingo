@@ -4,4 +4,4 @@
     android:divider="@android:color/transparent" android:dividerHeight="0dp"
     android:background="@android:color/white"
     tools:context="com.example.rav.testingo.NavigationDrawerFragment"
-    android:paddingTop="170dp" />
+    android:paddingTop="225dp" />

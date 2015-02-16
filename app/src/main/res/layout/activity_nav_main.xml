@@ -23,13 +23,60 @@
         android:name="com.example.rav.testingo.NavigationDrawerFragment"
         tools:layout="@layout/fragment_navigation_drawer" >
 
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:padding="8dp"
+            android:orientation="vertical">
 
-        <ImageView
-            android:layout_gravity="center_horizontal"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:id="@+id/imageView"
-            android:src="@drawable/ic_launcher_web"/>
+            <ImageView
+                android:layout_gravity="center_horizontal"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:id="@+id/imageView"
+                android:src="@drawable/ic_launcher_web"
+                android:layout_marginBottom="8dp"/>
+
+            <View style="@style/Divider"/>
+
+            <ProgressBar android:id="@+id/loading_container"
+                android:layout_width="@dimen/avatarHeightWidth"
+                android:layout_height="@dimen/avatarHeightWidth"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="8dp"
+                android:indeterminate="true"/>
+
+            <LinearLayout android:id="@+id/content_container"
+                xmlns:yelp="http://schemas.android.com/apk/res-auto"
+                android:visibility="gone"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent">
+
+                <com.yelp.android.webimageview.WebImageView
+                    android:id="@+id/avatar"
+                    android:layout_height="@dimen/avatarHeightWidth"
+                    android:layout_width="@dimen/avatarHeightWidth"
+                    android:layout_alignParentLeft="true"
+                    android:layout_gravity="center_vertical"
+                    yelp:autoload="false"
+                    yelp:loading="@drawable/image_placeholder"
+                    android:layout_margin="8dp"
+                    yelp:image_priority="3" />
+
+                <TextView android:id="@+id/text1"
+                    android:layout_alignRight="@id/avatar"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#ff000000"
+                    android:text="Anton Rokhlin"
+                    android:layout_margin="8dp"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    />
+            </LinearLayout>
+            <View style="@style/Divider"/>
+        </LinearLayout>
 
     </fragment>
 
