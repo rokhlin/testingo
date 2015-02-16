@@ -4,12 +4,17 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TestDetailCard {
 
 	@Expose
 	private UserBasic user;
 	@Expose
 	private TestDetailInfo test;
+    @Expose
+    private List<TestInfo> comments = new ArrayList<TestInfo>();
 
 	/**
 	* 
@@ -46,6 +51,10 @@ public class TestDetailCard {
 	public void setTest(TestDetailInfo test) {
 		this.test = test;
 	}
+
+    public List<TestInfo> getComments() {
+        return comments;
+    }
 
     public static TestDetailCard fromJson(String data) {
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation()

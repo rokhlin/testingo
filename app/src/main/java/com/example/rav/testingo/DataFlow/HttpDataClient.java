@@ -45,23 +45,33 @@ public class HttpDataClient extends DataClient {
 
     @Override
     public void get(String url, int id) {
-        client.get(absuluteURL(url), new CustomJsonHttpResponse(id) {});
+        client.get(absoluteURL(url), new CustomJsonHttpResponse(id) {});
     }
 
     @Override
     public void post(String url, RequestParams rp, int id) {
-        client.post(absuluteURL(url), rp, new CustomJsonHttpResponse(id) {});
+        client.post(absoluteURL(url), rp, new CustomJsonHttpResponse(id) {});
     }
 
     public void post(String url, List<String> arr, int id) {
         Gson gson = new Gson();
         String params = gson.toJson(arr);
-        Log.d("answers", params);
         StringEntity entity = null;
         try {
             entity = new StringEntity ("{ \"answers\":" + params + " } ");
             entity.setContentType(new BasicHeader("Content-Type", "application/json"));
-            client.post(c, absuluteURL(url), entity, "application/json", new CustomJsonHttpResponse(id) {});
+            client.post(c, absoluteURL(url), entity, "application/json", new CustomJsonHttpResponse(id) {});
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void put(String url, String data, int id) {
+        StringEntity entity = null;
+        try {
+            entity = new StringEntity(data);
+            entity.setContentType(new BasicHeader("Content-Type", "application/json"));
+            client.put(c, absoluteURL(url), entity, "application/json", new CustomJsonHttpResponse(id) {});
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -72,7 +82,7 @@ public class HttpDataClient extends DataClient {
         this.c = c;
     }
 
-    private String absuluteURL(String url) {
+    private String absoluteURL(String url) {
         return baseUrl + url;
     }
 }
