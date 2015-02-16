@@ -29,6 +29,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="7dp"
+            android:id="@+id/onChannel"
             android:gravity="top">
 
             <com.yelp.android.webimageview.WebImageView

@@ -12,34 +12,8 @@
         android:layout_height="wrap_content"
         android:background="@drawable/card_background_selector"
         android:descendantFocusability="afterDescendants"
-        android:padding="10dp"
-        android:layout_margin="6dp">
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:paddingBottom="7dp">
-
-            <com.yelp.android.webimageview.WebImageView
-                android:id="@+id/avatar"
-                android:layout_height="@dimen/avatarHeightWidth"
-                android:layout_width="@dimen/avatarHeightWidth"
-                yelp:autoload="false"
-                yelp:loading="@drawable/image_placeholder"
-                yelp:image_priority="3" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Large Text"
-                android:id="@+id/textView"
-                android:layout_gravity="center_vertical"
-                android:textColor="#ff000000"
-                android:paddingLeft="9dp" />
-
-        </LinearLayout>
+        android:padding="8dp"
+        android:layout_margin="4dp">
 
         <LinearLayout
             android:orientation="horizontal"
@@ -50,7 +24,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/card_background"
+                android:layout_margin="8dp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Medium Text"
                 android:id="@+id/textView2"
@@ -58,12 +32,16 @@
                 android:textSize="@dimen/abc_text_size_headline_material" />
         </LinearLayout>
 
+        <View style="@style/Divider"/>
+
         <com.yelp.android.webimageview.WebImageView
             android:id="@+id/test_image"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             yelp:autoload="false"
             yelp:image_priority="3"/>
+
+        <View style="@style/Divider"/>
 
         <LinearLayout
             android:orientation="horizontal"
@@ -82,10 +60,13 @@
                 android:singleLine="false" />
         </LinearLayout>
 
+        <View style="@style/Divider"/>
+
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
+            android:layout_marginTop="8dp"
             >
 
             <TextView

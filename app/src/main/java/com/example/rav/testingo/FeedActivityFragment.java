@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,6 +35,7 @@ public class FeedActivityFragment extends LoadingFragment {
     private DataClient client;
     private String baseUrl;
     private LayoutInflater inflater;
+    private LinearLayout linear;
     ArrayList<TestCard> testCards;
 
     public static FeedActivityFragment newInstance() {
@@ -111,14 +113,25 @@ public class FeedActivityFragment extends LoadingFragment {
                 view = inflater.inflate(R.layout.list_item_card, parent, false);
 
             }
-            TestCard card = getItem(position);
+            final TestCard card = getItem(position);
             ((TextView)view.findViewById(R.id.textView)).setText(card.getUser().getName());
             ((TextView)view.findViewById(R.id.textView2)).setText(card.getTest().getName());
             ((TextView)view.findViewById(R.id.textView3)).setText(card.getTest().getDescription());
             ((TextView)view.findViewById(R.id.textView4)).setText(card.getTest().getTags().toString());
-            ((TextView)view.findViewById(R.id.textView5)).setText("Tested "+card.getTest().getCount()+" times.");
+            ((TextView)view.findViewById(R.id.textView5)).setText("Tested " + card.getTest().getCount() + " times.");
             ((WebImageView)view.findViewById(R.id.avatar)).setImageUrl(baseUrl + "img/avatar/" + card.getUser().getAvatar());
             ((WebImageView)view.findViewById(R.id.test_image)).setImageUrl(baseUrl + "img/test/" + card.getTest().getImage(), R.drawable.image_placeholder);
+
+            linear = (LinearLayout)view.findViewById(R.id.onChannel);
+            linear.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    MainActivityInteractions act = (MainActivityInteractions)getActivity();
+                    String rId = card.getUser().getId();
+                    act.showChannel(rId);
+                }
+            });
+
             return view;
         }
     }

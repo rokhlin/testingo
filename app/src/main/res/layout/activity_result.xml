@@ -91,20 +91,16 @@
                     android:layout_margin="@dimen/ButtonPaddingLeft" />
             </LinearLayout>
 
-
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/BTN_RESULT"
+                android:id="@+id/toFeedButton"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="@dimen/ButtonPaddingLeft" />
 
         </LinearLayout>
 
 
     </ScrollView>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/BTN_RESULT"
-        android:id="@+id/toFeedButton"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="@dimen/ButtonPaddingLeft" />
-
 </RelativeLayout>

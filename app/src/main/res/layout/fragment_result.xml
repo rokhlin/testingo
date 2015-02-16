@@ -19,13 +19,16 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:background="@drawable/card_background"
-            xmlns:yelp="http://schemas.android.com/apk/res-auto">
+            xmlns:yelp="http://schemas.android.com/apk/res-auto"
+            android:padding="8dp"
+            android:layout_margin="4dp">
 
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:paddingBottom="7dp">
+                android:paddingBottom="7dp"
+                android:id="@+id/onChannel">
 
                 <com.yelp.android.webimageview.WebImageView
                     android:id="@+id/wivAvatar"
@@ -52,23 +55,40 @@
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
+                android:layout_height="fill_parent"
+                android:gravity="center_horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="..."
-                    android:id="@+id/tvTestName" />
+                    android:id="@+id/tvTestName"
+                    android:textColor="#ff303030"
+                    android:textSize="@dimen/abc_text_size_headline_material" />
             </LinearLayout>
 
             <View style="@style/Divider"/>
 
             <LinearLayout
                 android:orientation="vertical"
-
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content">
+
+                <com.yelp.android.webimageview.WebImageView
+                    android:id="@+id/ivResult"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:maxHeight="200dp"
+                    android:scaleType="centerInside"
+                    yelp:autoload="false"
+                    android:background="@drawable/bachground_image"
+                    android:padding="2dp"
+                    yelp:image_priority="3"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/marginLeft"
+                    android:layout_marginBottom="@dimen/marginLeft" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -78,18 +98,6 @@
                     android:id="@+id/tvResult"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="@dimen/Foto_top_margin"
-                    android:layout_marginBottom="@dimen/marginLeft" />
-
-                <com.yelp.android.webimageview.WebImageView
-                    android:id="@+id/ivResult"
-                    android:layout_height="@dimen/foto_height"
-                    android:layout_width="match_parent"
-                    yelp:autoload="false"
-                    android:background="@drawable/bachground_image"
-                    android:padding="8dp"
-                    yelp:image_priority="3"
-
-                    android:layout_marginTop="@dimen/marginLeft"
                     android:layout_marginBottom="@dimen/marginLeft" />
 
                 <TextView
@@ -107,8 +115,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/BTN_RESULT"
                 android:id="@+id/toFeedButton"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
                 android:layout_margin="@dimen/ButtonPaddingLeft" />
 
         </LinearLayout>

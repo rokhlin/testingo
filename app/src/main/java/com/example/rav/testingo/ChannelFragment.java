@@ -3,6 +3,7 @@ package com.example.rav.testingo;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,8 +38,8 @@ public class ChannelFragment extends LoadingFragment {
     private DataClient client;
     private String baseUrl;
     private String id;
+    LayoutInflater inflater;
     private MainActivityInteractions interactions;
-    ArrayList<TestCard> testCards;
 
     public static ChannelFragment newInstance(String id) {
         ChannelFragment fragment = new ChannelFragment();
@@ -59,6 +60,7 @@ public class ChannelFragment extends LoadingFragment {
         if(args != null) {
             id = args.getString(CHANNEL_ID_ARG);
         }
+        Log.d("TAG",id);
         context = getActivity();
     }
 
@@ -67,9 +69,9 @@ public class ChannelFragment extends LoadingFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_list, container, false);
+        this.inflater = inflater;
         listView = (ListView)rootView.findViewById(R.id.list);
         baseUrl = getResources().getString(R.string.base_url);
-
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -92,6 +94,7 @@ public class ChannelFragment extends LoadingFragment {
             baseUrl=getResources().getString(R.string.base_url);
             cardArrayAdapter = new TestListAdapter(context, (ArrayList<TestInfo>)channel.getChannel());
             listView.setAdapter(cardArrayAdapter);
+            Log.d("LOG", String.valueOf(response.getData()));
 
             interactions.setTitle(channel.getUser().getName());
 
@@ -124,11 +127,9 @@ public class ChannelFragment extends LoadingFragment {
 
     //    ADAPTER CLASS
     class TestListAdapter extends ArrayAdapter<TestInfo> {
-        LayoutInflater inflater;
 
         TestListAdapter(Context context, ArrayList<TestInfo> objects) {
             super(context, 0, objects);
-            inflater = LayoutInflater.from(this.getContext());
         }
 
         @Override

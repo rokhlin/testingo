@@ -112,7 +112,7 @@ public class ResultFragment extends LoadingFragment {
 
             wivAuthorLogo.setImageUrl(base_url + "img/avatar/" + res.getUser().getAvatar());
 
-            String image = res.getResult().getDescription();
+            String image = res.getResult().getImage();
             if(!image.isEmpty()) {
                 wiv.setImageUrl(base_url + "img/result/" + image, R.drawable.image_placeholder);
                 wiv.setVisibility(View.VISIBLE);

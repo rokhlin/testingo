@@ -11,7 +11,7 @@ public class ResultInfo {
 	@Expose
 	private String Id;
 	@Expose
-	private String image;
+	private String img;
 	@Expose
 	private String text;
 	@Expose
@@ -36,7 +36,7 @@ public class ResultInfo {
 	* The image
 	*/
 	public String getImage() {
-		return image;
+		return img;
 	}
 
 	/**
@@ -45,7 +45,7 @@ public class ResultInfo {
 	* The image
 	*/
 	public void setImage(String image) {
-		this.image = image;
+		this.img = image;
 	}
 
 	/**

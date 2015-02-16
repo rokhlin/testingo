@@ -19,7 +19,8 @@
             android:orientation="horizontal"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:paddingBottom="7dp">
+            android:paddingBottom="7dp"
+            android:id="@+id/onChannel">
 
             <com.yelp.android.webimageview.WebImageView
                 android:id="@+id/avatar"

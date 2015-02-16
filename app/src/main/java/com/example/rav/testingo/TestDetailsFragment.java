@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,9 +31,8 @@ public class TestDetailsFragment extends LoadingFragment {
     private DataClient client;
     private View rootView;
     private Context context;
-//    private LayoutInflater inflater;
+    private LinearLayout onChannel;
     TestDetailCard testCard;
-    SimpleJsonResponse startToken;
     private static final int TEST_INFO_CARD_JSON = 48;
     private static final int TEST_START_TOKEN = 47;
 
@@ -57,7 +57,6 @@ public class TestDetailsFragment extends LoadingFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-//        this.inflater = inflater;
         rootView = inflater.inflate(R.layout.activity_test_info,container,false);
         channelName = (TextView)rootView.findViewById(R.id.textView);
         testName = (TextView) rootView.findViewById(R.id.textView2);
@@ -93,8 +92,15 @@ public class TestDetailsFragment extends LoadingFragment {
             WebImageView test_image = (WebImageView)rootView.findViewById(R.id.test_image);
             avatar.setImageUrl(baseUrl + "img/avatar/" + t.getUser().getAvatar());
             test_image.setImageUrl(baseUrl + "img/test/" + t.getTest().getImage(), R.drawable.image_placeholder);
-            Log.d("TAG", baseUrl + "img/avatar/" + t.getUser().getAvatar());
-
+            onChannel = (LinearLayout)rootView.findViewById(R.id.onChannel);
+            onChannel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    MainActivityInteractions act = (MainActivityInteractions)getActivity();
+                    String rId =testCard.getUser().getId();
+                    act.showChannel(rId);
+                }
+            });
             loadingComplete(rootView);
         }
 
@@ -124,10 +130,6 @@ public class TestDetailsFragment extends LoadingFragment {
     }
 
     public void showTest(String token){
-//        Intent intent = new Intent(rootView.getContext(), TestActivity.class);
-//        intent.putExtra("startToken", token);
-//        intent.putExtra("questionsCount", testCard.getTest().getQuestionsCount());
-//        startActivity(intent);
         interactions.startTest(token, testCard.getTest().getName(),
                 testCard.getTest().getQuestionsCount());
     }

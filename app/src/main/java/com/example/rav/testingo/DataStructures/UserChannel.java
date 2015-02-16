@@ -12,7 +12,7 @@ public class UserChannel {
 	@Expose
 	private UserBasic user;
 	@Expose
-	private List<TestInfo> channel = new ArrayList<TestInfo>();
+	private List<TestInfo> tests = new ArrayList<TestInfo>();
 
 	/**
 	*
@@ -38,7 +38,7 @@ public class UserChannel {
 	* The channel
 	*/
 	public List<TestInfo> getChannel() {
-		return channel;
+		return tests;
 	}
 
 	/**
@@ -47,7 +47,7 @@ public class UserChannel {
 	* The channel
 	*/
 	public void setChannel(List<TestInfo> channel) {
-		this.channel = channel;
+		this.tests = channel;
 	}
 
     public static UserChannel fromJson(String data) {
