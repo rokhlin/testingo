@@ -1,10 +1,12 @@
 package com.example.rav.testingo;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -31,6 +33,7 @@ public class SubscriptionsFragment extends LoadingFragment {
     private ListAdapter adapter;
     private ListView list;
     private String baseUrl;
+    private MainActivityInteractions interactions;
     UserBasic[] cards;
 
     public static final int USERS_LIST_REQUEST = 97;
@@ -72,6 +75,14 @@ public class SubscriptionsFragment extends LoadingFragment {
             adapter = new SubsListAdapter(context, cards);
             list.setAdapter(adapter);
 
+            list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    UserBasic card = (UserBasic)parent.getItemAtPosition(position);
+                    interactions.showChannel(card.getId());
+                }
+            });
+
             loadingComplete(rootView);
         }
     }
@@ -95,7 +106,6 @@ public class SubscriptionsFragment extends LoadingFragment {
         public View getView(int position, View view, ViewGroup parent) {
             if(view == null) {
                 view = inflater.inflate(R.layout.subscribtion_list_card, parent, false);
-
             }
 
             UserBasic card = getItem(position);
@@ -104,5 +114,17 @@ public class SubscriptionsFragment extends LoadingFragment {
             ((TextView)view.findViewById(R.id.text1)).setText(card.getName());
             return view;
         }
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        interactions = (MainActivityInteractions)getActivity();
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        interactions = null;
     }
 }
