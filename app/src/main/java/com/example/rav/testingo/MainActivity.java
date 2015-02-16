@@ -27,7 +27,6 @@ public class MainActivity extends ActionBarActivity implements
         NavigationDrawerFragment.NavigationDrawerCallbacks,
         MainActivityInteractions
 {
-    private static final int USER_PROFILE_RESPONSE = 116;
     private NavigationDrawerFragment mNavigationDrawerFragment;
     private CharSequence mTitle;
     private UserSelfAccount profile;
@@ -48,14 +47,6 @@ public class MainActivity extends ActionBarActivity implements
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
-        DataClient client = new HttpDataClient(getResources().getString(R.string.base_url), this);
-        client.get("mobile/profile", USER_PROFILE_RESPONSE);
-
-//        if (savedInstanceState == null) {
-//            getSupportFragmentManager().beginTransaction()
-//             .add(R.id.fragment_target, FeedActivityFragment.newInstance())
-//             .commit();
-//        }
     }
 
     @Override
@@ -174,27 +165,5 @@ public class MainActivity extends ActionBarActivity implements
     @Override
     public void showNotifications(){
 
-    }
-
-    public void onEvent(JsonResponseEvent response) {
-        if(response.getId() == USER_PROFILE_RESPONSE) {
-            profile = UserSelfAccount.fromJson(response.getData());
-        }
-    }
-
-    public void onEvent(ErrorResponseEvent response) {
-        Toast.makeText(this, response.getMessage(), Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        EventBus.getDefault().register(this);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        EventBus.getDefault().unregister(this);
     }
 }
