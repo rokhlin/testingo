@@ -17,6 +17,7 @@ import com.example.rav.testingo.DataFlow.DataClient;
 import com.example.rav.testingo.DataFlow.ErrorResponseEvent;
 import com.example.rav.testingo.DataFlow.HttpDataClient;
 import com.example.rav.testingo.DataFlow.JsonResponseEvent;
+import com.example.rav.testingo.DataStructures.Comment;
 import com.example.rav.testingo.DataStructures.SimpleJsonResponse;
 import com.example.rav.testingo.DataStructures.TestDetailCard;
 import com.yelp.android.webimageview.WebImageView;
@@ -27,11 +28,12 @@ import com.yelp.android.webimageview.WebImageView;
 public class TestDetailsFragment extends LoadingFragment {
     private MainActivityInteractions interactions;
     TextView testDescription, testName, channelName, tags, tested;
-    Button btnStartTest;
+    Button btnStartTest, buttonComment;
     private DataClient client;
+    LayoutInflater inflater;
     private View rootView;
     private Context context;
-    private LinearLayout onChannel;
+    private LinearLayout onChannel, commentBlock, comments;
     TestDetailCard testCard;
     private static final int TEST_INFO_CARD_JSON = 48;
     private static final int TEST_START_TOKEN = 47;
@@ -58,6 +60,7 @@ public class TestDetailsFragment extends LoadingFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         rootView = inflater.inflate(R.layout.activity_test_info,container,false);
+        this.inflater = inflater;
         channelName = (TextView)rootView.findViewById(R.id.textView);
         testName = (TextView) rootView.findViewById(R.id.textView2);
         testDescription = (TextView) rootView.findViewById(R.id.textView3);
@@ -68,6 +71,20 @@ public class TestDetailsFragment extends LoadingFragment {
             @Override
             public void onClick(View v) {
                 client.get("mobile/tests/start/" + testCard.getTest().getId(), TEST_START_TOKEN);
+            }
+        });
+        commentBlock = (LinearLayout)rootView.findViewById(R.id.commentBlock);
+        commentBlock.setVisibility(View.GONE);
+        comments = (LinearLayout)rootView.findViewById(R.id.comments);
+        comments.setVisibility(View.GONE);
+        buttonComment = (Button)rootView.findViewById(R.id.buttonComment);
+        buttonComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                if (commentBlock.)
+                commentBlock.setVisibility(View.VISIBLE);
+                buttonComment.setVisibility(View.GONE);
+                comments.setVisibility(View.VISIBLE);
             }
         });
         client = new HttpDataClient(getResources().getString(R.string.base_url), rootView.getContext());
@@ -101,6 +118,14 @@ public class TestDetailsFragment extends LoadingFragment {
                     act.showChannel(rId);
                 }
             });
+            ViewGroup container = (ViewGroup)rootView.findViewById(R.id.comments);
+            for (Comment comment : t.getComments()) {
+                LinearLayout layout = (LinearLayout)inflater.inflate(R.layout.comment_item, container, false);
+                ((TextView)layout.findViewById(R.id.textView)).setText(comment.getUser().getName());
+                ((TextView)layout.findViewById(R.id.textView2)).setText(comment.getText());
+                ((WebImageView)layout.findViewById(R.id.avatar)).setImageUrl(baseUrl + "img/avatar/" + comment.getUser().getAvatar());
+                container.addView(layout);
+            }
             loadingComplete(rootView);
         }
 

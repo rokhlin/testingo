@@ -14,7 +14,7 @@ public class TestDetailCard {
 	@Expose
 	private TestDetailInfo test;
     @Expose
-    private List<TestInfo> comments = new ArrayList<TestInfo>();
+    private List<Comment> comments = new ArrayList<Comment>();
 
 	/**
 	* 
@@ -52,7 +52,7 @@ public class TestDetailCard {
 		this.test = test;
 	}
 
-    public List<TestInfo> getComments() {
+    public List<Comment> getComments() {
         return comments;
     }
 

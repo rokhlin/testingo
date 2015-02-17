@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,7 +29,7 @@ public class ResultFragment extends LoadingFragment {
     private static final String RESULT_ID_ARG = "id";
     private Context context;
     private String id;
-
+    private LinearLayout onChannel;
     private LayoutInflater inflater;
     private ViewGroup rootView;
 
@@ -93,7 +94,7 @@ public class ResultFragment extends LoadingFragment {
     @Override
     public void onEvent(JsonResponseEvent response) {
         if(response.getId() == RESULT_RESPONSE) {
-            ResultDetail res = ResultDetail.fromJson(response.getData());
+            final ResultDetail res = ResultDetail.fromJson(response.getData());
 
 //            done=res.getResult().getDone().toString();
             TextView tvRes=(TextView)rootView.findViewById(R.id.tvResult);
@@ -102,6 +103,16 @@ public class ResultFragment extends LoadingFragment {
             TextView tvResDetail=(TextView)rootView.findViewById(R.id.tvResultDetail);
             WebImageView wiv = (WebImageView)rootView.findViewById(R.id.ivResult);
             WebImageView wivAuthorLogo = (WebImageView)rootView.findViewById(R.id.wivAvatar);
+
+            onChannel = (LinearLayout)rootView.findViewById(R.id.onChannel);
+            onChannel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    MainActivityInteractions act = (MainActivityInteractions)getActivity();
+                    String rId = res.getUser().getId();
+                    act.showChannel(rId);
+                }
+            });
 
             tvRes.setText(res.getResult().getText());
             tvResDetail.setText(res.getResult().getDescription());
