@@ -250,7 +250,7 @@ public class TestFragment extends Fragment {
 
         if(event.getId() == SHOW_RESULT) {
             SimpleJsonResponse resp = SimpleJsonResponse.fromJson(event.getData());
-            interactions.showResultDetails(resp.getData());
+            interactions.showResultDetails(resp.getData(), true);
         }
     }
 

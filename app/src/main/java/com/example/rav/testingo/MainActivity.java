@@ -30,12 +30,18 @@ public class MainActivity extends ActionBarActivity implements
     private NavigationDrawerFragment mNavigationDrawerFragment;
     private CharSequence mTitle;
     private UserSelfAccount profile;
+    private boolean backToTest = false;
+    private String lastTestId = "";
+    private DataClient client;
 //    private Fragment currentFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         ImageLoader.initialize(this, null);
+        client = new HttpDataClient(getResources().getString(R.string.base_url), this);
+
         setContentView(R.layout.activity_nav_main);
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
@@ -46,7 +52,6 @@ public class MainActivity extends ActionBarActivity implements
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
-
     }
 
     @Override
@@ -94,6 +99,11 @@ public class MainActivity extends ActionBarActivity implements
         ft.replace(R.id.fragment_target, fragment);
         if(addToBackStack) ft.addToBackStack(null);
         ft.commit();
+
+//        if(mNavigationDrawerFragment != null)
+//            mNavigationDrawerFragment.lockNav(false);
+        backToTest = false;
+        client.get("mobile/notifications/count", NavigationDrawerFragment.NOTIFICATIONS_COUNT_RESPONSE);
     }
 
     @Override
@@ -118,7 +128,7 @@ public class MainActivity extends ActionBarActivity implements
 
     @Override
     public void showFeed() {
-        switchFragment(FeedActivityFragment.newInstance(), true, true);
+        switchFragment(FeedActivityFragment.newInstance(false), true, false);
     }
 
     @Override
@@ -128,12 +138,14 @@ public class MainActivity extends ActionBarActivity implements
 
     @Override
     public void showTestDetails(String id) {
+        lastTestId = id;
         switchFragment(TestDetailsFragment.newInstance(id), true, true);
     }
 
     @Override
     public void startTest(String token, String testName, int qCount) {
         switchFragment(TestFragment.newInstance(token, testName, qCount), true, true);
+//        mNavigationDrawerFragment.lockNav(true);
     }
 
     @Override
@@ -143,7 +155,7 @@ public class MainActivity extends ActionBarActivity implements
 
     @Override
     public void showResultList() {
-        switchFragment(ResultListFragment.newInstance(), true, true);
+        switchFragment(ResultListFragment.newInstance(), true, false);
     }
 
     @Override
@@ -153,8 +165,9 @@ public class MainActivity extends ActionBarActivity implements
     }
 
     @Override
-    public void showResultDetails(String id) {
+    public void showResultDetails(String id, boolean backToTest) {
         switchFragment(ResultFragment.newInstance(id), true, true);
+        this.backToTest = backToTest;
     }
 
     @Override
@@ -164,6 +177,13 @@ public class MainActivity extends ActionBarActivity implements
 
     @Override
     public void showNotifications(){
+        switchFragment(FeedActivityFragment.newInstance(true), true, true);
+    }
 
+    @Override
+    public void onBackPressed() {
+        if(!backToTest)
+            super.onBackPressed();
+        else showTestDetails(lastTestId);
     }
 }

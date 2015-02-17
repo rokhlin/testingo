@@ -29,8 +29,12 @@ import com.example.rav.testingo.DataFlow.DataClient;
 import com.example.rav.testingo.DataFlow.ErrorResponseEvent;
 import com.example.rav.testingo.DataFlow.HttpDataClient;
 import com.example.rav.testingo.DataFlow.JsonResponseEvent;
+import com.example.rav.testingo.DataStructures.SimpleJsonResponse;
 import com.example.rav.testingo.DataStructures.UserSelfAccount;
 import com.yelp.android.webimageview.WebImageView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import de.greenrobot.event.EventBus;
 
@@ -41,6 +45,7 @@ import de.greenrobot.event.EventBus;
  */
 public class NavigationDrawerFragment extends Fragment {
     private static final int USER_PROFILE_RESPONSE = 117;
+    public static final int NOTIFICATIONS_COUNT_RESPONSE = 163;
     private static final String STATE_SELECTED_POSITION = "selected_navigation_drawer_position";
     private static final String PREF_USER_LEARNED_DRAWER = "navigation_drawer_learned";
     private NavigationDrawerCallbacks mCallbacks;
@@ -49,14 +54,22 @@ public class NavigationDrawerFragment extends Fragment {
 
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerListView;
+    private List<String> navItems;
     private View mFragmentContainerView;
 
     private int mCurrentSelectedPosition = 0;
     private boolean mFromSavedInstanceState;
     private boolean mUserLearnedDrawer;
     private UserSelfAccount profile;
+    private ArrayAdapter<String> mAdapter;
 
     public NavigationDrawerFragment() {
+    }
+
+    public void lockNav(boolean lock) {
+//        if(mDrawerLayout == null) return;
+//        if(lock) mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+//        else mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
     }
 
     @Override
@@ -95,17 +108,22 @@ public class NavigationDrawerFragment extends Fragment {
                 selectItem(position);
             }
         });
-        mDrawerListView.setAdapter(new ArrayAdapter<String>(
+
+        navItems = new ArrayList<String>();
+        navItems.add(getString(R.string.title_section1));
+        navItems.add(getString(R.string.title_activity_test_results));
+        navItems.add(getString(R.string.title_section2));
+        navItems.add(getString(R.string.title_activity_notifications));
+        navItems.add(getString(R.string.settings));
+
+        mAdapter = new ArrayAdapter<String>(
                 getActionBar().getThemedContext(),
                 R.layout.navigation_item,
                 android.R.id.text1,
-                new String[]{
-                        getString(R.string.title_section1),
-                        getString(R.string.title_activity_test_results),
-                        getString(R.string.title_section2),
-                        getString(R.string.title_activity_notifications),
-                        getString(R.string.settings),
-                }));
+                navItems
+        );
+        mDrawerListView.setAdapter(mAdapter);
+
 //        mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
         DataClient client = new HttpDataClient(getResources().getString(R.string.base_url), getActivity());
         client.get("mobile/profile", USER_PROFILE_RESPONSE);
@@ -265,11 +283,6 @@ public class NavigationDrawerFragment extends Fragment {
             return true;
         }
 
-        if (item.getItemId() == R.id.action_example) {
-            Toast.makeText(getActivity(), "Example action.", Toast.LENGTH_SHORT).show();
-            return true;
-        }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -311,6 +324,16 @@ public class NavigationDrawerFragment extends Fragment {
             wiv.setImageUrl(getResources().getString(R.string.base_url) + "img/avatar/" + profile.getAvatar());
 
             loadingComplete(mFragmentContainerView);
+        }
+
+        if(response.getId() == NOTIFICATIONS_COUNT_RESPONSE) {
+            SimpleJsonResponse data = SimpleJsonResponse.fromJson(response.getData());
+            String name = getString(R.string.title_activity_notifications);
+            if(!data.getData().equals("0")) name += " (" + data.getData() + ")";
+
+            navItems.set(3, name);
+            mAdapter.notifyDataSetChanged();
+//            Toast.makeText(getActivity(), data.getData() + " notif.", Toast.LENGTH_SHORT).show();
         }
     }
 

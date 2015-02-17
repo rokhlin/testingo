@@ -13,7 +13,7 @@ public interface MainActivityInteractions {
     void startTest(String token, String testName, int qCount);
     void showSubscriptions();
     void showResultList();
-    void showResultDetails(String id);
+    void showResultDetails(String id, boolean backToTest);
     void showSettings();
     void showNotifications();
     void setTitle(String title);

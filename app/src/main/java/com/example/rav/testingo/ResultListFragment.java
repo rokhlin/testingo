@@ -53,7 +53,7 @@ public class ResultListFragment extends LoadingFragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 MainActivityInteractions act = (MainActivityInteractions)getActivity();
                 String rId = ((ResultCard)parent.getItemAtPosition(position)).getResult().getId();
-                act.showResultDetails(rId);
+                act.showResultDetails(rId, false);
             }
         });
 
@@ -70,6 +70,7 @@ public class ResultListFragment extends LoadingFragment {
             cards = ResultCard.arrayFromJson(response.getData());
             ListAdapter adapter = new ResultListAdapter(context, cards);
             list.setAdapter(adapter);
+            list.setEmptyView(rootView.findViewById(R.id.list_empty));
 
             loadingComplete(rootView);
         }

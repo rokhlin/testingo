@@ -4,12 +4,15 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +31,7 @@ import java.util.Arrays;
  */
 public class FeedActivityFragment extends LoadingFragment {
     public static final int FEED_LIST_REQUEST = 49;
+    public static final String IS_NOTIFICATIONS_ARG = "isNotifications";
     private TestListAdapter cardArrayAdapter;
     private ListView listView;
     private Context context;
@@ -36,10 +40,15 @@ public class FeedActivityFragment extends LoadingFragment {
     private String baseUrl;
     private LayoutInflater inflater;
     private LinearLayout linear;
+    private String REST_URL;
+    private String lastSearch = "";
     ArrayList<TestCard> testCards;
 
-    public static FeedActivityFragment newInstance() {
+    public static FeedActivityFragment newInstance(boolean isNotifications) {
         FeedActivityFragment fragment = new FeedActivityFragment();
+        Bundle b = new Bundle();
+        b.putBoolean(IS_NOTIFICATIONS_ARG, isNotifications);
+        fragment.setArguments(b);
         return fragment;
     }
 
@@ -50,6 +59,12 @@ public class FeedActivityFragment extends LoadingFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.setHasOptionsMenu(true);
+        if(getArguments() != null) {
+            boolean isNotifications = getArguments().getBoolean(IS_NOTIFICATIONS_ARG);
+            if(!isNotifications) REST_URL = "mobile/tests";
+            else REST_URL = "mobile/notifications/all";
+        }
         context = getActivity();
     }
 
@@ -72,7 +87,7 @@ public class FeedActivityFragment extends LoadingFragment {
         });
 
         client = new HttpDataClient(getResources().getString(R.string.base_url), rootView.getContext());
-        client.get("mobile/tests", FEED_LIST_REQUEST);
+        client.get(REST_URL, FEED_LIST_REQUEST);
 
         return rootView;
     }
@@ -81,15 +96,12 @@ public class FeedActivityFragment extends LoadingFragment {
     @Override
     public void onEvent(JsonResponseEvent response) {
         if(response.getId() == FEED_LIST_REQUEST) {
-
             TestCard[] rawCards = TestCard.arrayFromJson(response.getData());
             testCards = new ArrayList<TestCard>(Arrays.asList(rawCards));
-            testCards.add(testCards.get(0));
-            testCards.add(testCards.get(0));
-            testCards.add(testCards.get(0));
             baseUrl=getResources().getString(R.string.base_url);
             cardArrayAdapter = new TestListAdapter(context, testCards);
             listView.setAdapter(cardArrayAdapter);
+            listView.setEmptyView(rootView.findViewById(R.id.list_empty));
 
             loadingComplete(rootView);
         }
@@ -134,5 +146,31 @@ public class FeedActivityFragment extends LoadingFragment {
 
             return view;
         }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        new MenuInflater(getActivity().getApplication()).inflate(R.menu.search, menu);
+
+        SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                if(s.equals(lastSearch)) return true;
+                loadingStart(rootView);
+                client.get("mobile/tests?search=" + s, FEED_LIST_REQUEST);
+                lastSearch = s;
+                return true;
+            }
+            @Override
+            public boolean onQueryTextChange(String s) {
+                if(s.equals(lastSearch)) return true;
+                if(s.isEmpty()) {
+                    client.get("mobile/tests", FEED_LIST_REQUEST);
+                    lastSearch = "";
+                }
+                return true;
+            }
+        });
     }
 }

@@ -74,6 +74,7 @@ public class SubscriptionsFragment extends LoadingFragment {
             cards = UserBasic.arrayFromJson(response.getData());
             adapter = new SubsListAdapter(context, cards);
             list.setAdapter(adapter);
+            list.setEmptyView(rootView.findViewById(R.id.list_empty));
 
             list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override

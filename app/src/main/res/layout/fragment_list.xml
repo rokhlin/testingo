@@ -15,5 +15,15 @@
             android:layout_height="match_parent"
             android:divider="@android:color/transparent"
             android:dividerHeight="8sp"/>
+
+        <TextView android:id="@+id/list_empty"
+            android:layout_gravity="center_horizontal"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16px"
+            android:text="@string/list_empty_text"
+            style="@android:style/TextAppearance.Large"
+            />
     </RelativeLayout>
 </FrameLayout>
