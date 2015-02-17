@@ -33,7 +33,8 @@ public class Comment {
         this.text = text;
     }
 
-    public static String toJson(Comment c) {
-        return (new Gson()).toJson(c, Comment.class);
+    public static String toJson(String comment) {
+        return "{ \"text\": \""+ comment+"\"}";
+//        return (new Gson()).toJson(c, Comment.class);
     }
 }
