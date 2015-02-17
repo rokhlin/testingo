@@ -8,7 +8,8 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
 
 public class UserChannel {
-
+    @Expose
+    private boolean subscribed;
 	@Expose
 	private UserBasic user;
 	@Expose
@@ -49,6 +50,10 @@ public class UserChannel {
 	public void setChannel(List<TestInfo> channel) {
 		this.tests = channel;
 	}
+
+    public boolean isSubscribed() {
+        return subscribed;
+    }
 
     public static UserChannel fromJson(String data) {
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation()

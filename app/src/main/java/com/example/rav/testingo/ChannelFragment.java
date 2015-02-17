@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -44,6 +45,10 @@ public class ChannelFragment extends LoadingFragment {
     LayoutInflater inflater;
     private String lastSearch = "";
     private MainActivityInteractions interactions;
+    private MenuItem subscribeButton;
+
+    private boolean subscribed = false;
+    private boolean dataReady = false;
 
     public static ChannelFragment newInstance(String id) {
         ChannelFragment fragment = new ChannelFragment();
@@ -104,6 +109,9 @@ public class ChannelFragment extends LoadingFragment {
 
             interactions.setTitle(channel.getUser().getName());
 
+            subscribed = channel.isSubscribed();
+            if(subscribed) subscribeButton.setIcon(R.drawable.ic_subs);
+            dataReady = true;
             loadingComplete(rootView);
         }
     }
@@ -133,7 +141,10 @@ public class ChannelFragment extends LoadingFragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        new MenuInflater(getActivity().getApplication()).inflate(R.menu.search, menu);
+        new MenuInflater(getActivity().getApplication()).inflate(R.menu.channel, menu);
+
+        subscribeButton = menu.findItem(R.id.subscribe);
+        if(subscribed) subscribeButton.setIcon(R.drawable.ic_subs);
 
         SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -157,6 +168,31 @@ public class ChannelFragment extends LoadingFragment {
         });
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        super.onOptionsItemSelected(item);
+        int id = item.getItemId();
+
+        switch (id) {
+            case R.id.subscribe:
+                if(!dataReady) break;
+
+                if(subscribed) {
+                    client.get("mobile/tests/unsubscribe/"+this.id, 654);
+                    item.setIcon(R.drawable.ic_nosubs);
+                    subscribed = false;
+                }
+                else {
+                    client.get("mobile/tests/subscribe/"+this.id, 655);
+                    item.setIcon(R.drawable.ic_subs);
+                    subscribed = true;
+                }
+            break;
+        }
+
+        return true;
+    }
+
     //    ADAPTER CLASS
     class TestListAdapter extends ArrayAdapter<TestInfo> {
 
@@ -178,4 +214,6 @@ public class ChannelFragment extends LoadingFragment {
             return view;
         }
     }
+
+
 }

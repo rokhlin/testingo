@@ -42,5 +42,7 @@
     <string name="title_activity_result">ResultActivity</string>
     <string name="BTN_RESULT">Back to Feed</string>
     <string name="list_empty_text">Empty</string>
+    <string name="action_subsdcribe">subscribe</string>
+    <string name="action_unsubsdcribe">unsubscribe</string>
 
 </resources>
