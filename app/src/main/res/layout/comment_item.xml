@@ -8,6 +8,7 @@
     android:descendantFocusability="afterDescendants"
     android:padding="8dp"
     android:layout_margin="4dp">
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="fill_parent"
@@ -23,6 +24,10 @@
             yelp:loading="@drawable/image_placeholder"
             yelp:image_priority="3" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -33,7 +38,18 @@
             android:textColor="#ff000000"
             android:paddingLeft="9dp" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="left"
+            android:id="@+id/textView3"
+            android:textColor="#ff303030"
+            android:text="allala"
+            android:textSize="11dp"/>
     </LinearLayout>
+
+    </LinearLayout>
+
 
     <View style="@style/Divider"/>
 
@@ -47,10 +63,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="8dp"
-            android:textAppearance="?android:attr/textAppearanceMedium"
             android:id="@+id/textView2"
             android:textColor="#ff303030"
             android:textSize="@dimen/marginLeft" />
+
     </LinearLayout>
 
 </LinearLayout>

@@ -118,11 +118,14 @@ public class TestDetailsFragment extends LoadingFragment {
                     act.showChannel(rId);
                 }
             });
+            int i = 3;
             ViewGroup container = (ViewGroup)rootView.findViewById(R.id.comments);
             for (Comment comment : t.getComments()) {
                 LinearLayout layout = (LinearLayout)inflater.inflate(R.layout.comment_item, container, false);
                 ((TextView)layout.findViewById(R.id.textView)).setText(comment.getUser().getName());
                 ((TextView)layout.findViewById(R.id.textView2)).setText(comment.getText());
+                i++;
+                ((TextView)layout.findViewById(R.id.textView3)).setText("17.02/12:1"+i);
                 ((WebImageView)layout.findViewById(R.id.avatar)).setImageUrl(baseUrl + "img/avatar/" + comment.getUser().getAvatar());
                 container.addView(layout);
             }
