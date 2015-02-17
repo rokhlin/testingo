@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,11 +29,12 @@ import com.yelp.android.webimageview.WebImageView;
 public class TestDetailsFragment extends LoadingFragment {
     private MainActivityInteractions interactions;
     TextView testDescription, testName, channelName, tags, tested;
-    Button btnStartTest, buttonComment;
-    private DataClient client;
+    Button btnStartTest, buttonComment, addComment;
+    private HttpDataClient client;
     LayoutInflater inflater;
     private View rootView;
     private Context context;
+    private EditText editText;
     private LinearLayout onChannel, commentBlock, comments;
     TestDetailCard testCard;
     private static final int TEST_INFO_CARD_JSON = 48;
@@ -116,6 +118,20 @@ public class TestDetailsFragment extends LoadingFragment {
                     MainActivityInteractions act = (MainActivityInteractions)getActivity();
                     String rId =testCard.getUser().getId();
                     act.showChannel(rId);
+                }
+            });
+            editText = (EditText)rootView.findViewById(R.id.editText);
+            addComment = (Button)rootView.findViewById(R.id.addComment);
+            addComment.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String comment=String.valueOf(editText.getText());
+                    editText.setText("");
+                    String id = getArguments().getString("id");
+                    client.put("mobile/tests/comment/"+id, Comment.toJson(comment), 937);
+                    client.get("mobile/tests/" + getArguments().getString("id"), TEST_INFO_CARD_JSON);
+                    loadingStart(rootView);
+                    ((ViewGroup)rootView.findViewById(R.id.comments)).removeAllViews();
                 }
             });
             int i = 3;
