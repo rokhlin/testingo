@@ -15,6 +15,7 @@ public interface MainActivityInteractions {
     void showResultList();
     void showResultDetails(String id, boolean backToTest);
     void showSettings();
+    void showProfile();
     void showNotifications();
     void setTitle(String title);
     UserSelfAccount getSelfAccount();

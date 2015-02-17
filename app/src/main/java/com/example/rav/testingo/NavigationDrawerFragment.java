@@ -56,7 +56,6 @@ public class NavigationDrawerFragment extends Fragment {
     private ListView mDrawerListView;
     private List<String> navItems;
     private View mFragmentContainerView;
-
     private int mCurrentSelectedPosition = 0;
     private boolean mFromSavedInstanceState;
     private boolean mUserLearnedDrawer;
@@ -144,6 +143,13 @@ public class NavigationDrawerFragment extends Fragment {
 
         loadingContainer.setVisibility(View.GONE);
         contentContainer.setVisibility(View.VISIBLE);
+        contentContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivityInteractions)getActivity()).showProfile();
+                mDrawerLayout.closeDrawer(mFragmentContainerView);
+            }
+        });
     }
 
     public boolean isDrawerOpen() {

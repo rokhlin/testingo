@@ -1,0 +1,117 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:yelp="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TestInfoFragment"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin">
+
+    <include layout="@layout/loading_container"/>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:background="@drawable/card_background"
+        android:id="@+id/content_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".SignActivity">
+
+        <com.yelp.android.webimageview.WebImageView
+            android:id="@+id/avatar"
+            android:layout_height="@dimen/foto_height"
+            android:layout_width="@dimen/foto_width"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="@dimen/marginLeft"
+            yelp:autoload="false"
+            yelp:loading="@drawable/image_placeholder"
+            yelp:image_priority="3"
+            />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/editText"
+            android:hint="@string/enter_fname"
+            android:layout_below="@+id/avatar"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_margin="@dimen/ButtonPaddingLeft" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/editText1"
+            android:hint="@string/enter_lname"
+            android:layout_below="@+id/editText"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_margin="@dimen/ButtonPaddingLeft" />
+
+        <EditText
+            android:layout_width="@dimen/logoWhidth"
+            android:layout_height="wrap_content"
+            android:id="@+id/editText2"
+            android:hint="@string/enter_email"
+            android:inputType="textEmailAddress"
+            android:layout_below="@+id/editText1"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="@dimen/ButtonPaddingLeft" />
+
+        <EditText
+            android:layout_width="@dimen/logoWhidth"
+            android:layout_height="wrap_content"
+            android:id="@+id/editText3"
+            android:hint="@string/enter_password"
+            android:inputType="textPassword"
+            android:layout_below="@+id/editText2"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="@dimen/ButtonPaddingLeft" />
+
+        <EditText
+            android:layout_width="@dimen/logoWhidth"
+            android:layout_height="wrap_content"
+            android:id="@+id/editText4"
+            android:hint="@string/enter_confPass"
+            android:inputType="textPassword"
+            android:layout_below="@+id/editText3"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="@dimen/ButtonPaddingLeft"
+            android:layout_margin="@dimen/ButtonPaddingLeft" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/save_changes"
+            android:id="@+id/btnConfirm"
+            android:padding="@dimen/ButtonPaddingLeft"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/editFoto_label"
+            android:id="@+id/tvEditFoto"
+            android:textColor="@color/edit_Foto_highlight"
+            android:textColorHighlight="@color/edit_Foto_highlight"
+            android:layout_alignBottom="@+id/imgFoto"
+            android:layout_centerHorizontal="true" />
+
+    </RelativeLayout>
+
+
+</FrameLayout>

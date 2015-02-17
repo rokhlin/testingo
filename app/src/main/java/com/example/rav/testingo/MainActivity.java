@@ -143,6 +143,11 @@ public class MainActivity extends ActionBarActivity implements
     }
 
     @Override
+    public void showProfile(){
+        switchFragment(ProfileFragment.newInstance(), true, false);
+    }
+
+    @Override
     public void startTest(String token, String testName, int qCount) {
         switchFragment(TestFragment.newInstance(token, testName, qCount), true, true);
 //        mNavigationDrawerFragment.lockNav(true);
