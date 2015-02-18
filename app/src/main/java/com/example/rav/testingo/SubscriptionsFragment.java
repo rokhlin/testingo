@@ -128,4 +128,10 @@ public class SubscriptionsFragment extends LoadingFragment {
         super.onDetach();
         interactions = null;
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        ((MainActivityInteractions)getActivity()).setTitle("Subscribes");
+    }
 }

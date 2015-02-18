@@ -107,7 +107,7 @@ public class ChannelFragment extends LoadingFragment {
             listView.setEmptyView(rootView.findViewById(R.id.list_empty));
             Log.d("LOG", String.valueOf(response.getData()));
 
-            interactions.setTitle(channel.getUser().getName());
+            interactions.setTitle(channel.getUser().getName() + " tests");
 
             subscribed = channel.isSubscribed();
             if(subscribed) subscribeButton.setIcon(R.drawable.ic_subs);

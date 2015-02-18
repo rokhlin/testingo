@@ -43,6 +43,7 @@ public class FeedActivityFragment extends LoadingFragment {
     private String REST_URL;
     private String lastSearch = "";
     ArrayList<TestCard> testCards;
+    private boolean isNotifications;
 
     public static FeedActivityFragment newInstance(boolean isNotifications) {
         FeedActivityFragment fragment = new FeedActivityFragment();
@@ -61,7 +62,7 @@ public class FeedActivityFragment extends LoadingFragment {
         super.onCreate(savedInstanceState);
         this.setHasOptionsMenu(true);
         if(getArguments() != null) {
-            boolean isNotifications = getArguments().getBoolean(IS_NOTIFICATIONS_ARG);
+            isNotifications = getArguments().getBoolean(IS_NOTIFICATIONS_ARG);
             if(!isNotifications) REST_URL = "mobile/tests";
             else REST_URL = "mobile/notifications/all";
         }
@@ -149,6 +150,15 @@ public class FeedActivityFragment extends LoadingFragment {
 
             return view;
         }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if(isNotifications)
+            ((MainActivityInteractions)getActivity()).setTitle("Notifications");
+        else
+            ((MainActivityInteractions)getActivity()).setTitle("Feed");
     }
 
     @Override

@@ -104,4 +104,10 @@ public class ResultListFragment extends LoadingFragment {
             return view;
         }
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        ((MainActivityInteractions)getActivity()).setTitle("Results");
+    }
 }

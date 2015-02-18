@@ -102,4 +102,10 @@ public class ProfileFragment extends LoadingFragment {
         super.onDetach();
         interactions = null;
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        interactions.setTitle("Profile");
+    }
 }

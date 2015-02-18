@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity"
-            android:label="main"
+            android:label="Feed"
             android:screenOrientation="portrait">
 
         </activity>
@@ -35,23 +35,6 @@
             android:label="@string/title_activity_registration" >
             <action android:name="android.intent.action.GET_CONTENT" />
         </activity>
-        <activity
-            android:name=".TestActivity"
-            android:label="@string/title_activity_test"
-            android:screenOrientation="portrait">
-        </activity>
-        <activity
-            android:name=".ResultActivity"
-            android:label="@string/title_activity_result"
-            android:screenOrientation="portrait">
-        </activity>
-      <!---->
-        <!--<activity-->
-            <!--android:name=".TestInfoActivity"-->
-            <!--android:label="@string/title_activity_test_info"-->
-            <!--android:screenOrientation="portrait">-->
-        <!--</activity>-->
-       <!---->
     </application>
 
 </manifest>

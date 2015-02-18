@@ -102,6 +102,8 @@ public class TestDetailsFragment extends LoadingFragment {
             TestDetailCard t = TestDetailCard.fromJson(response.getData());
             testCard = t;
 
+            interactions.setTitle(t.getTest().getName());
+
             channelName.setText(t.getUser().getName());
             testName.setText(t.getTest().getName());
             testDescription.setText(t.getTest().getDescription());
@@ -178,5 +180,11 @@ public class TestDetailsFragment extends LoadingFragment {
     public void showTest(String token){
         interactions.startTest(token, testCard.getTest().getName(),
                 testCard.getTest().getQuestionsCount());
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        ((MainActivityInteractions)getActivity()).setTitle("Loading...");
     }
 }

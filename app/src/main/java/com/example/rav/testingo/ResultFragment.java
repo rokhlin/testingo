@@ -96,6 +96,7 @@ public class ResultFragment extends LoadingFragment {
         if(response.getId() == RESULT_RESPONSE) {
             final ResultDetail res = ResultDetail.fromJson(response.getData());
 
+            ((MainActivityInteractions)getActivity()).setTitle(res.getTest().getName());
 //            done=res.getResult().getDone().toString();
             TextView tvRes=(TextView)rootView.findViewById(R.id.tvResult);
             TextView tvAuthor=(TextView)rootView.findViewById(R.id.tvAuthor);
@@ -138,5 +139,11 @@ public class ResultFragment extends LoadingFragment {
     @Override
     public void onEvent(ErrorResponseEvent response) {
         Toast.makeText(context, response.getMessage(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        ((MainActivityInteractions)getActivity()).setTitle("Loading...");
     }
 }
