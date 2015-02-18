@@ -81,8 +81,9 @@ public class ProfileFragment extends LoadingFragment {
 
             String baseUrl = getResources().getString(R.string.base_url);
             webImageView.setImageUrl(baseUrl + "img/avatar/" + u.getAvatar());
+
+            loadingComplete(rootView);
         }
-        loadingComplete(rootView);
     }
 
     @Override

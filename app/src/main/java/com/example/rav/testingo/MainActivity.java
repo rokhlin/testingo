@@ -128,6 +128,7 @@ public class MainActivity extends ActionBarActivity implements
 
     @Override
     public void showFeed() {
+        getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         switchFragment(FeedActivityFragment.newInstance(false), true, false);
     }
 
@@ -144,7 +145,7 @@ public class MainActivity extends ActionBarActivity implements
 
     @Override
     public void showProfile(){
-        switchFragment(ProfileFragment.newInstance(), true, false);
+        switchFragment(ProfileFragment.newInstance(), true, true);
     }
 
     @Override

@@ -11,12 +11,13 @@
 
     <include layout="@layout/loading_container"/>
     <ScrollView
+        android:id="@+id/content_container"
+        android:visibility="invisible"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:background="@drawable/card_background"
-        android:id="@+id/content_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
