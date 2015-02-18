@@ -113,7 +113,7 @@ public class NavigationDrawerFragment extends Fragment {
         navItems.add(getString(R.string.title_activity_test_results));
         navItems.add(getString(R.string.title_section2));
         navItems.add(getString(R.string.title_activity_notifications));
-        navItems.add(getString(R.string.settings));
+//        navItems.add(getString(R.string.settings));
 
         mAdapter = new ArrayAdapter<String>(
                 getActionBar().getThemedContext(),
