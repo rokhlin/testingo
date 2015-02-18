@@ -97,6 +97,8 @@ public class TestDetailsFragment extends LoadingFragment {
     @Override
     public void onEvent(JsonResponseEvent response) {
         if(response.getId() == TEST_INFO_CARD_JSON) {
+            client.get("mobile/notifications/count", NavigationDrawerFragment.NOTIFICATIONS_COUNT_RESPONSE);
+
             TestDetailCard t = TestDetailCard.fromJson(response.getData());
             testCard = t;
 

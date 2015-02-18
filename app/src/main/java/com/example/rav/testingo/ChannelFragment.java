@@ -172,7 +172,6 @@ public class ChannelFragment extends LoadingFragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         super.onOptionsItemSelected(item);
         int id = item.getItemId();
-
         switch (id) {
             case R.id.subscribe:
                 if(!dataReady) break;

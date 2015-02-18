@@ -62,7 +62,7 @@ public class MainActivity extends ActionBarActivity implements
             case 1: showResultList(); break;
             case 2: showSubscriptions(); break;
             case 3: showNotifications(); break;
-            case 4: showSettings(); break;
+//            case 4: showSettings(); break;
         }
     }
 

@@ -125,10 +125,13 @@ public class FeedActivityFragment extends LoadingFragment {
                 view = inflater.inflate(R.layout.list_item_card, parent, false);
 
             }
+
             final TestCard card = getItem(position);
+            String description = card.getTest().getDescription();
+            if(description.length() > 180) description = description.substring(0, 180) + "...";
             ((TextView)view.findViewById(R.id.textView)).setText(card.getUser().getName());
             ((TextView)view.findViewById(R.id.textView2)).setText(card.getTest().getName());
-            ((TextView)view.findViewById(R.id.textView3)).setText(card.getTest().getDescription());
+            ((TextView)view.findViewById(R.id.textView3)).setText(description);
             ((TextView)view.findViewById(R.id.textView4)).setText(card.getTest().getTags().toString());
             ((TextView)view.findViewById(R.id.textView5)).setText("Tested " + card.getTest().getCount() + " times.");
             ((WebImageView)view.findViewById(R.id.avatar)).setImageUrl(baseUrl + "img/avatar/" + card.getUser().getAvatar());
